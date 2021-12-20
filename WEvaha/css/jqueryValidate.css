@@ -1,0 +1,37 @@
+
+  .form-group {
+    margin-bottom: 0.8rem;
+  } 
+  
+  label.error {
+    position: absolute;
+    font-size: 0.78rem;
+    line-height: 0.75;
+    padding-top: 2px;
+    color: red;
+  }
+  
+  .text-coral {
+    color: #ff8282 !important;
+  }
+  
+  .btn {
+    border-radius: 0;
+  }
+  
+  .btn-green {
+    color: #fff;
+    background-color: #149241;
+    border-color: #149241;
+  }
+  
+  .btn-green:hover {
+    background-color: #0f7032;
+    border: 1px solid #0f7032;
+  }
+  
+  #bottom-signup-form label.error,
+  #top-signup-form label.error {
+    color: #fe0000;
+    margin-bottom: 0;
+  }

@@ -1,0 +1,1526 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+    var userList = Json.Encode(Model.MessageCountList[0]);
+}
+<style type="text/css">
+    .quickRow {
+        cursor: pointer;
+    }
+
+        .quickRow:hover {
+            background-color: lightgray;
+        }
+
+    .inbox_leftAct {
+        position: absolute;
+        top: 35px;
+        left: 48px;
+        background: #92949d;
+        border: 2px solid #fff;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+    }
+
+    .inbox_online {
+        background: #3552c8 !important;
+    }
+
+    .inbox_leftInact {
+        position: absolute;
+        top: 35px;
+        left: 48px;
+        background: #3552c8;
+        border: 2px solid #fff;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+    }
+
+    .inbox_leftInact_count {
+        background: #3552c8 !important;
+    }
+
+    .leftSid_rightIcons {
+        position: absolute;
+        top: 2px;
+        right: 5px;
+    }
+
+    .leftSid_time {
+        background: #ffffff;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        color: #fff;
+        font-size: 11px;
+        text-align: center;
+        float: right;
+    }
+
+    .messages_div_S {
+        position: relative;
+        padding-bottom: 5px;
+        padding-top: 5px;
+        padding-right: 10px;
+        padding-left: 10px;
+        border-bottom: 1px solid #ccc;
+        background: #e4f6f8;
+    }
+
+    .messages_txt_s_W {
+        padding-left: 10px;
+        font-size: 15px;
+        color: #fff;
+        text-align: left;
+    }
+
+    .messages_box_s {
+        padding-bottom: 15px;
+        padding-top: 10px;
+        background: #e4f6f8;
+        color: #fff;
+        width: 99%;
+        border-radius: 5px;
+        margin: 8px 0px;
+    }
+
+    .inbox_rigSideImg {
+        width: 150px;
+        height: 150px;
+        border: 2px #CCC solid;
+        border-radius: 50%;
+        overflow: hidden;
+        object-fit: cover;
+    }
+
+    .star-block {
+        color: #999;
+    }
+
+    .star-color {
+        color: #0029f1;
+    }
+</style>
+<div class="container" style="margin-top:10px;">
+    <div class="row">
+        <div class="col-md-12"><h3 style="font-size:27px;">Inbox</h3></div>
+    </div>
+</div>
+<input id="current-user-id" value="@Session["UserId"]" type='hidden' />
+<div class="container" style="padding:10px; background:#fff; margin-top:0px; border:1px #e7e7e7 solid; border-radius:10px;">
+    <div class="row">
+        <div class="col-md-3" style="border-right:1px #e7e7e7 solid; ">
+            <div class="row">
+                <div class="col-md-12" style="border-bottom:#e7e7e7 1px solid; margin-bottom:15px; padding-left:15px;">
+                    <select class="form-control" id="actionText" onchange="actionFilter()" style="width:90%;float:left;">
+                        <option value="all">All Conversations</option>
+                        <option value="unread">Unread</option>
+                        <option value="star">Starred</option>
+                        <option value="archive">Archived</option>
+                        <option value="spam">Spam</option>
+                        @if (Model.MessageCountList[0].CurrentUserLabel.Count > 0)
+                        {
+                            for (var l = 0; l < Model.MessageCountList[0].CurrentUserLabel.Count; l++)
+                            {
+                                <option value="@Model.MessageCountList[0].CurrentUserLabel[l].LabelId">@Model.MessageCountList[0].CurrentUserLabel[l].LabelName</option>
+                            }
+                        }
+                    </select>
+                    <input type="text" id="txtFindUser" value="" placeholder="Search for a username" onkeyup="ShowHideUser();" style="display:none;width:82%;float:left;" class="form-control" /><i class="fa fa-search" onclick="ShowHideText(1);" id="btnSearch" style="margin-top: 15px; margin-left: 7px; font-size:20px;cursor:pointer;"></i>
+                                                                                                                                                                       <a href="javascript:ShowHideText(2);" style="margin-top: 12px; margin-left: 7px;display:none;float:left;font-size:15px;" id="btnClose">Close</a>
+                </div>
+            </div>
+
+            <div class="row" id="memberList">
+                <div class="col-md-12" style="padding-left:30px; overflow-y: scroll; height:350px; padding:3px 2px;" id="user-list">
+                    @if (Model != null && Model.MessageCountList.Count > 0)
+                    {
+                        for (var i = 0; i < Model.MessageCountList.Count; i++)
+                        {
+                            var profilePhoto = "/assets/img/profileImg/" + i + ".jpg";
+                            var value = Json.Encode(Model.MessageCountList[i]);
+                            string LastMessage = Model.MessageCountList[i].LastMessage;
+                            <a href="javascript:;" id="userpanel_@Model.MessageCountList[i].ProfileId" class="user-panel" style="@(Model.MessageCountList[i].IsArchive ? "display:none;" : "")">
+                                @if (Model.MessageCountList[i].ToUserLabel != null)
+                                {
+                                    for (var j = 0; j < Model.MessageCountList[i].ToUserLabel.Count; j++)
+                                    {
+                                        <input type="hidden" id="@Model.MessageCountList[i].ToUserLabel[j].LabelId" />
+                                    }
+                                }
+                                <div class="messages_div" id="messageBlock_@Model.MessageCountList[i].ProfileId" style="cursor:pointer;">
+                                    <div class="popupImg_Noti" onclick="MessageBox(@value)">
+                                        <div class="inbox_leftAct" data-value="@Model.MessageCountList[i].ProfileId"></div>
+                                        <img src="@Model.MessageCountList[i].UserProfilePic.UserProfilePicUrl" alt="profile pic" height="100%">
+                                    </div>
+                                    <span class="messages_txt_s" onclick="MessageBox(@value)"><strong id="@Model.MessageCountList[i].ProfileId">@Model.MessageCountList[i].ProfileName</strong></span><br>
+                                    <span class="messages_txt_s" id="spnLSmsg_@Model.MessageCountList[i].ProfileId" onclick="MessageBox(@value)">@(LastMessage.Length >= 20 ? LastMessage.Substring(0,20) +" ..." : LastMessage)</span>
+                                    <div class="leftSid_rightIcons">
+                                        <span style="font-size:11px; color:#999;" id="spnLStime_@Model.MessageCountList[i].ProfileId" onclick="MessageBox(@value)">@(string.Format("{0:dd MMM, hh:mm tt}", Model.MessageCountList[i].LastMessageDate))</span>&nbsp;
+                                        @if (Model.MessageCountList[i].IsArchive)
+                                        {
+                                            <input type="hidden" class="archive" />
+                                        }
+                                        @if (Model.MessageCountList[i].IsSpam)
+                                        {
+                                            <input type="hidden" class="spam" />
+                                        }
+                                        @if (Model.MessageCountList[i].IsStar)
+                                        {
+                                            <span onclick="MarkAsStar('@Model.MessageCountList[i].ProfileId')" id="starBlock-@Model.MessageCountList[i].ProfileId" class="star-block star-color"><i class="fa fa-star"></i></span>
+                                        }
+                                        else
+                                        {
+                                            <span onclick="MarkAsStar('@Model.MessageCountList[i].ProfileId')" id="starBlock-@Model.MessageCountList[i].ProfileId" class="star-block"><i class="fa fa-star"></i></span>
+                                        }
+                                        <br />
+                                        @if (Model.MessageCountList[i].UnreadMsg > 0)
+                                        {
+                                            <div class="leftSid_time inbox_leftInact_count" onclick="MessageBox(@value)" data-value="@Model.MessageCountList[i].ProfileId">@Model.MessageCountList[i].UnreadMsg</div>
+                                        }
+                                        else
+                                        {
+                                            <div class="leftSid_time" data-value="@Model.MessageCountList[i].ProfileId">
+                                                <i class="fa fa-envelope-open" onclick="UnReadMesssage('@Model.MessageCountList[i].ProfileId')" title="Mark as Unread" style="color:#999;"></i>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </a>
+                        }
+                    }
+                </div>
+                <div class="col-md-12" id="dvNotFound" style="display:none;">
+                    <div style="text-align:center;"><b style="font-size:20px;">No Matching Results</b><br /><br /><a href="javascript:;" onclick="window.location.reload(true);">View All Conversations</a></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="welcomeblock">
+            <div class="col-md-9" style="text-align: center;transform: translateY(25vh);">
+                <h1>
+                    Select a Conversation<br />
+                    <span style="color:#999;"> Try selecting a conversation or searching for someone specific.</span>
+                </h1>
+            </div>
+        </div>
+        <div style="display:none" id="tousermessageblock">
+            <div class="col-md-6" id="message-history">
+            </div>
+            <div class="col-md-3" id="memberDeatil">
+            </div>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="deleteMessage" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header" style="background:linear-gradient(90deg, #ff99cc 0%, #33ccff 100%); ">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h5 class="modal-title" id="exampleModalLabel" style="font-size:18px;">Delete Converation?</h5>
+
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p> The converation will no longer appear in the message box.</p>
+                            </div>
+                        </div>
+                        <input type="hidden" id="deleteConversation" />
+                    </div>
+                    <div class="modal-footer text-right">
+                        <button style="background: linear-gradient(66deg, #dfdfdf 0%, #ffffff 100%);color: #000;border-radius: 10px;padding: 10px 20px;font-size: 16px;font-weight: 500;" onclick="deleteCancel()">Cancel</button>
+                        <button style="background: linear-gradient(180deg, #5ac2f5 0%, #ed4747 100%); color: #fff;border-radius: 10px;padding: 10px 20px;font-size: 16px;font-weight: 500;" onclick="deleteMessageBlock()">
+                            delete
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="addLabel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header" style="background:linear-gradient(90deg, #ff99cc 0%, #33ccff 100%); ">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h5 class="modal-title" id="exampleModalLabel" style="font-size:18px;">Add Label</h5>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p> <input type="text" class="form-control" id="label-text" placeholder="Label name" maxlength="30" /></p>
+                            </div>
+                        </div>
+                        @*<input type="hidden" id="deleteConversation" />*@
+                    </div>
+                    <div class="modal-footer text-right">
+                        <button style="background: linear-gradient(66deg, #dfdfdf 0%, #ffffff 100%);color: #000;border-radius: 10px;padding: 10px 20px;font-size: 16px;font-weight: 500;" onclick="lebalCancel()">Cancel</button>
+                        <button style="background: linear-gradient(180deg, #5ac2f5 0%, #f49ccf 100%);color: #fff;border-radius: 10px; padding: 10px 20px;font-size: 16px;font-weight: 500;" onclick="AddUserLabel()">
+                            Add
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="addQuickResponse" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header" style="background:linear-gradient(90deg, #ff99cc 0%, #33ccff 100%); ">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h5 class="modal-title" id="exampleModalLabel" style="font-size:18px;">Create a new quick response</h5>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <input type="hidden" id="updateResponseId" value="" />
+                                <p> <input type="text" class="form-control" id="quick-response-name" placeholder="Name the Quick Response" maxlength="50" /></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <textarea class="form-control" cols="1" rows="2" id="quick-response-text" placeholder="Enter your Quick Response" maxlength="500"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer text-right">
+                        <div style="float:left;"><p>Tip: Type {username} to automatically insert the recipient's username. For example,"Hi {username}..."</p></div>
+                        <button style="background: linear-gradient(66deg, #dfdfdf 0%, #ffffff 100%);color: #000;border-radius: 10px;padding: 10px 20px;font-size: 16px;font-weight: 500;" onclick="CancelQuickResponse()">Cancel</button>
+                        <button style="background: linear-gradient(180deg, #5ac2f5 0%, #f49bce 100%);color: #fff;border-radius: 10px;padding: 10px 20px;font-size: 16px;font-weight: 500;" onclick="AddQuickReponse()">
+                            Add Quick Response
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="quickResponseList" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header" style="background:linear-gradient(90deg, #ff99cc 0%, #33ccff 100%); ">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h5 class="modal-title" id="exampleModalLabel" style="font-size:18px;">Use a Quick Response</h5>
+
+                    </div>
+                    <div class="modal-body">
+                        <div class="row" style="padding:20px;" id="list-quick">
+                        </div>
+                        <a href="javascript:;" onclick="OpenAddQuickResponse()"><i class="fa fa-plus" style="color: #999;"></i> &nbsp;Create a new quick response</a>
+                    </div>
+                    <div class="modal-footer text-right">
+                        <div style="float:left;"><p>Tip: Mouse click for Use a Quick Response.</p></div>
+                        <button style="background: linear-gradient(66deg, #dfdfdf 0%, #ffffff 100%);color: #000;border-radius: 10px;padding: 10px 20px;font-size: 16px;font-weight: 500;" onclick="CancelListQuickResponse()">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="isBlockModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header" style="background:linear-gradient(90deg, #ff99cc 0%, #33ccff 100%); ">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h5 class="modal-title" id="exampleModalLabel" style="font-size:18px;">Spam Confirmation</h5>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p> Are you sure you want to mark this message as spam?</p>
+                            </div>
+                        </div>
+                        <input type="hidden" id="blockMessageId" />
+                    </div>
+                    <div class="modal-footer text-right">
+                        <button style="background: linear-gradient(66deg, #dfdfdf 0%, #ffffff 100%);color: #000;border-radius: 10px;padding: 10px 20px;font-size: 16px;font-weight: 500;" onclick="BlockCancel()">Cancel</button>
+                        <button style="background: linear-gradient(180deg, #5ac2f5 0%, #f49ccf 100%);color: #fff;border-radius: 10px; padding: 10px 20px;font-size: 16px;font-weight: 500;" onclick="messageSpam()">
+                            Yes
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="isReportModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header" style="background:linear-gradient(90deg, #ff99cc 0%, #33ccff 100%); ">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h5 class="modal-title" id="exampleModalLabel" style="font-size:18px;">Report Confirmation</h5>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p> Are you sure you want to mark this message as report?</p>
+                            </div>
+                        </div>
+                        <input type="hidden" id="reportMessageId" />
+                    </div>
+                    <div class="modal-footer text-right">
+                        <button style="background: linear-gradient(66deg, #dfdfdf 0%, #ffffff 100%);color: #000;border-radius: 10px;padding: 10px 20px;font-size: 16px;font-weight: 500;" onclick="ReportCancel()">Cancel</button>
+                        <button style="background: linear-gradient(180deg, #5ac2f5 0%, #ed4747 100%); color: #fff;border-radius: 10px;padding: 10px 20px;font-size: 16px;font-weight: 500;" onclick="messageReport()">
+                            Yes
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal -->
+    </div>
+</div>
+
+<script src="~/Scripts/jquery.signalR-2.4.2.min.js"></script>
+<script src="~/signalr/hubs"></script>
+<script src='~/Scripts/inputEmoji.js'></script>
+
+<!--Reference the SignalR library. -->
+
+<script type="text/javascript">
+    $body = $("body");
+    var chat;
+    var currentUser;
+    var fileExtension = ['jpeg', 'jpg', 'png', 'gif', 'bmp'];
+    $(document).ready(function () {
+        var selectedUser = '@(Request.QueryString["id"])';
+        if (selectedUser > 0) {
+            setTimeout(function () {
+                $($("#messageBlock_" + selectedUser).find("div")[0]).click();
+            }, 500);
+        }
+        //else {
+        //    selectedUser = $($("[id^='messageBlock_']")[0]).attr("id").split("_")[1];
+        //    setTimeout(function () {
+        //        $($("#messageBlock_" + selectedUser).find("div")[0]).click();
+        //    }, 500);
+        //}
+        chat = $.connection.chatHub;
+        currentUser = $('#current-user-id').val();
+        /* Update list of all other users who are online  */
+        chat.client.online = function (userId) {
+            if (userId == currentUser) {
+                //do nothing
+            } else {
+                var ele = $(".popupImg_Noti").find('[data-value="' + userId + '"]');
+                if ($(ele).length == 1) {
+                    $(ele).addClass("inbox_online");
+                }
+            }
+        };
+
+        /* Notify other users that current user has entered and is online */
+        chat.client.enters = function (userId) {
+            var ele = $(".popupImg_Noti").find('[data-value="' + userId + '"]');
+            if ($(ele).length == 1) {
+                $(ele).addClass("inbox_online");
+
+                var chatboxele = $(".current-chatbox").find('[data-value="' + userId + '"]');
+                if ($(chatboxele).length == 1) {
+                    $("#lastseenDate" + userId).text("online");
+                }
+            }
+        };
+
+
+        // Create a function that the hub can call back to display messages.
+        chat.client.addNewMessageToPage = function (touserId, fromUserId, message, senderUsername, senderProfileURL, messageDate, isRead) {
+            // Add the message to the page.
+            console.log(message);
+            var chatboxele = $(".current-chatbox").find('[data-value="' + touserId + '"]');
+            if ($(chatboxele).length == 1) {
+                let messageDeatils =
+                    '<div class="' + (currentUser == touserId ? "messages_box_s" : "messages_box") + '">' +
+                    '<div class="popupImg_Noti"><img src="' + senderProfileURL + '" alt="profile pic" height="100%"></div>' +
+                    '<span class="messages_txt_s"><strong> ' + senderUsername + '</strong></span>&nbsp;' +
+                    '<span style = "font-size:13px; color:#333;" > ' + messageDate + ' </span >&nbsp;&nbsp;' +
+                    ' <a href="" style="font-size:13px; color:#333;' + (currentUser != touserId ? "" : "display:none;") + '"><i class="fa fa-flag" ></i > Report</a > &nbsp;&nbsp;' +
+                    '<a href="" style="font-size:13px; color:#333;' + (currentUser != touserId ? "" : "display:none;") + '"><i class="fa fa-ban"></i> Spam </a>' +
+                    '<br><p class="messages_txt_s" style="margin-left:50px;padding-right:3px;">' + nl2br(message) + '</p></div>';
+                $('#messageDeatilsBlock').append(messageDeatils);
+                setTimeout(function () {
+                    $("#messageDeatilsBlock").scrollTop($("#messageDeatilsBlock")[0].scrollHeight);
+                }, 100);
+
+                chat.server.unreadMessageRead($('#toUserId').val(), $('#current-user-id').val());
+            }
+            else {
+                if (!isRead) {
+                    var ele = $(".leftSid_rightIcons").find('[data-value="' + touserId + '"]');
+                    if ($(ele).length == 1) {
+                        $(ele).addClass("inbox_leftInact_count");
+                        var x = parseInt(ele.text())
+                        if (x == 0 || isNaN(x) || x == "") {
+                            x = 0;
+                        }
+                        x++;
+                        $(ele).text(x);
+                    }
+                }
+            }
+        };
+
+
+        chat.client.fileSendMessage = function (touserId, fromUserId, message, senderUsername, senderProfileURL, messageDate, isRead, fileName, filePath) {
+            // Add the message to the page.
+            var chatboxele = $(".current-chatbox").find('[data-value="' + touserId + '"]');
+            if ($(chatboxele).length == 1) {
+                let messageDeatils =
+                    '<div class="' + (currentUser == fromUserId ? "messages_box_s" : "messages_box") + '">' +
+                    '<div class="popupImg_Noti"><img src="' + senderProfileURL + '" alt="profile pic"></div>' +
+                    '<span class="messages_txt_s"><strong> ' + senderUsername + '</strong></span>&nbsp;' +
+                    '<span style = "font-size:13px; color:#333;" > ' + messageDate + ' </span >&nbsp;&nbsp;' +
+                    ' <a href="" style="font-size:13px; color:#333;' + (currentUser != fromUserId ? "" : "display:none;") + '"><i class="fa fa-flag" ></i > Report</a > &nbsp;&nbsp;' +
+                    '<a href="" style="font-size:13px; color:#333;' + (currentUser != fromUserId ? "" : "display:none;") + '"><i class="fa fa-ban"></i> Spam </a>';
+
+                if ($.inArray(filePath.split('.').pop().toLowerCase(), fileExtension) > 0) {
+                    messageDeatils += '<br /><p class="messages_txt_s" style="margin-left:50px;padding-right:3px;">' + nl2br(message) + '</p><br /><a class="fileInfo" href=' + filePath + ' target="_blank"><img src=' + filePath +' style="width:150px;" /><br /><i class="fa fa-download">&nbsp;&nbsp;' + fileName + '</i></a></div>';
+                }
+                else {
+                    messageDeatils += '<br /><p class="messages_txt_s" style="margin-left:50px;padding-right:3px;">' + nl2br(message) + '</p><br /><a class="fileInfo" href=' + filePath + ' target="_blank">&nbsp;<i class="fa fa-download" style="margin-left: 60px;">&nbsp;&nbsp;' + fileName + '</i></a></div>';
+                }
+                $('#messageDeatilsBlock').append(messageDeatils);
+                setTimeout(function () {
+                    $("#messageDeatilsBlock").scrollTop($("#messageDeatilsBlock")[0].scrollHeight);
+                }, 100);
+
+                chat.server.unreadMessageRead($('#toUserId').val(), $('#current-user-id').val());
+            }
+            else {
+                if (!isRead) {
+                    var ele = $(".leftSid_rightIcons").find('[data-value="' + touserId + '"]');
+                    if ($(ele).length == 1) {
+                        $(ele).addClass("inbox_leftInact_count");
+                        var x = parseInt(ele.text())
+                        if (x == 0 || isNaN(x) || x == "") {
+                            x = 0;
+                        }
+                        x++;
+                        $(ele).text(x);
+                    }
+                }
+            }
+        };
+
+        var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        /* Remove a user when it is disconnected from signalr hub  */
+        chat.client.disconnected = function (userId) {
+            var ele = $(".popupImg_Noti").find('[data-value="' + userId + '"]');
+            if ($(ele).length == 1) {
+                $(ele).removeClass("inbox_online");
+                var nowDate = new Date();
+            }
+
+            var chatboxele = $(".lastseen-block").find('[data-value="' + userId + '"]');
+            if ($(chatboxele).length == 1) {
+                $("#lastseenDate" + userId).text("Last seen " + nowDate.getSeconds() + "s | " + nowDate.getDate() + " " + monthNames[nowDate.getMonth()] + ", " + nowDate.getFullYear() + " " + nowDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true }) + " ");
+            }
+        };
+
+        // Set initial focus to message input box.
+        $('#message-text').focus();
+        // Start the connection.
+        $.connection.hub.start().done(function () {
+            //Calls the notify method of the server
+            chat.server.notify($('#current-user-id').val(), $.connection.hub.id);
+
+        });
+
+    });
+
+    function MessageBox(value) {
+        $body.addClass("loading");
+        var diff = Math.abs(new Date() - new Date(value.LastSeenStringDate));
+        var seconds = Math.floor(diff / 1000); //ignore any left over units smaller than a second
+        var minutes = Math.floor(seconds / 60);
+        if (value.LastSeenStringDate == null) {
+            minutes = 0;
+            seconds = 0;
+        }
+        else {
+            minutes = Math.floor(minutes % 60);
+            seconds = Math.floor(seconds % 60);
+        }
+        let messageDeatils =
+            "<div> <div class='row'> " +
+            "<div class='col-md-12 lastseen-block' style='border-bottom:#e7e7e7 1px solid; margin-bottom:15px; padding-left:15px;'>" +
+            "<span style='font-size:18px; color:#646464; font-weight:bold;'><i class='fa fa-comment'></i> " + value.ProfileName + "</span><br>";
+        if (minutes > 0 && seconds > 0) {
+            messageDeatils += "<span style='font-size:12px;' data-value=" + value.ProfileId + " id='lastseenDate" + value.ProfileId + "'>Last seen " + value.LastSeenStringDate + "</span>&nbsp;&nbsp;<div id='labelList' style='display: inline;'></div>";
+        }
+        else {
+            messageDeatils += "<span style='font-size:12px;' data-value=" + value.ProfileId + " id='lastseenDate" + value.ProfileId + "'>online</span>&nbsp;&nbsp;<div id='labelList' style='display: inline;'></div>";
+        }
+        messageDeatils += "</div>" +
+            "</div>" +
+            "<div class='row current-chatbox' style='padding-right:5px;'>" +
+            "<div class='col-md-12' id='messageDeatilsBlock' data-value=" + value.ProfileId + " style='padding-left:10px; padding-right:10px; overflow-y: scroll; height:320px; background:#d1d1d1;'>" +
+            "</div>" +
+            "<div class='col-md-12' style='padding-bottom:10px;'>" +
+            "<textarea id='message-text' name='message-text' class='form-control' cols='1' rows='2' placeholder='message' maxlength='2500'></textarea>" +
+            "<label id='file-name' style='display:none'></label>" +
+            "<div style='float:left;' id='block-message'>" +
+            //"<span style='font-size: 18px; color: #666;margin:5px;cursor: pointer;'><i class='fa fa-bolt' onclick='OpenListQuickResponse()'></i></a>" +
+            "<div class='image-upload' style='display:inline;padding: 5px;'>" +
+            "<label for='FileUpload'>" +
+            "<i class='fa fa-paperclip' style='cursor: pointer;font-size: 18px; color: #666;margin:5px;'></i></label>" +
+            "<input id='FileUpload' style='display:none;' onchange='fileSelect(event)' type='file'/></div >" +
+            "</div>" +
+            "<div style='float:right;'>" +
+            "<button style='background:#090; color:#fff; border-radius:10px; padding:10px 20px; font-size:16px; font-weight:500;' id='sendmessage'>Send</button>" +
+            "</div>" +
+            "</div>" +
+            "</div>";
+        $('#message-history').html(messageDeatils);
+        var x = document.getElementById('message-history');
+        x.style.removeProperty('display');
+        let userDeatilsHtml = "<div class='row'>" +
+            "<div class='col-md-12' style='border-bottom:#e7e7e7 1px solid; margin-bottom:15px; padding:13px 30px 13px 0px; text-align:right;font-size:14px;'><a href='javascript:;' id='starBlock-" + value.ProfileId + "' style='" + (value.IsStar ? '' : 'color:#999;') + " padding-right:5px;' title='" + (value.IsStar == false ? "Mark as Star" : "Remove Star") + "' class='" + (value.IsStar ? 'star-block star-color' : '') + "' onclick='MarkAsStar(" + value.ProfileId + ")'><i class='fa fa-star'></i></a>&nbsp; <a href='javascript:;' style='color:#999; padding-right:5px;' title='Mark as Unread'><i class='fa fa-envelope-open' onclick='UnReadMesssage(" + value.ProfileId + ")'></i></a>&nbsp; <a href='javascript:;' style='color:#999; padding-right:5px;' title='" + (value.IsArchive == false ? "Move to Archive" : "Move to Inbox")+"' onclick='Archive(" + value.ProfileId + "," + (value.IsArchive == undefined ? false : value.IsArchive) + ")'><i class='fa fa-inbox'></i></a>&nbsp; <a href='javascript:;' style='color:#999; padding-right:5px;' onclick='deleteMessage(" + value.ProfileId + ")'><i class='fa fa-trash'></i></a>&nbsp; <a href='javascript:;' style='color:#999; padding-right:5px;' onclick='ShowHideLabel();'><i class='fa fa-tag'></i></a></div>" +
+            "</div>" +
+            "<div class='row' style='display:none;' id='dvLabel'><div class='col-md-12'>" +
+            "<p style='margin: 0;padding: 2px;font-weight: bold;color: black;text-align: center;font-size: 18px;border-bottom: 1px solid #ccc;'>Label</p><div id='labelBlock' style='max-height: 120px; overflow: auto;'>";
+        for (var x = 0; x < value.CurrentUserLabel.length; x++) {
+            userDeatilsHtml += "<div  id='label-text-" + value.CurrentUserLabel[x].LabelId + "'> <input type='checkbox' onchange='LabelCheck(" + value.CurrentUserLabel[x].LabelId + ")' id='label-" + value.CurrentUserLabel[x].LabelId + "' name='" + value.CurrentUserLabel[x].LabelName + "' value='" + value.CurrentUserLabel[x].LabelName + "'> &nbsp;&nbsp;" + value.CurrentUserLabel[x].LabelName + "";
+            //if (value.CurrentUserLabel[x].CanDelete) {
+            userDeatilsHtml += "<i class='fa fa-trash' style='cursor: pointer;float: right;margin-top: 5px;padding-right: 12px;color: red;' onclick='Deletelabel(" + value.CurrentUserLabel[x].LabelId + ")' ></i >";
+            //}
+            userDeatilsHtml += "</div>";
+        }
+        userDeatilsHtml += "</div> <a href='javascript:;' onclick='AddLabel()'><i class='fa fa-plus' style='color: #999;'></i> &nbsp;Add Label </a></div></div>";
+        userDeatilsHtml += "<div class='row' style='padding-right:5px;'>";
+        userDeatilsHtml += "<div class='col-md-12' style='padding-right:10px; overflow-y: scroll; height:320px;'>";
+        userDeatilsHtml += "<div style='text-align:center;'><input type='hidden' id='toUsername' value='" + value.ProfileName + "'/>";
+        userDeatilsHtml += "<div class='inbox_rigSideImg center-block'><img src=" + value.UserProfilePic.UserProfilePicUrl + " alt='pic' height='100%'></div>";
+        userDeatilsHtml += "<h4 style='font-size:20px;'> " + value.ProfileName + "</h4>";
+        userDeatilsHtml += "<input type='hidden' id='toUserId' value=" + value.ProfileId + " />";
+        userDeatilsHtml += "<div style='font-size:18px; color:#333;'><strong>Profile ID :</strong> WV00" + value.ProfileId + "</div>";
+        userDeatilsHtml += "</div></div>";
+
+        $('#memberDeatil').html(userDeatilsHtml);
+
+        if (value.ToUserLabel != null && value.ToUserLabel.length > 0) {
+            var ListLabelAdded = '';
+            for (var j = 0; j < value.ToUserLabel.length; j++) {
+                $('#label-' + value.ToUserLabel[j].LabelId + '').prop('checked', true);
+                ListLabelAdded += "<span id='span-label-" + value.ToUserLabel[j].LabelId + "' style='color:#646464;'><i class='fa fa-tag'></i>&nbsp;" + value.ToUserLabel[j].LabelName + "</span>&nbsp;&nbsp;";
+            }
+            $('#labelList').append(ListLabelAdded);
+        }
+
+        var x = document.getElementById('memberDeatil');
+        x.style.removeProperty('display');
+        $('#welcomeblock').hide();
+
+        $('#sendmessage').click(function () {
+            $body.addClass("loading");
+            var fileUpload = $("#FileUpload").get(0);
+            var files = fileUpload.files;
+            if (files.length != 0) {
+                // create formdata object
+                var filedata = new FormData();
+
+                // looping over all files and add it to formdata object
+                for (var i = 0; i < files.length; i++) {
+                    filedata.append(files[i].name, files[i]);
+                }
+                var message = $('#message-text').val();
+                // adding one more key to formdata object
+                filedata.append('touserId', value.ProfileId);
+                filedata.append('fromUserId', currentUser);
+                filedata.append('message', message);
+
+                $.ajax({
+                    type: "POST",
+                    url: 'ChatUploadFiles',
+                    processData: false,
+                    contentType: false,
+                    data: filedata,
+                    success: function (result) {
+                        if (result.isSuccess) {
+                            var res = result.data;
+                            // Call the Send method on the hub.
+                            chat.server.fileSendMessage(res.touserId, res.fromuserId, res.message, res.fileName, res.filePath);
+                            const now = new Date()
+                                .toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })
+                            let messageDeatils =
+                                '<div class="' + (currentUser == res.fromuserId ? "messages_box_s" : "messages_box") + '">' +
+                                '<div class="popupImg_Noti"><img src="' + value.CurrentUserProfileURL.UserProfilePicUrl + '" alt="profile pic" height="100%"></div>' +
+                                '<span class="messages_txt_s"><strong> ' + value.CurrentUserProfileName + ' </strong></span>&nbsp;' +
+                                '<span style = "font-size:13px; color:#333;" > Today ' + now + '</span >&nbsp;&nbsp;' +
+                                '<a href="javascript:;" style="font-size:13px; color:#333;' + (currentUser != res.fromuserId ? "" : "display:none;") + '"><i class="fa fa-flag" ></i > Report</a > &nbsp;&nbsp;' +
+                                '<a href="javascript:;" style="font-size:13px; color:#333;' + (currentUser != res.fromuserId ? "" : "display:none;") + '"><i class="fa fa-ban"></i> Spam </a>';
+                                if ($.inArray(res.filePath.split('.').pop().toLowerCase(), fileExtension) > 0) {
+                                    messageDeatils += '<br /><p class="messages_txt_s" style="margin-left:50px;padding-right:3px;">' + nl2br(res.message) + '</p><br /><a class="fileInfo" href=' + res.filePath + ' target="_blank"><img src=' + res.filePath +' style="width:150px;" /><br /><i class="fa fa-download">&nbsp;&nbsp;' + res.fileName + '</i></a></div>';
+                                }
+                                else {
+                                    messageDeatils += '<br /><p class="messages_txt_s" style="margin-left:50px;padding-right:3px;">' + nl2br(res.message) + '</p><br /><a class="fileInfo" href=' + res.filePath + ' target="_blank">&nbsp;<i class="fa fa-download" style="margin-left: 60px;">&nbsp;&nbsp;' + res.fileName + '</i></a></div>';
+                                }
+                            $('#messageDeatilsBlock').append(messageDeatils);
+                            $('#message-text').val('').focus();
+                            $("#spnLSmsg_" + res.touserId).html(res.message.length >= 20 ? res.message.substring(0,20) + ' ...' : res.message);
+                            $("#spnLStime_" + res.touserId).html("Today " + now);
+                            setTimeout(function () {
+                                $("#messageDeatilsBlock").scrollTop($("#messageDeatilsBlock")[0].scrollHeight);
+                            }, 100);
+                            Clearfile();
+                        }
+                        else {
+                            alert(result.data);
+                        }
+                        $body.removeClass("loading");
+                    },
+                    error: function (err) {
+                        $body.removeClass("loading");
+                        alert("There are some error, please try again.");
+                    }
+                });
+            }
+            else {
+                var message = $('#message-text').val();
+                // Call the Send method on the hub.
+                chat.server.send($('#toUserId').val(), $('#current-user-id').val(), message);
+                // Clear text box and reset focus for next comment.
+                $('#message-text').val('').focus();
+                const now = new Date()
+                    .toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })
+                let messageDeatils =
+                    '<div class="' + (currentUser == $('#current-user-id').val() ? "messages_box_s" : "messages_box") + '">' +
+                    '<div class="popupImg_Noti"><img src="' + value.CurrentUserProfileURL.UserProfilePicUrl + '" alt="profile pic" height="100%"></div>' +
+                    '<span class="messages_txt_s"><strong> ' + value.CurrentUserProfileName + ' </strong></span>&nbsp;' +
+                    '<span style = "font-size:13px; color:#333;" > Today ' + now + '</span >&nbsp;&nbsp;' +
+                    '<a href="" style="font-size:13px; color:#333;' + (currentUser != $('#current-user-id').val() ? "" : "display:none;") + '"><i class="fa fa-flag" ></i > Report</a > &nbsp;&nbsp;' +
+                    '<a href="" style="font-size:13px; color:#333;' + (currentUser != $('#current-user-id').val() ? "" : "display:none;") + '"><i class="fa fa-ban"></i> Spam </a>' +
+                    '<br><p class="messages_txt_s" style="margin-left:50px;padding-right:3px;">' + nl2br(message) + '</p></div>';
+                $('#messageDeatilsBlock').append(messageDeatils);
+                $("#spnLSmsg_" + value.ProfileId).html(message.length >= 20 ? message.substring(0, 20) + ' ...' : message);
+                $("#spnLStime_" + value.ProfileId).html("Today " + now);
+                setTimeout(function () {
+                    $("#messageDeatilsBlock").scrollTop($("#messageDeatilsBlock")[0].scrollHeight);
+                }, 100);
+            }
+            $body.removeClass("loading");
+            //$("#leftSid_time").hide();
+        });
+        $('#sendmessage').prop('disabled', true);
+        $('#sendmessage').css({ "background-color": "#5c615c" });
+
+        //ajax Call
+        $.ajax({
+            type: 'POST',
+            url: "GetMessageList",
+            data: {
+                FromUserId: currentUser,
+                ToUserId: value.ProfileId,
+                PageIndex: 1,
+                PageSize: 1000
+            },
+            dataType: 'json',
+            traditional: true,
+            success: function (res) {
+                results = res.data;
+                //console.log(results);
+                var ele = $(".leftSid_rightIcons").find('[data-value="' + value.ProfileId + '"]');
+                if ($(ele).length == 1) {
+                    $(ele).removeClass("inbox_leftInact_count");
+                    $(ele).text("");
+                    $(ele).css({ "background-color": "#e4f6f8" });
+                    $(ele).html("<i class='fa fa-envelope-open' onclick='UnReadMesssage(" + value.ProfileId + ")' title='Mark as Unread' style='color:#999;'></i>");
+                }
+                $('#tousermessageblock').show();
+                for (i = 0; i < results.length; i++) {
+                    var messageDeatils =
+                        '<div class="' + (currentUser == results[i].FromUserId ? "messages_box_s" : "messages_box") + '">' +
+                        '<div class="popupImg_Noti"><img src="' + results[i].UserProfilePic.UserProfilePicUrl + '" alt="profile pic" height="100%" ></div>' +
+                        '<span class="messages_txt_s"><strong>' + results[i].FromUserName + '</strong></span>&nbsp; <span style="font-size:13px; color:#333;">' + results[i].MessageDate + ' </span>&nbsp;&nbsp;';
+                    if (results[i].IsReported) {
+                        $("#message-text").attr("disabled", "disabled");
+                        $("#sendmessage").hide();
+                        $("#FileUpload").attr("disabled", "disabled");
+                        $("#block-message").hide();
+                        setTimeout(function () {
+                            $('#emoji-block').hide();
+                        }, 500);
+                        messageDeatils += '<span id="reported-span"style="font-size:13px; color:red;"><i class="fa fa-flag"></i > Reported</span> &nbsp;&nbsp;';
+                    }
+                    else {
+                        if (currentUser != results[i].FromUserId)
+                            messageDeatils += '<span id="reported-span-' + results[i].MessageId + '" onclick="OpenReport(' + results[i].MessageId + ')" style="font-size:13px; color:#333;cursor: pointer;"><i class="fa fa-flag"></i> Report</span> &nbsp;&nbsp;';
+                    }
+                    if (results[i].IsBlock) {
+                        messageDeatils += '<span style="font-size:13px; color:red;"><i class="fa fa-ban"></i> <a href="javascript:;" onclick="UnBlock(' + results[i].MessageId + ')">unmark as spam</a> </span>';
+                    }
+                    else {
+                        if (currentUser != results[i].FromUserId)
+                            messageDeatils += '<span id="block-span-' + results[i].MessageId + '" style="font-size:13px; color:#333;cursor:pointer;" onclick="OpenBlock(' + results[i].MessageId + ')"><i class="fa fa-ban"></i> Spam </span>';
+                    }
+                    //console.log(nl2br(results[i].MessageDetail));
+                    messageDeatils += '<br><p class="messages_txt_s" style="margin-left:50px;padding-right:3px;">' + nl2br(results[i].MessageDetail) + '</p>';
+
+                    if (results[i].FileName != null && results[i].FileName != "" && $.inArray(results[i].FileUniqueId.split('.').pop().toLowerCase(), fileExtension) > 0) {
+                        messageDeatils += '</span><br /><a class="fileInfo" href=' + ("/Content/ChatFile/" + results[i].FileUniqueId) + ' target="_blank"><img src=' + ("/Content/ChatFile/" + results[i].FileUniqueId) + ' style="width:150px;" /><br /><i class="fa fa-download" style="margin-left: 60px;">&nbsp;&nbsp;' + results[i].FileName + '</i></a>';
+                    }
+                    else if (results[i].FileName != null && results[i].FileName != "") {
+                        messageDeatils += '</span><br /><a class="fileInfo" href=' + ("/Content/ChatFile/" + results[i].FileUniqueId) + ' target="_blank">&nbsp;<i class="fa fa-download" style="margin-left: 60px;">&nbsp;&nbsp;' + results[i].FileName + '</i></a>';
+                    }
+                    messageDeatils += '</div>';
+
+                    $('#messageDeatilsBlock').append(messageDeatils);
+                    $body.removeClass("loading");
+                }
+
+                setTimeout(function () {
+                    $("#messageDeatilsBlock").scrollTop($("#messageDeatilsBlock")[0].scrollHeight);
+                    window.history.replaceState(null, null, "?id=" + value.ProfileId);
+                }, 100);
+                $('#message-text').emoji({
+                    button: '<i class="fa fa-smile-o"></i>',
+                    place: 'after'
+                });
+
+                $("#message-text").keypress(function (e) {
+                    if (e.keyCode == 13) {
+                        $('#sendmessage').trigger('click');
+                    }
+                });
+
+                $('#message-text').keyup(function (e) {
+                    if ($(this).val() != '') {
+                        $('#sendmessage').prop('disabled', false);
+                        $('#sendmessage').css({ "background-color": "#090" });
+                    }
+                    else {
+                        $('#sendmessage').prop('disabled', true);
+                        $('#sendmessage').css({ "background-color": "#5c615c" });
+                    }
+                });
+
+                $('#message-text').blur(function (e) {
+                    if ($(this).val() != '') {
+                        $('#sendmessage').prop('disabled', false);
+                        $('#sendmessage').css({ "background-color": "#090" });
+                    }
+                    else {
+                        $('#sendmessage').prop('disabled', true);
+                        $('#sendmessage').css({ "background-color": "#5c615c" });
+                    }
+                });
+            },
+            error: function (data) {
+                $body.removeClass("loading");
+                alert('Error.');
+            }
+        });
+        $("[id^='messageBlock_']").each(function (inx, val) {
+            $(this).removeClass("messages_div_S");
+            $(this).addClass("messages_div");
+            //console.log($(this).attr("id").split('_')[1]);
+            var ele = $(".leftSid_rightIcons").find('[data-value="' + $(this).attr("id").split('_')[1] + '"]');
+            if ($(ele).length == 1) {
+                $(ele).css({ "background-color": "#ffffff" });
+            }
+        });
+        $("#messageBlock_" + value.ProfileId).removeClass("messages_div");
+        $("#messageBlock_" + value.ProfileId).addClass("messages_div_S");
+    }
+
+    function MarkAsStar(toUserId) {
+        $body.addClass("loading");
+        var isStar = $('#starBlock-' + toUserId).hasClass('star-color');
+        $.ajax({
+            type: 'POST',
+            url: "StarUser",
+            data: {
+                TouserId: toUserId,
+                FromuserId: currentUser,
+                IsStar: !isStar
+            },
+            dataType: 'json',
+            traditional: true,
+            success: function (res) {
+                //$body.removeClass("loading");
+                if (res.data) {
+                    if ($('#starBlock-' + toUserId).hasClass('star-color')) {
+                        $('#starBlock-' + toUserId).removeClass("star-color");
+                    }
+                    else {
+                        $('#starBlock-' + toUserId).addClass("star-color");
+                    }
+                    window.location.reload(true);
+                }
+                else {
+                    alert('something went worng, please try again!');
+                }
+            },
+            error: function (res) {
+                $body.removeClass("loading");
+                alert(res);
+            }
+        });
+    }
+
+    function fileSelect(e) {
+        $('#file-name').text(e.target.files[0].name);
+        $('#file-name').append('&nbsp;&nbsp;<i id="clearFile" class="fa fa-times" onclick="Clearfile()"></i>');
+        $('#file-name').show();
+        //if ($('#message-text').val() == "") {
+        //    $('#sendmessage').prop('disabled', true);
+        //    $('#sendmessage').css({ "background-color": "#5c615c" });
+        //}
+        $('#sendmessage').prop('disabled', false);
+        $('#sendmessage').css({ "background-color": "#090" });
+    }
+
+    function Clearfile() {
+        $('#FileUpload').val('');
+        $('#clearFile').remove();
+        $('#file-name').text('');
+    }
+
+    $(".star.glyphicon").click(function () {
+        $(this).toggleClass("glyphicon-star glyphicon-star-empty");
+    });
+
+    $(".heart.fa").click(function () {
+        $(this).toggleClass("fa-heart fa-heart-o");
+    });
+
+    function UnReadMesssage(toUserId) {
+        $body.addClass("loading");
+        window.history.replaceState(null, null, "?id=" + 0);
+        $.ajax({
+            type: 'POST',
+            url: "UnreadUserMessage",
+            data: {
+                TouserId: toUserId,
+                FromuserId: currentUser
+            },
+            dataType: 'json',
+            traditional: true,
+            success: function (res) {
+                //$body.removeClass("loading");
+                if (res.data) {
+                    window.location.reload(true);
+                }
+                else {
+                    alert('something went worng, please try again!');
+                }
+            },
+            error: function (res) {
+                $body.removeClass("loading");
+                alert(res);
+            }
+        });
+    }
+
+    function deleteMessage(toUserId) {
+        $('#deleteConversation').val(toUserId);
+        $('#deleteMessage').appendTo("body").modal('show');
+    }
+
+    function deleteCancel() {
+        $('#deleteMessage').appendTo("body").modal('hide');
+    }
+
+    function deleteMessageBlock() {
+        var toUserId = $('#deleteConversation').val();
+        window.history.replaceState(null, null, "?id=" + 0);
+        $('#deleteMessage').appendTo("body").modal('hide');
+        $body.addClass("loading");
+        $.ajax({
+            type: 'POST',
+            url: "DeleteUserConversation",
+            data: {
+                TouserId: toUserId,
+                FromuserId: currentUser
+            },
+            dataType: 'json',
+            traditional: true,
+            success: function (res) {
+                //$body.removeClass("loading");
+                if (res.data) {
+                    window.location.reload(true);
+                }
+                else {
+                    alert('something went worng, please try again!');
+                }
+            },
+            error: function (res) {
+                $body.removeClass("loading");
+                alert(res);
+            }
+        });
+    }
+
+    function AddLabel() {
+        $('#addLabel').appendTo("body").modal('show');
+    }
+
+    function lebalCancel() {
+        $('#addLabel').appendTo("body").modal('hide');
+    }
+
+    function actionFilter() {
+        let selectedFitler = $('#actionText').val();
+        if (selectedFitler == "unread") {
+            var ele = $('#user-list').find('.user-panel');
+            if (ele.length > 0) {
+                ele.hide();
+                var starElement = $('.user-panel').find('.inbox_leftInact_count');
+                if (starElement.length > 0) {
+                    starElement.parent().parent().parent().show();
+                }
+            }
+        }
+        else if (selectedFitler == "star") {
+            var ele = $('#user-list').find('.user-panel');
+            if (ele.length > 0) {
+                ele.hide();
+                var starElement = $('.user-panel').find('.star-color');
+                if (starElement.length > 0) {
+                    starElement.parent().parent().parent().show();
+                }
+            }
+        }
+        else if (selectedFitler == "spam") {
+            var ele = $('#user-list').find('.user-panel');
+            if (ele.length > 0) {
+                ele.hide();
+                var starElement = $('.user-panel').find('.spam');
+                if (starElement.length > 0) {
+                    starElement.parent().parent().parent().show();
+                }
+            }
+        }
+        else if (selectedFitler == "archive") {
+            var ele = $('#user-list').find('.user-panel');
+            if (ele.length > 0) {
+                ele.hide();
+                var starElement = $('.user-panel').find('.archive');
+                if (starElement.length > 0) {
+                    starElement.parent().parent().parent().show();
+                }
+            }
+        }
+        else if (selectedFitler == "all") {
+            var ele = $('#user-list').find('.user-panel');
+            if (ele.length > 0) {
+                ele.show();
+            }
+        }
+        else {
+            var lableEle = $("#" + selectedFitler);
+            if (lableEle.length > 0) {
+                var ele = $('#user-list').find('.user-panel');
+                if (ele.length > 0) {
+                    ele.hide();
+                    lableEle.parent().show();
+                }
+            }
+            else {
+                var ele = $('#user-list').find('.user-panel');
+                if (ele.length > 0) {
+                    ele.hide();
+                }
+            }
+        }
+    }
+
+    function messageReport() {
+        var id = $('#reportMessageId').val();
+        $body.addClass("loading");
+        $.ajax({
+            type: 'POST',
+            url: "ReportMessage",
+            data: {
+                messageId: id
+            },
+            dataType: 'json',
+            traditional: true,
+            success: function (res) {
+                $body.removeClass("loading");
+                if (res.data) {
+                    //TextBox Disable.
+                    $("#message-text").attr("disabled", "disabled");
+                    $("#sendmessage").attr("disabled", "disabled");
+                    $("#FileUpload").attr("disabled", "disabled");
+                    $("#block-message").hide();
+                    $("#emoji-block").hide();
+                    $("#reported-span-" + id).css({ color: 'red' });
+                    $("#reported-span-" + id).html('<i class="fa fa-flag"></i > Reported');
+                    ReportCancel();
+                }
+                else {
+                    ReportCancel();
+                    alert('something went worng, please try again!');
+                }
+            },
+            error: function (res) {
+                $body.removeClass("loading");
+                alert(res);
+            }
+        });
+    }
+
+    function AddUserLabel() {
+        var labelName = $('#label-text').val();
+        if (labelName == '') {
+            alert('Please enter the label Name');
+        }
+        else {
+            $.ajax({
+                type: "POST",
+                url: 'AddLabel',
+                data: {
+                    UserId: currentUser,
+                    LabelName: labelName
+                },
+                dataType: 'json',
+                traditional: true,
+                success: function (result) {
+                    $('#addLabel').appendTo("body").modal('hide');
+                    if (result.data == 0) {
+                        alert("Something Went Worng!");
+                    }
+                    else {
+                        var newLabelHtml = "<div id='label-text-" + result.data + "'><input type='checkbox' onchange='LabelCheck(" + result.data + ")' id='label-" + result.data + "' name='" + labelName + "' value='" + labelName + "'> &nbsp;&nbsp;" + labelName + " <i class='fa fa-trash' style='cursor: pointer;float: right;margin-top: 5px;padding-right: 12px;color: red;' onclick='Deletelabel(" + result.data + ")'></i></div>";
+                        $('#labelBlock').append(newLabelHtml);
+                        $('#label-text').val('');
+                    }
+                    $body.removeClass("loading");
+                },
+                error: function (err) {
+                    $body.removeClass("loading");
+                    alert("There are some error, please try again.");
+                }
+            });
+        }
+    }
+
+    function Deletelabel(labelId) {
+        $.ajax({
+            type: "POST",
+            url: 'DeleteLabel',
+            data: {
+                labelId: labelId
+            },
+            dataType: 'json',
+            traditional: true,
+            success: function (result) {
+                if (result.data) {
+                    $('#label-text-' + labelId + '').remove();
+                    $("#span-label-" + labelId).remove();
+                }
+                else {
+                    alert("Something Went Worng!");
+                }
+                $body.removeClass("loading");
+            },
+            error: function (err) {
+                $body.removeClass("loading");
+                alert("There are some error, please try again.");
+            }
+        });
+    }
+
+    function LabelCheck(labelId) {
+        $body.addClass("loading");
+        var checkBoxCheked = $('#label-' + labelId + '').is(':checked');
+        var labelName = $('#label-' + labelId + '').val();
+        var touserId = $('#toUserId').val();
+        $.ajax({
+            type: "POST",
+            url: 'LabelCheck',
+            data: {
+                fromUserId: currentUser,
+                toUserId: touserId,
+                labelId: labelId,
+                isCheck: checkBoxCheked
+            },
+            dataType: 'json',
+            traditional: true,
+            success: function (result) {
+                if (result.data) {
+                    if (checkBoxCheked) {
+                        var LabelAdded = "<span id='span-label-" + labelId + "' style='color:#646464;'><i class='fa fa-tag'></i>&nbsp;" + labelName + "</span>&nbsp;&nbsp;";
+                        $('#labelList').append(LabelAdded);
+                    }
+                    else {
+                        $("#span-label-" + labelId).remove();
+                    }
+                }
+                else {
+                    alert("Something Went Worng!");
+                }
+                //$body.removeClass("loading");
+                //ShowHideLabel();
+                window.location.reload(true);
+            },
+            error: function (err) {
+                $body.removeClass("loading");
+                alert("There are some error, please try again.");
+            }
+        });
+    }
+
+    function OpenAddQuickResponse() {
+        $('#quick-response-name').val('');
+        $('#quick-response-text').val('');
+        $('#updateResponseId').val('');
+        CancelListQuickResponse();
+        $('#addQuickResponse').appendTo("body").modal('show');
+    }
+
+    function CancelQuickResponse() {
+        $('#addQuickResponse').appendTo("body").modal('hide');
+        $('#quick-response-name').val('');
+        $('#quick-response-text').val('');
+        $('#updateResponseId').val('');
+    }
+
+    function OpenListQuickResponse() {
+        $body.addClass("loading");
+        $.ajax({
+            type: 'POST',
+            url: "ListOfUserQuickResponse",
+            data: {
+                userId: currentUser
+            },
+            dataType: 'json',
+            traditional: true,
+            success: function (res) {
+                $body.removeClass("loading");
+                if (res.data != null) {
+                    var result = res.data;
+                    var htmlres = '';
+                    $('#list-quick').children().remove();
+                    for (var i = 0; i < result.length; i++) {
+                        var num = parseInt(i) + 1;
+                        htmlres += "<div class='row' id='quick-res-" + result[i].QuickResId + "'><input type='hidden' id='title-" + result[i].QuickResId + "' value='" + result[i].Title + "'/><input type='hidden' id='desc-" + result[i].QuickResId + "' value='" + result[i].Description + "'/> <div class='col-md-12 quickRow'> <span onclick='QuickResponseInMessage(" + result[i].QuickResId + ")'>" + num + ". &nbsp;&nbsp;" + result[i].Title + " &nbsp;&nbsp;</span><span style='float: right;'> <i class='fa fa-pencil' style='cursor: pointer;' onclick='UpdateResponse(" + result[i].QuickResId + ")'></i> &nbsp;&nbsp;<i class='fa fa-trash' style='cursor: pointer;color:red' onclick='DeleteResponse(" + result[i].QuickResId + ")'> </i> </span></div></div>"
+                    }
+                    $('#list-quick').append(htmlres);
+                    $('#updateResponseId').val('');
+                    $('#quickResponseList').appendTo("body").modal('show');
+                }
+                else {
+                    OpenAddQuickResponse();
+                }
+            },
+            error: function (res) {
+                $body.removeClass("loading");
+                alert(res);
+            }
+        });
+    }
+
+    function CancelListQuickResponse() {
+        $('#quickResponseList').appendTo("body").modal('hide');
+        $('#updateResponseId').val('');
+    }
+
+    function UpdateResponse(id) {
+        var title = $('#title-' + id).val();
+        var desc = $('#desc-' + id).val();
+        $('#quick-response-name').val(title);
+        $('#quick-response-text').val(desc);
+        CancelListQuickResponse();
+        $('#updateResponseId').val(id);
+        $('#addQuickResponse').appendTo("body").modal('show');
+    }
+
+    function AddQuickReponse() {
+        var title = $('#quick-response-name').val();
+        var description = $('#quick-response-text').val();
+        var resId = $('#updateResponseId').val();
+        if (description == '' || title == '') {
+            alert('Please enter the value');
+        }
+        else {
+            var quickId;
+            if (resId != undefined && resId != null && resId != '') {
+                quickId = resId;
+            }
+            else {
+                quickId = 0;
+            }
+
+            $.ajax({
+                type: "POST",
+                url: 'AddQuickResponse',
+                data: {
+                    QuickResponseId: quickId,
+                    UserId: currentUser,
+                    Title: title,
+                    Description: description
+                },
+                dataType: 'json',
+                traditional: true,
+                success: function (result) {
+                    $('#addQuickResponse').appendTo("body").modal('hide');
+                    if (result.data == 0) {
+                        alert("Something Went Worng!");
+                    }
+                    else {
+                        $('#updateResponseId').val('');
+                        $('#quick-response-name').val('');
+                        $('#quick-response-text').val('');
+                        OpenListQuickResponse();
+                    }
+                    $body.removeClass("loading");
+                },
+                error: function (err) {
+                    $body.removeClass("loading");
+                    alert("There are some error, please try again.");
+                }
+            });
+        }
+    }
+
+    function DeleteResponse(id) {
+        $.ajax({
+            type: "POST",
+            url: 'DeleteQuickResponse',
+            data: {
+                resId: id
+            },
+            dataType: 'json',
+            traditional: true,
+            success: function (result) {
+                if (!result.data) {
+                    alert("Something Went Worng!");
+                }
+                else {
+                    $('#updateResponseId').val('');
+                    $('#quick-response-name').val('');
+                    $('#quick-response-text').val('');
+                    $('#quick-res-' + id).remove();
+                }
+                $body.removeClass("loading");
+            },
+            error: function (err) {
+                $body.removeClass("loading");
+                alert("There are some error, please try again.");
+            }
+        });
+    }
+
+    function QuickResponseInMessage(id) {
+        var desc = $('#desc-' + id).val();
+        var tousername = $('#toUsername').val();
+        var finalDesc = desc.replace(/{username}/g, tousername);
+        $('#message-text').val(finalDesc);
+        if ($('#message-text').val() != '') {
+            $('#sendmessage').prop('disabled', false);
+            $('#sendmessage').css({ "background-color": "#090" });
+        }
+        else {
+            $('#sendmessage').prop('disabled', true);
+            $('#sendmessage').css({ "background-color": "#5c615c" });
+        }
+        CancelListQuickResponse();
+    }
+
+    function ShowHideLabel() {
+        $("#dvLabel").toggle();
+    }
+
+    function OpenReport(messageId) {
+        $('#reportMessageId').val(messageId);
+        $('#isReportModel').appendTo("body").modal('show');
+    }
+
+    function ReportCancel() {
+        $('#reportMessageId').val('');
+        $('#isReportModel').appendTo("body").modal('hide');
+    }
+
+    function OpenBlock(messageId) {
+        $('#blockMessageId').val(messageId);
+        $('#isBlockModel').appendTo("body").modal('show');
+    }
+
+    function BlockCancel() {
+        $('#blockMessageId').val('');
+        $('#isBlockModel').appendTo("body").modal('hide');
+    }
+
+    function messageSpam() {
+        var id = $('#blockMessageId').val();
+        var spanValue = $('#block-span-' + id).text();
+        var isSpam;
+        if (spanValue == ' Spam ') {
+            isSpam = true;
+        }
+        else {
+            isSpam = false;
+        }
+        $body.addClass("loading");
+        $.ajax({
+            type: 'POST',
+            url: "BlockMessage",
+            data: {
+                messageId: id,
+                isBlock: isSpam
+            },
+            dataType: 'json',
+            traditional: true,
+            success: function (res) {
+                //$body.removeClass("loading");
+                if (res.data) {
+                    window.location.reload(true);
+                }
+                else {
+                    alert('something went worng, please try again!');
+                }
+                //$body.removeClass("loading");
+                //if (res.data) {
+                //    //TextBox Disable.
+                //    if (isSpam) {
+                //        $("#message-text").attr("disabled", "disabled");
+                //        $("#sendmessage").attr("disabled", "disabled");
+                //        $("#FileUpload").attr("disabled", "disabled");
+                //        $("#block-message").hide();
+                //        $("#emoji-block").hide();
+                //        $("#block-span-" + id).css({ color: 'red' });
+                //        $("#block-span-" + id).html('<i class="fa fa-ban"></i> Spamed ');
+                //    }
+                //    else {
+                //        $("#message-text").removeAttr('disabled');
+                //        $("#FileUpload").removeAttr('disabled');
+                //        $("#block-message").show();
+                //        $("#emoji-block").show();
+                //        $("#block-span-" + id).css({ color: '#333' });
+                //        $("#block-span-" + id).html('<i class="fa fa-ban"></i> Spam ');
+                //    }
+
+                //    BlockCancel();
+                //}
+                //else {
+                //    BlockCancel();
+                //    alert('something went worng, please try again!');
+                //}
+            },
+            error: function (res) {
+                BlockCancel();
+                $body.removeClass("loading");
+                alert(res);
+            }
+        });
+    }
+
+
+    function Archive(toUserId, isArchive) {
+        $body.addClass("loading");
+        window.history.replaceState(null, null, "?id=" + 0);
+        $.ajax({
+            type: 'POST',
+            url: "ArchiveUser",
+            data: {
+                TouserId: toUserId,
+                FromuserId: currentUser,
+                IsArchive: isArchive
+            },
+            dataType: 'json',
+            traditional: true,
+            success: function (res) {
+                //$body.removeClass("loading");
+                if (res.data) {
+                    window.location.reload(true);
+                }
+                else {
+                    alert('something went worng, please try again!');
+                }
+            },
+            error: function (res) {
+                $body.removeClass("loading");
+                alert(res);
+            }
+        });
+    }
+
+    function UnBlock(id) {
+        $body.addClass("loading");
+        $.ajax({
+            type: 'POST',
+            url: "BlockMessage",
+            data: {
+                messageId: id,
+                isBlock: false
+            },
+            dataType: 'json',
+            traditional: true,
+            success: function (res) {
+                //$body.removeClass("loading");
+                if (res.data) {
+                    window.location.reload(true);
+                }
+                else {
+                    alert('something went worng, please try again!');
+                }
+            },
+            error: function (res) {
+                $body.removeClass("loading");
+                alert(res);
+            }
+        });
+    }
+
+    function nl2br(str, is_xhtml) {
+        var breakTag = (is_xhtml || typeof is_xhtml === 'undefined') ? '<br/>' : '<br>';
+        return (str + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + breakTag + '$2');
+    }
+
+    function ShowHideText(obj) {
+        if (obj == 1) {
+            $("#actionText").hide();
+            $("#btnSearch").hide();
+            $("#txtFindUser").show();
+            $("#btnClose").show();
+        }
+        else {
+            $("#actionText").show();
+            $("#btnSearch").show();
+            $("#txtFindUser").hide();
+            $("#txtFindUser").val("");
+            $("#btnClose").hide();
+        }        
+    }
+
+    function ShowHideUser() {
+        var ele = $('#user-list').find('.user-panel');
+        $("#dvNotFound").hide();
+        if ($("#txtFindUser").val() != "") {            
+            if (ele.length > 0) {
+                ele.hide();
+                $($('.user-panel').find("strong")).each(function () {
+                    var str = $(this).text().toLowerCase();
+                    if (str.indexOf($("#txtFindUser").val().toLowerCase()) != -1) {
+                        $("#userpanel_" + $(this).attr("id")).show();
+                    }
+                });
+                if (ele.length == $("[id^='userpanel_']").is(":hidden").length) {
+                    $("#dvNotFound").show();
+                }
+            }
+        }
+        else {
+            if (ele.length > 0) {
+                ele.show();
+            }
+        }
+    }
+</script>

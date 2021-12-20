@@ -1,0 +1,209 @@
+DashBoardController.cs
+=========================
+public ActionResult ChangePassword()
+        {
+            int UserId = Convert.ToInt16(Session["UserId"]);
+            ResetPassword RP = new ResetPassword();
+            RP.UserId = UserId;
+
+            return View(RP);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ChangePassword(ResetPassword rsp)
+        {
+            var passwordsalt = ConfigurationManager.AppSettings["PasswordSalt"].ToString();
+            var pwdEncryptred = EncryptandDecrypt.Encrypt(rsp.NewPassword.Trim(), passwordsalt.Trim()); //for encryption
+
+            int sResult = _dashBoardservice.SaveNewPassword(rsp.UserId, pwdEncryptred.Trim());
+            return Json("Success", JsonRequestBehavior.AllowGet);
+        }
+
+
+
+ChangePassword.cshtml
+====================
+
+@{
+    ViewBag.Title = "ChangePassword";
+    Layout = "~/Views/Shared/_Layout_New_Dashboard.cshtml";
+}
+
+@model WEvaha.Models.DashboardProfileModel
+@model WEvaha.Models.ResetPassword
+
+
+
+
+<div class="container-fluid" style="background:url(../img/banner/regisBg.jpg) center no-repeat; overflow:hidden; z-index:0;">
+    @{
+        string Name = Convert.ToString(Session["UserFullName"]);
+    }
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-md-3 text-center" style="margin-top:110px; margin-bottom:60px;">
+
+                <form method="post" id="CPForm" name="CPForm">
+                    @Html.AntiForgeryToken()
+                    <h3 class="text-center" style="color:#fff; font-weight:400;">Change Password</h3>
+                    <hr color="#FFFFFF" width="50%" style="margin-bottom:20px;">
+
+
+
+                    <div></div>
+
+
+                    <div class="form-group has-search" style="background:#fff; border-radius:10px; float:left; width:100%; margin:30px 0px;">
+                        <span class="fa fa-envelope form-control-feedback"></span>
+                        @Html.HiddenFor(model => model.UserId)
+                        <input type="password" name="NewPassword" id="NewPassword" class="form-control" placeholder="Enter your New Password" style="opacity:1; padding-bottom:23px; padding-top:23px;">
+                    </div>
+
+                    <div class="form-group has-search" style="background:#fff; border-radius:10px; float:left; width:100%; margin:30px 0px;">
+                        <span class="fa fa-envelope form-control-feedback"></span>
+                        <input type="password" name="ConfirmPassword" id="ConfirmPassword" class="form-control" placeholder="Re-enter your New Password" style="opacity:1; padding-bottom:23px; padding-top:23px;">
+                    </div>
+
+
+
+                    <div style="float:left; width:100%; ">
+                        <button class="btn-group-lg" type="submit" value="submit" id="btnSubmit" style="background:#F30; padding:10px 20px; border:0px; font-size:16px; color:#fff; border-radius:10px; cursor:pointer;">Submit</button>
+                    </div>
+
+
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="feature_area section_gap_top1">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="main_title text-center">
+                    <h2 class="mb-3 wevahaHead"><span style="color:#00bcd5;">Spend Time</span>&nbsp;<span style="color:#FF3300;">–</span>&nbsp;<span style="color:#B0B000;">It’s your Life</span></h2>
+
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-4">
+                <div class="single_feature">
+                    <div class="icon text-center"><img src="../img/match_icon.png" width="130" height="130" alt="match"></div>
+                    <div class="desc">
+                        <h4 class="mt-3 mb-2 text-center" style="color:#ef5d54;">Like-Minded Connections</h4>
+                        <p>
+                            WE do things a little differently, while you provide us your requirements our system’s Best-Algorithms will Predict &amp; Present Like-Minded Matches for you to choose from.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4">
+                <div class="single_feature">
+                    <div class="icon text-center"><img src="../img/help_icon.png" width="130" height="130" alt="match"></div>
+                    <div class="desc">
+                        <h4 class="mt-3 mb-2 text-center" style="color:#00aeae;">Traditional Affinity</h4>
+                        <p>
+                            WE Value Traditions the most, but within those traditions a Compatibility Companion is what we value the utmost. WE are here to help you to make you do it Right.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4">
+                <div class="single_feature">
+                    <div class="icon text-center"><img src="../img/secured_icon.png" width="130" height="130" alt="match"></div>
+                    <div class="desc">
+                        <h4 class="mt-3 mb-2 text-center" style="color:#617bbe;">Secure &amp; Confidential</h4>
+                        <p>
+                            WE have a Secure Development Life Cycle for Vulnerability Management to help &amp; secure Data by Encryption process to provide protection, Confidentiality &amp; Integrity.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("#btnSubmit").click(function () {
+            $('#CPForm').validate({ // initialize the plugin
+                    rules: {
+
+                        NewPassword: {
+                            required: true,
+                            minlength: 6
+                        },
+
+                        ConfirmPassword: {
+                            required: true,
+                            equalTo: "#NewPassword"
+                        }
+
+                    },
+
+                    messages: {
+
+                        NewPassword: {
+                            required: "Enter password",
+                            minlength: "Password must be at least 6 characters long"
+                        },
+                        ConfirmPassword: {
+                            required: "Enter confirm password",
+                            equalTo: "Password and Confirm password Miss-match"
+                        }
+                    },
+
+                    submitHandler: function (form) { // for demo
+
+                        var valdata = $("#CPForm").serialize();
+                        $.ajax({
+                            type: 'POST',
+                            dataType: 'json',
+                            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                            url: "@(Url.Action("ChangePassword", "DashBoard"))",
+                            data: valdata,
+                            success: function (data) {
+                                swal({
+                                    icon: "warning",
+                                    text: "Your password Successfully changed.",
+                                    type: "success",
+                                    buttons: false
+                                });
+                                window.setTimeout(function () { window.location = "../DashBoard/DashBoard"; }, 3000);
+
+
+                            }
+                      });
+                    }
+                });
+
+            });
+        });
+</script>
+
+
+DashBoardService.cs
+==================
+   public int SaveNewPassword(int user, string pwdEncryptred)
+        {
+
+            var sResult = new ObjectParameter("Result", typeof(int));
+            _entities.WEvaha_Update_NewPassword(sResult, user, pwdEncryptred);
+            _entities.SaveChanges();
+            return Convert.ToInt16(sResult.Value);
+        }
+
+
+
+
+IDashBoard.cs
+----------------
+        int SaveNewPassword(int user, string pwdEncryptred);

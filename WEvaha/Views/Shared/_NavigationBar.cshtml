@@ -1,0 +1,161 @@
+﻿@{
+    List<WE.BusinessEntities.MessageUserList> lstMessages = new List<WE.BusinessEntities.MessageUserList>();
+    if (Session["UserUnReadMessages"] != null)
+    {
+        lstMessages = (List<WE.BusinessEntities.MessageUserList>)Session["UserUnReadMessages"];
+    }
+}
+
+<div class="collapse navbar-collapse" id="navbar">
+    <ul class="nav navbar-nav navbar-right">
+        <li><a href="@Url.Action("GetMyProfile", "DashBoard")">My Profile</a></li>
+        <li><a href="@Url.Action("SearchCriteria", "DashBoard")">Search Criteria</a></li>
+        <li><a href="@Url.Action("BestLiked", "DashBoard", new { pageIndex = 1 })">Best-Liked</a></li>
+        <li><a href="@Url.Action("WhoViewedMe", "DashBoard")">Who Viewed Me</a></li>
+        <li class="dropdown">
+            <a href="">Messages</a>
+            <div class="dropdown-menu">
+                <div class="tabbable-panel">
+                    <div class="tabbable-line">
+                        <ul class="nav nav-tabs">
+                            <li class="active">
+                                <a href="#notifi" data-toggle="tab">
+                                    <i class="fa fa-bell"></i> Notifications
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#messages" data-toggle="tab">
+                                    <i class="fa fa-envelope"></i> Messages
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="notifi">
+                                @*<div class="messages_div">
+                                        <a href="">
+                                            <div class="popupImg_Noti"><img src="assets/img/profileImg/2.jpg" alt="profile pic"></div>
+                                            <p class="messages_txt">Hari liked your profile and wants to connect with you!</p>
+                                        </a>
+                                    </div>
+                                    <div class="messages_div">
+                                        <a href="">
+                                            <div class="popupImg_Noti"><img src="assets/img/profileImg/3.jpg" alt="profile pic"></div>
+                                            <p class="messages_txt">Varaprasad liked your profile and wants to connect with you!</p>
+                                        </a>
+                                    </div>
+                                    <div class="messages_div">
+                                        <a href="">
+                                            <div class="popupImg_Noti"><img src="assets/img/profileImg/6.jpg" alt="profile pic"></div>
+                                            <p class="messages_txt">Suresh liked your profile and wants to connect with you!</p>
+                                        </a>
+                                    </div>
+                                    <div class="messages_div">
+                                        <a href="">
+                                            <div class="popupImg_Noti"><img src="assets/img/profileImg/9.jpg" alt="profile pic"></div>
+                                            <p class="messages_txt">Suresh liked your profile and wants to connect with you!</p>
+                                        </a>
+                                    </div>
+                                    <div class="messages_div">
+                                        <a href="">
+                                            <div class="popupImg_Noti"><img src="assets/img/profileImg/7.jpg" alt="profile pic"></div>
+                                            <p class="messages_txt">Arjun liked your profile and wants to connect with you!</p>
+                                        </a>
+                                    </div>*@
+                            </div>
+                            <div class="tab-pane" id="messages">
+                                @if (lstMessages.Count > 0 && lstMessages != null)
+                                {
+                                    foreach (var item in lstMessages.ToList())
+                                    {
+                                        <a href="/Chat/Index?id=@item.ProfileId">
+                                            <div class="messages_div">
+                                                <div class="popupImg_Noti"><img src="@item.UserProfilePic.UserProfilePicUrl" alt="profile pic" height="100%"></div>
+                                                <span class="messages_txt_s"><strong>@item.ProfileName</strong></span><br>
+                                                <span class="messages_txt_s">@(item.LastMessage.Length >= 20 ? item.LastMessage.Substring(0, 20) + " ..." : item.LastMessage)</span>
+                                            </div>
+                                        </a>
+                                    }
+                                }
+                                else
+                                {
+                                    <a href="javascript:;"><div class="messages_div">No Records Found</div></a>
+                                }
+                                <div style="text-align:right; padding-right:10px; padding-top:7px; font-weight:600; color:#999;"><a href="/Chat/Index">See All in Inbox</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+        @{
+            string IsActive = Convert.ToString(Session["IsUserAcitive"]);
+            if (IsActive == "Active")
+            {
+                <li>
+                    <a href="#" style="color:#fff; font-size:14px;"><span class="upGr" id="str">UPGRADED</span></a>
+                </li>
+
+            }
+            else
+            {
+                <li>
+                    <a href="@Url.Action("Packages", "DashBoard")" style="color:#fff; font-size:14px;"><span class="upGr">UPGRADE NOW</span></a>
+                </li>
+            }
+
+        }
+        <li class="dropdown">
+            <a href="" class="dropdown-toggle" data-toggle="dropdown"><img src="../img/ProfilePic.jpg" alt="v" class="profLog"> <i class="fa fa-caret-down" aria-hidden="true"></i></a>
+            <ul class="dropdown-menu">
+                @if (IsActive == "Active")
+                {
+                    <li><a href="@Url.Action("GetUserPackageDetails", "DashBoard")">My Subscription</a></li>
+                }
+                <li><a href="@Url.Action("ChangePassword", "DashBoard")">Change Password</a></li>
+                <li><a href="@Url.Action("Index", "Home")">Logout</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>
+
+@*<div class="collapse navbar-collapse" id="navbar">
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="@Url.Action("GetMyProfile", "DashBoard")">My Profile</a></li>
+            <li><a href="@Url.Action("SearchCriteria", "DashBoard")">Search</a></li>
+            <li><a href="@Url.Action("BestLiked", "DashBoard", new { pageIndex = 1 })">Best-Liked</a></li>
+            <li><a href="@Url.Action("WhoViewedMe", "DashBoard")">Who Viewed Me</a></li>
+
+            @{
+                string IsActive = Convert.ToString(Session["IsUserAcitive"]);
+                if (IsActive == "Active")
+                {
+                    <li>
+
+                        <a href="#" style="color:#fff; font-size:14px;"><span class="upGr" id="str">UPGRADED</span></a>
+                    </li>
+
+                }
+                else
+                {
+                    <li>
+                        <a href="@Url.Action("Packages", "DashBoard")" style="color:#fff; font-size:14px;"><span class="upGr">UPGRADE NOW</span></a>
+                    </li>
+                }
+
+            }
+            <li class="dropdown">
+                <a href="" class="dropdown-toggle" data-toggle="dropdown"><img src="../img/ProfilePic.jpg" alt="v" class="profLog"> <i class="fa fa-caret-down" aria-hidden="true"></i></a>
+                <ul class="dropdown-menu">
+                    @if (IsActive == "Active")
+                    {
+                        <li><a href="@Url.Action("GetUserPackageDetails", "DashBoard")">My Subscription</a></li>
+                    }
+                    <li><a href="@Url.Action("ChangePassword", "DashBoard")">Change Password</a></li>
+
+                    <li><a href="@Url.Action("Index", "Home")">Logout</a></li>
+
+                </ul>
+            </li>
+
+        </ul>
+    </div>*@

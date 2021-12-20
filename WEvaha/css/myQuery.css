@@ -1,0 +1,354 @@
+@font-face {
+    font-family: myHeading;
+    src: url(../fonts/MicroExtendFLF.ttf);
+}
+
+
+/* The container */
+
+.wevahaHead {
+    font-family: myHeading;
+    font-size: 32px;
+    color: #B0B000;
+}
+
+.wevahaBanHead {
+    font-family: myHeading;
+    font-size: 24px;
+    color: #1d1c1c;
+    padding-left: 50px;
+    font-weight: bold;
+}
+
+.img-resp {
+    width: 100%;
+    height: 100%;
+}
+
+
+/* Inner Banners */
+
+.banner_area {
+    position: relative;
+    /* background: url(../img/banner/abt_innerBan.jpg) no-repeat center right;*/
+    z-index: 1;
+    min-height: 392px;
+    padding-top: 0 !important;
+}
+
+
+    .banner_area .banner_inner {
+        position: relative;
+        overflow: hidden;
+        width: 100%;
+        min-height: 392px;
+        z-index: 1;
+    }
+
+
+
+        .banner_area .banner_inner .overlay {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            background: rgba(175, 175, 177, 0.1);
+        }
+
+        .banner_area .banner_inner .banner_content {
+            position: relative;
+            z-index: 2;
+            color: #fff;
+        }
+
+            .banner_area .banner_inner .banner_content h2 {
+                color: #fff;
+                font-size: 45px;
+                margin-bottom: 0px;
+            }
+
+            .banner_area .banner_inner .banner_content .page_link {
+                display: inline-block;
+                padding: 7px 20px;
+            }
+
+                .banner_area .banner_inner .banner_content .page_link a {
+                    font-size: 15px;
+                    color: #fff;
+                    font-family: "Roboto", sans-serif;
+                    margin-right: 20px;
+                    position: relative;
+                    text-transform: capitalize;
+                }
+
+                    .banner_area .banner_inner .banner_content .page_link a:before {
+                        content: "/";
+                        position: absolute;
+                        right: -15px;
+                        top: 50%;
+                        transform: translateY(-50%);
+                    }
+
+                    .banner_area .banner_inner .banner_content .page_link a:last-child {
+                        margin-right: 0px;
+                    }
+
+                        .banner_area .banner_inner .banner_content .page_link a:last-child:before {
+                            display: none;
+                        }
+
+
+
+/* Inner Banners */
+
+.container1 {
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    font-size: 17px;
+    color: #7b838a;
+}
+
+    /* Hide the browser's default radio button */
+    .container1 input {
+        opacity: 0;
+        /* cursor: pointer;*/
+    }
+
+/* Create a custom radio button */
+.checkmark1 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: #eee;
+    border: 2px #098a94 solid;
+    border-radius: 50%;
+}
+
+/* On mouse-over, add a grey background color */
+.container1:hover input ~ .checkmark1 {
+    background-color: #cee8ea;
+}
+
+/* When the radio button is checked, add a blue background */
+.container1 input:checked ~ .checkmark1 {
+    background: url(../img/check.png) no-repeat #098a94 center;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.checkmark1:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.container1 input:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.container1 .checkmark1:after {
+    top: 9px;
+    left: 9px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #FC0;
+}
+
+
+
+/* Create a custom radio button */
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: #eee;
+    border: 2px #e50e88 solid;
+    border-radius: 50%;
+}
+
+/* On mouse-over, add a grey background color */
+.container1:hover input ~ .checkmark {
+    background-color: #cee8ea;
+}
+
+/* When the radio button is checked, add a blue background */
+.container1 input:checked ~ .checkmark {
+    background: url(../img/check.png) no-repeat #e50e88 center;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.container1 input:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.container1 .checkmark:after {
+    top: 9px;
+    left: 9px;
+    /*width: 8px;
+	height: 8px;*/
+    border-radius: 50%;
+    background: #FC0;
+}
+
+
+.has-search .form-control {
+    padding-left: 3rem;
+}
+
+.has-search .form-control-feedback {
+    position: absolute;
+    display: block;
+    width: 3rem;
+    height: 3rem;
+    line-height: 2.5rem;
+    text-align: center;
+    pointer-events: none;
+    color: #585a5c;
+}
+
+
+.menuLogin {
+    border: 1px solid #333;
+    padding: 10px 15px;
+    border-radius: 20px;
+}
+
+
+.topLogin {
+    font-size: 14px;
+    font-weight: 400;
+    background: #333;
+    padding: 5px 19px;
+    border-radius: 10px;
+}
+
+.BanBoxSize {
+    position: absolute;
+    top: 0px;
+    width: 400px;
+    background: #afcef1;
+    border: 3px #fff solid;
+    padding: 20px;
+    box-shadow: 5px 5px 5px #63655e;
+    margin-bottom: 100px;
+}
+
+.BanBoxLeft {
+    padding-left: 70px;
+}
+
+.H2Pad {
+    color: #F10E3C;
+    font-weight: 500;
+    padding-left: 70px;
+}
+
+.loBtn {
+    width: 100%;
+    opacity: 1;
+    z-index: 10000;
+}
+
+.topBgTxt {
+    font-family: Tahoma, Geneva, sans-serif;
+    font-size: 17px;
+    color: #fff;
+    padding-top: 16px;
+    text-shadow: 1px 1px 1px #666666;
+}
+
+.Borgradient {
+    border-style: solid;
+    border-width: 5px;
+    border-image: linear-gradient(45deg, rgb(226,91,72), rgb(215,159,172), rgb(108,161,187)) 1;
+    border-left: none;
+    border-right: none;
+}
+
+
+
+.Borgradientcomp {
+ /* border-style: solid;
+  border:6px solid #fff;*/
+   border-radius:10px;
+}
+
+
+@media only screen and (max-width: 786px) {
+
+    .menuLogin {
+        border: none;
+        padding-left: 0px;
+        border-radius: 0px;
+    }
+
+
+    .topLogin {
+        font-size: 12px;
+        font-weight: 400;
+        background: #333;
+        padding: 5px 10px;
+        border-radius: 10px;
+    }
+
+    .BanBoxSize {
+        position: absolute;
+        top: 0px;
+        width: 350px;
+        background: #afcef1;
+        border: 3px #fff solid;
+        padding: 20px;
+        box-shadow: 5px 5px 5px #63655e;
+        margin-bottom: 100px;
+    }
+
+    .BanBoxLeft {
+        padding-left: 7px;
+    }
+
+    .H2Pad {
+        color: #fff;
+        font-weight: normal;
+        text-shadow: 2px 2px 2px #666666;
+        margin-top: 60px;
+    }
+
+    .container1 {
+        position: relative;
+        padding-left: 29px;
+        margin-bottom: 0px;
+        cursor: pointer;
+        font-size: 15px;
+    }
+
+    .loBtn {
+        width: 80%;
+        opacity: 1;
+        z-index: 10000;
+    }
+}
+
+@media only screen and (max-width: 1199px) {
+    .single_feature p {
+        font-size: 15px;
+        margin-bottom: 0px;
+        text-align: justify;
+    }
+}

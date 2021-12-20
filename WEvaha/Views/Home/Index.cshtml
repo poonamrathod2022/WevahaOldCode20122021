@@ -1,0 +1,1111 @@
+@model WEvaha.Models.DashboardProfileModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout_Main.cshtml";
+}
+<!--================ Start Home Banner Area =================-->
+<script>
+    $.getJSON('https://geoip-db.com/json/geoip.php?jsonp=?')
+        .done(function (location) {
+            $("#hdLocation").val(location.country_name + ',' + location.state + ',' + location.city);
+        });
+</script>
+<style>
+    .error {
+        color: #F00;
+    }
+</style>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#ddlRelationshipStatus").val("10");
+        $("#ddlFoodPreference").val("360");
+        $("#ddlEducation").val("415");
+        $("#ddlLanguage").val("29");
+        //$("#ddlJob :selected").val()
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#txtDOB').datepicker({
+            dateFormat: "dd/mm/yy",
+            changeMonth: true,
+            changeYear: true,
+            yearRange: "-60:-18"
+        });
+        $('#dropdownID').val("Value to be selected");
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#ddlLanguage").change(function () {
+            var langId = $(this).val();
+            $.ajax({
+            url: "@Url.Action("GetCastebyLanguage", "DashBoard")",
+                data: { LanguageId: langId},
+            dataType: "json",
+            type: "GET",
+            error: function () {
+                alert(" An error occurred.");
+            },
+            success: function (data) {
+                $(".castestyle").html('');
+                var optionhtml1 = '<option value="' +
+                    0 + '">' + "Select Caste" + '</option>';
+                $(".castestyle").append(optionhtml1);
+                $.each(data, function (i) {
+                    var optionhtml = '<option value="' + data[i].Value + '">' +data[i].Text + '</option>';
+                    $(".castestyle").append(optionhtml);
+                });
+            }
+            });
+        });
+        $("#ddlslanguage").change(function () {
+            var langId = $(this).val();
+            $.ajax({
+            url: "@Url.Action("GetCastebyLanguage", "DashBoard")",
+                data: { LanguageId: langId},
+            dataType: "json",
+            type: "GET",
+            error: function () {
+                alert(" An error occurred.");
+            },
+            success: function (data) {
+                $("#ddlsCaste").html('');
+                var optionhtml1 = '<option value="' +
+                    0 + '">' + "Select Caste" + '</option>';
+                $("#ddlsCaste").append(optionhtml1);
+                $.each(data, function (i) {
+                    var optionhtml = '<option value="' + data[i].Value + '">' +data[i].Text + '</option>';
+                    $("#ddlsCaste").append(optionhtml);
+                });
+            }
+            });
+        });
+        $("#ddlCountry").change(function () {
+            var CountryId = $(this).val();
+             $.ajax({
+            url: "@Url.Action("States", "DashBoard")",
+                 data: { CountryId: CountryId},
+            dataType: "json",
+            type: "GET",
+            error: function () {
+                alert(" An error occurred.");
+            },
+            success: function (data) {
+                $("#ddlState").html('');
+                var optionhtml1 = '<option value="' +
+                    0 + '">' + "Select State" + '</option>';
+                $("#ddlState").append(optionhtml1);
+                $.each(data, function (i) {
+                    var optionhtml = '<option value="' + data[i].Value + '">' +data[i].Text + '</option>';
+                    $("#ddlState").append(optionhtml);
+                });
+            }
+            });
+        });
+        //
+        $("#ddlState").change(function () {
+            var StateId = $(this).val();
+            var CountryId = $("#ddlCountry option:selected").val();
+             $.ajax({
+            url: "@Url.Action("Cities", "DashBoard")",
+                 data: { StateId: StateId},
+            dataType: "json",
+            type: "GET",
+            error: function () {
+                alert(" An error occurred.");
+            },
+            success: function (data) {
+                $("#ddlCity").html('');
+                var optionhtml1 = '<option value="' +
+                    0 + '">' + "Select City" + '</option>';
+                $("#ddlCity").append(optionhtml1);
+                $.each(data, function (i) {
+                    var optionhtml = '<option value="' + data[i].Value + '">' +data[i].Text + '</option>';
+                    $("#ddlCity").append(optionhtml);
+                });
+            }
+            });
+        });
+        $("#ddlJobCountry").change(function () {
+            var jCountryId = $(this).val();
+             $.ajax({
+            url: "@Url.Action("States", "DashBoard")",
+                 data: { CountryId: jCountryId},
+            dataType: "json",
+            type: "GET",
+            error: function () {
+                alert(" An error occurred.");
+            },
+            success: function (data) {
+                $("#ddlJobState").html('');
+                var optionhtml3 = '<option value="' +
+                    0 + '">' + "Select State" + '</option>';
+                $("#ddlJobState").append(optionhtml3);
+                $.each(data, function (i) {
+                    var optionhtm3 = '<option value="' + data[i].Value + '">' +data[i].Text + '</option>';
+                    $("#ddlJobState").append(optionhtm3);
+                });
+            }
+            });
+        });
+        //
+        $("#ddlJobState").change(function () {
+            var jStateId = $(this).val();
+           $.ajax({
+            url: "@Url.Action("Cities", "DashBoard")",
+                 data: { StateId: jStateId},
+            dataType: "json",
+            type: "GET",
+            error: function () {
+                alert(" An error occurred.");
+            },
+            success: function (data) {
+                $("#ddlJobCity").html('');
+                var optionhtml2 = '<option value="' +
+                    0 + '">' + "Select City" + '</option>';
+                $("#ddlJobCity").append(optionhtml2);
+                $.each(data, function (i) {
+                    var optionhtml6 = '<option value="' + data[i].Value + '">' +data[i].Text + '</option>';
+                    $("#ddlJobCity").append(optionhtml6);
+                });
+            }
+            });
+        });
+
+    });
+</script>
+<section class="home_banner_area">
+    <div class="banner_inner">
+        <video autoplay muted="" loop id="myVideo">
+            <source src="../img/GirlBrowsing.mp4" type="video/mp4">
+            Your browser does not support HTML5 video.
+        </video>
+        <div class="container" style="position:absolute; top:80px; left:0px;">
+
+            <div class="row">
+                <div class="col-md-6" style="text-align:center;">
+                    <h5 class="wevahaBanHead">Most Trusted Indian Dating Site</h5>
+                </div>
+                <div class="col-md-6"></div>
+            </div>
+            <div class="row">
+                <div class="col-md-5 BanBoxLeft">
+                    <div class="BanBoxSize">
+                        <form id="RegisterForm" name="RegisterForm">
+                            <h3 class="text-center" style="color:#333; font-weight:400;">FIND <span style="color:#333;">LOVE</span> FOR <span style="color:#333;">LIFE</span>!</h3>
+                            <hr color="#FFFFFF" width="50%" style="margin-bottom:20px;">
+
+
+                            <div style="position:relative;">
+
+                                <div style="float:left; width:48%;">
+                                    <span style="color:#333; padding-left:10px;">I am</span>
+                                    <div style="border:1px solid #ccc; padding:10px 20px 0px 10px; border-radius:10px; background:#fff; margin-bottom:10px;">
+                                        <label class="container1">
+                                            a woman
+                                            <input type="radio" name="Gender" id="Gender" value="2">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
+
+                                    <div style="border:1px solid #ccc; padding:10px 20px 0px 10px; border-radius:10px; background:#fff; margin-bottom:10px;">
+                                        <label class="container1">
+                                            a man
+                                            <input type="radio" name="Gender" id="Gender" value="1">
+                                            <span class="checkmark1"></span>
+                                        </label>
+                                    </div>
+
+
+                                </div>
+
+                                <div style="float:right; width:48%;">
+                                    <span style="color:#333; padding-left:10px;">Looking for</span>
+                                    <div style="border:1px solid #ccc; padding:10px 20px 0px 10px; border-radius:10px; background:#fff; margin-bottom:10px;">
+                                        <label class="container1">
+                                            a woman
+                                            <input type="radio" name="SeekingGender" id="SeekingGender" value="2" />
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
+
+                                    <div style="border:1px solid #ccc; padding:10px 20px 0px 10px; border-radius:10px; background:#fff; margin-bottom:10px;">
+                                        <label class="container1">
+                                            a man
+                                            <input type="radio" name="SeekingGender" id="SeekingGender" value="1">
+                                            <span class="checkmark1"></span>
+                                        </label>
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+
+                            <div></div>
+
+
+                            <div class="form-group has-search" style="background:#fff; border-radius:10px; float:left; width:100%;">
+                                <span class="fa fa-envelope form-control-feedback"></span>
+                                <input type="hidden" id="hdLocation" name="hdLocation" value="" />
+                                <input type="text" name="email" id="email" class="form-control" placeholder="Your Mail" style="opacity:1; padding-bottom:15px; padding-top:15px;">
+                            </div>
+
+                            <div class="form-group has-search" style="background:#fff; border-radius:10px; float:left; width:100%;">
+                                <span class="fa fa-lock form-control-feedback"></span>
+                                <input type="password" name="password" id="password" class="form-control" placeholder="Create your Password" style="opacity:1; padding-bottom:15px; padding-top:15px;">
+                            </div>
+
+                            <div class="form-group has-search" style="background:#fff; border-radius:10px; float:left; width:100%;">
+                                <span class="fa fa-lock form-control-feedback"></span>
+                                <input type="password" name="cnfpassword" id="cnfpassword" class="form-control" placeholder="Confirm Password" style="opacity:1; padding-bottom:15px; padding-top:15px;">
+
+                            </div>
+
+                            @*<div class="form-group has-search" style="background:#fff; border-radius:10px; float:left; width:100%;">
+                                    <span class="fa fa-camera form-control-feedback"></span>
+                                    <input type="file" id="fileupload" name="fileupload" class="form-control-file" placeholder="Your Mail" style="opacity:1; padding-bottom:5px; padding-top:5px; padding-left:40px;">
+                                </div>*@
+
+                            <div style="float:left; width:100%;">
+                                <p style="color:#333; font-size:12px; line-height:18px;">By clicking below to Get Started, you confirm that you agree to our <a href="@Url.Action("TermsofUse", "Home")" style="color:#0066CC;">Terms & Conditions</a> and you have read & understood our <a href="@Url.Action("PrivacyPolicy", "Home")" style="color:#0066CC;">Privacy Policy</a></p>
+                            </div>
+
+                            <div style="float:left; width:100%; ">
+                                <button class="loBtn" id="btnSubmit" name="btnSubmit" type="submit" style="background: url( ../img/loginBtn.png) no-repeat; cursor:pointer; padding:27px 0px; border:0px;"></button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+                <div class="col-md-7"></div>
+            </div>
+        </div>
+
+
+    </div>
+</section>
+
+
+
+
+<section class="feature_area section_gap_top" style="background:#fe6f61;">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="main_title text-center">
+                    <h2 class="mb-3 wevahaHead"><span style="color:#fff;">Spend Time</span> <span style="color:#fff;">–</span> <span style="color:#fff;">It’s your Life</span></h2>
+
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-4">
+                <div class="single_feature Borgradientcomp" style="background:#afcef1;">
+                    <div class="icon text-center"><img src="../img/like-minded-Img.png" class="img-resp" alt="match"></div>
+                    <div class="desc">
+                        <div class="mt-3 mb-2 text-center" style="color:#000; font-size:23px; font-weight:500;">Like-Minded Connections</div>
+                        <div style="padding:0px 15px 25px 15px; margin-top:15px;">
+                            <p style="color:#fff;">
+                                WE do things a little differently, while you provide us your requirements our system’s Best-Algorithms will Predict & Present Like-Minded Matches for you to choose from.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4">
+                <div class="single_feature Borgradientcomp" style="background:#fdcea5;">
+                    <div class="icon text-center"><img src="../img/traditional-Img.png" class="img-resp" alt="match"></div>
+                    <div class="desc">
+                        <div class="mt-3 mb-2 text-center" style="color:#000; font-size:23px; font-weight:500;">Traditional Affinity</div>
+                        <div style="padding:0px 15px 25px 15px; margin-top:15px;">
+                            <p style="color:#fff;">
+                                WE Value Traditions the most, but within those traditions a Compatibility Companion is what we value the utmost. WE are here to help you to make you do it Right.
+
+
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4">
+                <div class="single_feature Borgradientcomp" style="background:#afcef1;">
+                    <div class="icon text-center" style="border-radius:10px; border:hidden;"><img src="../img/confi-Img.png" class="img-resp" alt="match"></div>
+                    <div class="desc">
+                        <div class="mt-3 mb-2 text-center" style="color:#000; font-size:23px; font-weight:500;">Highest Quality Dating Pool</div>
+                        <div style="padding:0px 15px 25px 15px; margin-top:15px;">
+                            <p style="color:#fff;">
+                                Your Search for a Great Relationship has Never Been this Easier. WEvaha is an Indian Dating Site that Help Millions Find True Love. Find Your True Love!
+
+
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<div class="container-fluid" style="background:#9cdcec;">
+    <div class="container" style="padding:50px 0px;">
+
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <div style="color:#000; font-size:40px; font-weight:500; margin-bottom:15px; line-height:50px;">Traditional Compatibility</div>
+
+                <p style="color:#333; line-height:1.6em; font-size:18px;">Traditional Internet Dating or Matrimonial sites can be challenging for Indian singles looking for Love that lasts. WEvaha’ is not just any Dating or Matrimonial site, it’s AI Driven Algorithms are specifically designed for Indian singles to meet Like-Minded Compatible Profiles from thousands of Matches with a select group of Compatible Matches which whom you can Build a Quality Relationship that lasts long.</p>
+            </div>
+        </div>
+
+
+
+
+        <div class="row" style="padding:15px 0px;">
+            <div class="col-md-6">
+                <img src="../img/team-img1.jpg" class="img-resp" alt="team" style="border-radius:10px;">
+            </div>
+            <div class="col-md-6" style="padding-top:10px;">
+                <div class="mt-3 mb-2" style="color:#000; font-size:40px; font-weight:500; margin-bottom:15px; line-height:50px;">Most Trusted Indian Dating Site</div>
+
+                <p style="color:#333; line-height:1.6em; font-size:18px;">Data protection is our top priority at WEvaha. We ensure that your data stays safe and you get control over information on public display. It helps you showcase basic details to every potential connection, while more delicate information stay safe until you approve a connection request. It helps you ensure that not all your details are revealed to visitors. Further, the data is stored on our servers in encrypted form, making it safe storage.</p>
+
+                <br>
+
+
+                <div class="mt-3 mb-2" style="color:#000;  font-size:40px; font-weight:500; margin-bottom:15px; line-height:50px; text-align:center;">
+                    Getting over the Fantasy <br>
+                    of Dating Someone!
+                </div>
+                <p style="color:#333; line-height:1.6em; font-size:18px;">We help you get the Best Match based on your profile details. WEvaha uses advanced Algorithms to provide you with better search results and recommended connections. It can help you streamline your selection process and find a better companion. Our team is continuously working on AI Infused Algorithms to better analyze provide better compatible matches to your choice.</p>
+            </div>
+        </div>
+
+
+        <div class="row" style="padding:25px 0px;">
+
+            <div class="col-md-6" style="padding-top:30px;">
+
+                <div class="mt-3 mb-2" style="color:#000; font-size:40px; font-weight:500; margin-bottom:15px; line-height:50px;">Personalized Matchmaking!</div>
+                <p style="color:#333; line-height:1.6em; font-size:18px;">WEvaha is the best Indian Dating Site and the Best Indian Matrimonial Site. We have the largest catalogue of Indian singles looking for a suitable partner. Get matched with the right companion using our best algorithms and schedule a date. You can create your account at WEvaha now and start looking for your companion. We are here to help you find a suitable partner.</p>
+            </div>
+
+            <div class="col-md-6">
+                <img src="../img/team-img.jpg" class="img-resp" alt="team" style="border-radius:15px;">
+            </div>
+        </div>
+
+
+
+    </div>
+</div>
+
+
+<div class="container-fluid Borgradient-bot" style="background:#fe6f61;">
+    <div class="container">
+
+
+        <div class="row">
+
+            <div class="col-md-6" style="padding-top:80px;">
+                <h2 class="wevahaHead"><span style="color:#fff;">Choose Right</span> <span style="color:#fff;">–</span> <span style="color:#fff;">Choose Bright</span></h2><br>
+
+
+                <p style="color:#fff;">The key to a successful marriage is a successful relationship. Vital Characteristics are based on knowledge and experience, and are more likely to alter based on life-events and results we get. You can find matches on the default criteria or you can have WEvaha.com application choose the match for you based on the 5 sectors or you can create a search agent.</p>
+            </div>
+            <div class="col-md-6 " style=" padding:50px 10px;"><img src="../img/fwdregimageswithwevaha_17.jpg" alt="img" style="border:6px #fff solid; width:100%; height:100%; border-radius:10px;"></div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="container-fluid" style="background:url(../img/banner/find-Banner-1.jpg) center; background-size:cover; padding:40px 0px 30px 0px; border-top:3px #085b82 solid; ">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <span class="mt-3 mb-2 text-center" style="color:#0d6289; font-size:30px; font-weight:500;">It’s All About Personalization</span><br><br>
+
+                <span class="mt-3 mb-2 text-center" style="color:#4c7986; font-size:24px; font-weight:normal; font-style:italic;">WEvaha is the Premier Indian Dating Site for Indian Singles Looking to <br>make a Great Connection with Other Indian Singles.</span><br>
+
+
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 text-center">
+                <div style=" margin:20px 0px;">
+                    <img src="../img/sign-icon.png" alt="signup">
+                    <span class="mt-3 mb-2 text-center" style="color:#0d6289; font-size:22px; font-weight:500; padding-left:10px;">Sign Up</span>
+                </div>
+
+                <p style="color:#33535d;">Start your journey of finding your special someone. Register for free on WEvaha, and set up your profile. Make your profile visible to your potential partner at WEvaha. Anyone interested in your profile can send you a connection request.</p>
+
+            </div>
+
+            <div class="col-md-4 text-center">
+                <div style=" margin:20px 0px;">
+                    <img src="../img/connect-icon.png" alt="signup">
+                    <span class="mt-3 mb-2 text-center" style="color:#0d6289; font-size:22px; font-weight:500; padding-left:10px;">Connect</span>
+                </div>
+
+                <p style="color:#33535d;">Find profiles that match your requirements. Find a suitable Indian partner online at WEvaha. Send connection requests after checking out the bio of your potential partner. See how things go from there!</p>
+
+            </div>
+
+            <div class="col-md-4 text-center">
+                <div style=" margin:20px 0px;">
+                    <img src="../img/interact-icon.png" alt="signup">
+                    <span class="mt-3 mb-2 text-center" style="color:#0d6289; font-size:22px; font-weight:500; padding-left:10px;">Interact</span>
+                </div>
+
+                <p style="color:#33535d;">Once connected, start a conversation with your potential partner. Schedule a meeting andcheck your compatibility. After all, your next interaction may turn out special. So, skim through your connections at WEvaha and start talking now.</p>
+
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+
+
+<div class="container-fluid Borgradient" style="background:url(img/banner/tradiBanner.jpg) center; background-size:cover; padding:40px 0px 100px 0px; ">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-right">
+                <h2 class="wevahaHead" style="color:#2D2D2D;">A Traditional and Scientific Compatibility</h2>
+                <br>
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 text-center"></div>
+            <div class="col-md-8">
+
+
+                <p style="color:#14466f; font-size:18px; font-weight:600;">Our core committee has designed some basic questions which would actually help you and our system to search suitable matches. After all it’s 1 life and you need 1 Right partner. These questions are what differentiate’s WEvaha from other matrimonial website competitors.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content" style=" background:url(../assets/img/popupHbg.jpg) repeat-x;">
+            <div class="modal-header">
+                <div style="color:#fff; font-size:23px; font-weight:500;">Personal Details</div>
+            </div>
+            <div class="modal-body" style="padding:20px 40px; background:#fff;">
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-12" style="padding-left:0px;">
+                            <h4 style="font-size:16px; color:#3ca0a8; font-weight:500;">About Myself</h4>
+                        </div>
+                    </div>
+                </div>
+                <form id="RegisterPopup" name="RegisterPopup">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6" style="padding-left:0px;">
+                                <label style="font-size:15px; font-weight:500;">First Name <span class="ReDot">*</span></label>
+                                @Html.TextBoxFor(model => model.PersonalDetails.ProfileName, new { @class = "form-control", @id = "txtProfileName", @name = "txtProfileName" })
+                                @Html.HiddenFor(model => model.PersonalDetails.ProfileId, new { @id = "hdnProfileId", @name = "hdnProfileId" })
+                            </div>
+                            <div class="col-md-6" style="padding:0px;">
+                                <label style="font-size:15px; font-weight:500;">Last Name <span class="ReDot">*</span></label>
+                                @Html.TextBoxFor(model => model.PersonalDetails.ProfileLastName, new { @class = "form-control", @id = "txtProfileLastName", @name = "txtProfileLastName" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6" style="padding-left:0px;">
+                                <label style="font-size:15px; font-weight:500;">Date of Birth <span class="ReDot">*</span></label>
+                                @Html.TextBoxFor(model => model.PersonalDetails.DateofBirth, new { @id = "txtDOB", @name = "txtDOB", @placeholder = "dd-mm-yyyy", @class = "form-control", @autocomplete = "off" })
+                            </div>
+                            <div class="col-md-6" style="padding:0px;">
+                                <label style="font-size:15px; font-weight:500;">Mobile Number <span class="ReDot">*</span></label>
+                                @Html.TextBoxFor(model => model.PersonalDetails.Mobile, new { @class = "form-control", @id = "txtMobile", @type = "tel", @name = "txtMobile", @style = "width:100%" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6" style="padding-left:0px;">
+                                <label style="font-size:15px; font-weight:500;">Relationship Status <span class="ReDot">*</span></label>
+                                @Html.DropDownListFor(model => model.AboutMySelf.RelationshipStatus, new SelectList(Model.AboutMySelf.RelationshipStatusOpti, "Value", "Text"), new { @id = "ddlRelationshipStatus", @class = "form-control" })
+                            </div>
+                            <div class="col-md-6" style="padding-left:0px; padding-top:25px;">
+                                @Html.TextBoxFor(model => model.AboutMySelf.RelationshipDetails, new { @class = "form-control", @id = "txtRelationshipDetails", @name = "txtRelationshipDetails", @placeholder = "Relationship Details" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6" style="padding-left:0px;">
+                                <label style="font-size:15px; font-weight:500;">Occupation <span class="ReDot">*</span></label>
+                                @Html.DropDownListFor(model => model.AboutMySelf.Job, new SelectList(Model.AboutMySelf.JobOpti, "Value", "Text"), "Select Occupation", new { @id = "ddlJob", @class = "form-control" })
+
+                            </div>
+                            <div class="col-md-6" style="padding-left:0px; padding-top:25px;">
+                                @Html.TextBoxFor(model => model.AboutMySelf.JobDetails, new { @class = "form-control", @id = "txtJobDetails", @name = "txtJobDetails", @placeholder = "Occupation Details" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6" style="padding-left:0px;">
+                                <label style="font-size:15px; font-weight:500;">Religion </label>
+                                @Html.DropDownListFor(model => model.AboutMySelf.Religion, new SelectList(Model.AboutMySelf.ReligionOpti, "Value", "Text"), new { @id = "ddlReligion", @class = "form-control" })
+                            </div>
+                            <div class="col-md-6" style="padding:0px;">
+                                <label style="font-size:15px; font-weight:500;">Language (Mother Tongue) <span class="ReDot">*</span></label>
+                                @Html.DropDownListFor(model => model.AboutMySelf.Language, new SelectList(Model.AboutMySelf.LanguageOpti, "Value", "Text"), new { @class = "form-control", @id = "ddlLanguage" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6" style="padding-left:0px;">
+                                <label style="font-size:15px; font-weight:500;">Caste </label>
+                                @Html.DropDownListFor(model => model.AboutMySelf.Caste, new SelectList(Model.AboutMySelf.sCasteOpti, "Value", "Text"), "Select Caste", new { @class = "castestyle form-control", @id = "ddlCaste" })
+                            </div>
+                            <div class="col-md-6" style="padding:0px;">
+                                <label style="font-size:15px; font-weight:500;">Food Preferences </label>
+                                @Html.DropDownListFor(model => model.AboutMySelf.FoodPreference, new SelectList(Model.AboutMySelf.FoodPreferences, "Value", "Text"), new { @class = "form-control", @id = "ddlFoodPreference" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6" style="padding-left:0px;">
+                                <label style="font-size:15px; font-weight:500;">Height </label>
+                                @Html.DropDownListFor(model => model.AboutMySelf.Height, new SelectList(Model.AboutMySelf.HeightOpti, "Value", "Text"), "Select Height", new { @id = "ddlHeight", @class = "form-control" })
+                            </div>
+                            <div class="col-md-6" style="padding:0px;">
+                                <label style="font-size:15px; font-weight:500;">Email ID</label>
+                                @Html.TextBoxFor(model => model.userProfile.Email, new { @id = "txtEmailid", @class = "form-control", @placeholder = "Email", @disabled = "disabled", @Value = ViewBag.Email })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6" style="padding-left:0px;">
+                                <label style="font-size:15px; font-weight:500;">Qualification </label>
+                                @Html.DropDownListFor(model => model.AboutMySelf.Education, new SelectList(Model.AboutMySelf.EducationOpti, "Value", "Text"), "Education", new { @id = "ddlEducation", @class = "form-control" })
+                            </div>
+                            <div class="col-md-6" style="padding:0px; padding-top:25px;">
+
+                                @Html.TextBoxFor(model => model.AboutMySelf.EducationDetails, new { @class = "form-control", @id = "txtEducationDetails", @name = "txtEducationDetails", @placeholder = "Qualification Details" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-12" style="padding:15px 0px;">
+                                <h4 style="font-size:16px; color:#3ca0a8; font-weight:500;">Image Upload <span class="ReDot">*</span></h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-12" style="margin-bottom:15px;">
+                                <input type="file" id="fileupload" name="fileupload" class="form-control-file" placeholder="Your Mail">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-12" style="padding:15px 0px;">
+                                <h4 style="font-size:16px; color:#3ca0a8; font-weight:500;">Home Town Address </h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label style="font-size:15px;">Country <span class="ReDot">*</span></label>
+                                @Html.DropDownListFor(model => model.PersonalDetails.Country, new SelectList(Model.PersonalDetails.CountryOpti, "Value", "Text"), "Country", new { @class = "form-control", @id = "ddlCountry" })
+                            </div>
+                            <div class="col-md-3">
+                                <label style="font-size:16px;">State <span class="ReDot">*</span></label>
+                                @Html.DropDownListFor(model => model.PersonalDetails.State, new SelectList(Model.PersonalDetails.StateOpti, "Value", "Text"), "State", new { @class = "form-control", @id = "ddlState" })
+                            </div>
+
+                            <div class="col-md-3">
+                                <label style="font-size:15px;">City</label>
+                                @Html.DropDownListFor(model => model.PersonalDetails.City, new SelectList(Model.PersonalDetails.CityOpti, "Value", "Text"), "City", new { @class = "form-control", @id = "ddlCity" })
+                            </div>
+                            <div class="col-md-3">
+                                <label style="font-size:16px;">Zip Code </label>
+                                @Html.TextBoxFor(model => model.PersonalDetails.Zipcode, new { @class = "form-control", @id = "txtZipcode" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-12" style="padding:15px 0px;">
+                                <h4 style="font-size:15px; color:#3ca0a8; font-weight:500;">Current Job/Residence</h4>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="clearfix"></div>
+                    <div class="form-group">
+
+                        <div class="col-md-12" style="padding-bottom:15px;">
+                            @Html.CheckBoxFor(model => model.PersonalDetails.IsSameasAbove, new { @id = "chkjob", @name = "chkjob" }) Same as above
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label style="font-size:15px;">Country <span class="ReDot">*</span></label>
+                                @Html.DropDownListFor(model => model.PersonalDetails.JobCountry, new SelectList(Model.PersonalDetails.JobCountryOpti, "Value", "Text"), "Country", new { @class = "form-control", @id = "ddlJobCountry" })
+                            </div>
+                            <div class="col-md-3">
+                                <label style="font-size:16px;">State <span class="ReDot">*</span></label>
+                                @Html.DropDownListFor(model => model.PersonalDetails.JobState, new SelectList(Model.PersonalDetails.JobStateOpti, "Value", "Text"), "State", new { @class = "form-control", @id = "ddlJobState" })
+                            </div>
+
+                            <div class="col-md-3">
+                                <label style="font-size:15px;">City </label>
+                                @Html.DropDownListFor(model => model.PersonalDetails.JobCity, new SelectList(Model.PersonalDetails.JobCityOpti, "Value", "Text"), "City", new { @class = "form-control", @id = "ddlJobCity" })
+                            </div>
+                            <div class="col-md-3">
+                                <label style="font-size:16px;">Zip Code </label>
+                                @Html.TextBoxFor(model => model.PersonalDetails.JobZipcode, new { @class = "form-control", @id = "txtJobZipcode" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-12" style="padding:0px;">
+                                <h4 style="font-size:16px; color:#3ca0a8; font-weight:500;">Myself </h4>
+                                @Html.TextAreaFor(model => model.PersonalDetails.Introduction, new { @name = "Indtoduction", @class = "form-control", @id = "Indtoduction", @placeholder = "Hi! While I’m still figuring this all out, here’s something I know for sure - I’m excited to be here! The chance to meet Unique, Engaging, and Interesting people is pretty dang neat. If you think you might fit that thought, drop me a message.", @rows = "4" })
+                            </div>
+                            (Please Write About Yourself or Use Default Message or  &nbsp; <a href="@Url.Action("DatingProfile", "Home")" target="_blank">Click Here</a> &nbsp;for help)
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="form-group text-center" style="margin-top:30px;">
+                        <button id="btnfSubmit" type="submit" style="background:#E00150; color:#fff; border-radius:10px; padding:10px 15px; font-size:16px; font-weight:500; cursor:pointer;">Save</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+           $('#btnSubmit').click(function () {
+            $("#RegisterForm").validate({
+                rules: {
+                    email: {
+                        required: true,
+                        email: true
+                    },
+
+                    password: {
+                        required: true,
+                        minlength: 6
+                    },
+
+                    cnfpassword: {
+                        required: true,
+                        equalTo: "#password"
+                    }
+
+                },
+                messages: {
+
+                    email: {
+                        required: "Enter Email",
+                        email: "Please Enter Valid Email"
+                    },
+                    password: {
+                        required: "Enter password",
+                        minlength: "Password must be at least 6 characters long"
+                    },
+                    cnfpassword: {
+                        required: "Enter confirm password",
+                        equalTo: "Password and Confirm password Miss-match"
+                    }
+                },
+                submitHandler: function (form) {
+                        var email = $("#email").val();
+                        var password = $("#password").val();
+                        var Gtype = $("input:radio[name='Gender']:checked").val();
+                    var SGtype = $("input:radio[name='SeekingGender']:checked").val();
+                    var location = $("#hdLocation").val();
+
+                    $.ajax({
+                        url: "@Url.Action("SaveRegister", "Home")",
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        data: { email: email, Gender: Gtype, SeekingGender: SGtype, password: password, Location: location},  // data to submit
+                        success: function (data, status, xhr) {
+                            if (data == -2) {
+                                swal({
+                                    icon: "warning",
+                                    text: "Given Email is already Registered with us",
+                                    type: "success",
+                                    buttons: false
+                                });
+                                window.setTimeout(function () { window.location = "../Home/Index"; }, 3000);
+                            }
+                            else {
+                                $("#txtEmailid").val(email);
+                                $("#hdnProfileId").val(data);
+                                $('#myModal').modal('show');
+                                $("#email").val('');
+                                $("#password").val('');
+                                $("#cnfpassword").val('');
+                            }
+                        },
+                        error: function (jqXhr, textStatus, errorMessage) {
+                            swal({
+                                icon: "warning",
+                                text: "Something Could be wrong",
+                                type: "success",
+                                buttons: false
+                            });
+                            window.setTimeout(function () { window.location = "../Home/Index"; }, 3000);
+                        }
+                    });
+
+                }
+            });
+        });
+
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#btnfSubmit').click(function () {
+            $('#RegisterPopup').validate({
+                rules: {
+
+                    'PersonalDetails.ProfileName': {
+                        required: true
+                    },
+
+                    'PersonalDetails.ProfileLastName': {
+                        required: true
+                    },
+                    'PersonalDetails.DateofBirth': {
+                        required: true
+                    },
+                    'PersonalDetails.Mobile': {
+                        required: true
+                    },
+
+                    'AboutMySelf.Language': {
+                        required: true
+                    },
+                    fileupload: {
+                        required: true
+                    },
+
+
+                    'AboutMySelf.Job': {
+                        required: true
+                    },
+                    'AboutMySelf.RelationshipStatus': {
+                        required: true
+                    },
+                    'AboutMySelf.Language': {
+                        required: true
+                    },
+                    'PersonalDetails.Country': {
+                        required: true
+                    },
+                    'PersonalDetails.State': {
+                        required: true
+                    },
+
+                    'PersonalDetails.JobCountry': {
+                        required: true
+                    },
+                    'PersonalDetails.JobState': {
+                        required: true
+                    }
+
+                },
+                messages: {
+
+                    'PersonalDetails.ProfileName': {
+                        required: "Enter your First Name "
+                    },
+                    'PersonalDetails.ProfileLastName': {
+                        required: "Enter your Last Name "
+                    },
+                    'PersonalDetails.DateofBirth': {
+                        required: "Enter your DateofBirth"
+                    },
+                    'PersonalDetails.Mobile': {
+                        required: "Enter your Mobile Number"
+                    },
+
+                    'AboutMySelf.Language': {
+                        required: "Select your Language "
+                    },
+                    fileupload: {
+                        required: "Upload your Profile Photo "
+                    },
+
+
+                    'AboutMySelf.Job': {
+                        required: "Select your Profession"
+                    },
+                    'AboutMySelf.RelationshipStatus': {
+                        required: "Select your Relationship Status "
+                    },
+                    'AboutMySelf.Language': {
+                        required: "Select your Known Language"
+                    },
+                    'PersonalDetails.Country': {
+                        required: "Select Home Country "
+                    },
+                    'PersonalDetails.State': {
+                        required: "Select Home State "
+                    },
+
+                    'PersonalDetails.JobCountry': {
+                        required: "Select your Job Country "
+                    },
+                    'PersonalDetails.JobState': {
+                        required: "Select your Job State"
+                    }
+
+
+                },
+                submitHandler: function (form) {
+                    var ProfileName = $("#txtProfileName").val();
+                    var ProfileId = $("#hdnProfileId").val();
+                    var ProfileLastName = $("#txtProfileLastName").val();
+                    var DateofBirth = $("#txtDOB").val();
+                    var Mobile = $("#txtMobile").val();
+                    var Countrycode = $("#txtMobile").intlTelInput("getSelectedCountryData").name;
+                    var RelationshipStatus = $("#ddlRelationshipStatus :selected").val();
+                    var Job = $("#ddlJob :selected").val();
+                    var Religion = $("#ddlReligion :selected").val();
+                    var Language = $("#ddlLanguage :selected").val();
+                    var Caste = $("#ddlCaste :selected").val();
+                    var FoodPreference = $("#ddlFoodPreference :selected").val();
+                    var Height = $("#ddlHeight :selected").val();
+                    var Education = $("#ddlEducation :selected").val();
+                    var Country = $("#ddlCountry :selected").val();
+                    var State = $("#ddlState :selected").val();
+                    var City = $("#ddlCity :selected").val();
+                    var Zipcode = $("#txtZipcode").val();
+                    var IsSameasAbove = $("#chkjob").is(':checked')
+                    var JobCountry = $("#ddlJobCountry :selected").val();
+                    var JobState = $("#ddlJobState :selected").val();
+                    var JobCity = $("#ddlJobCity :selected").val();
+                    var JobZipcode = $("#txtJobZipcode").val();
+                    var Introduction = $("#Introduction").val();
+                    var Email = $("#txtEmailid").val();
+                    var RelationDetail = $("#txtRelationshipDetails").val();
+                    var JonDetails = $("#txtJobDetails").val();
+                    var EduDetails = $("#txtEducationDetails").val();
+                    $.ajax({
+                        url: "@Url.Action("SaveProfile", "Home")",
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "html",
+                        data: { ProfileName: ProfileName, ProfileId: ProfileId, ProfileLastName: ProfileLastName, DateofBirth: DateofBirth, Mobile: Mobile, Countrycode: Countrycode, RelationshipStatus: RelationshipStatus, Job: Job, Religion: Religion, Language: Language, Caste: Caste, FoodPreference: FoodPreference, Height: Height, Education: Education, Country: Country, State: State, City: City, Zipcode: Zipcode, IsSameasAbove: IsSameasAbove, JobCountry: JobCountry, JobState: JobState, JobCity: JobCity, JobZipcode: JobZipcode, Introduction: Introduction, Email: Email, RelationshipDetails: RelationDetail, JobDetails: JonDetails, EducationDetails: EduDetails },  // data to submit
+                        success: function (data, status, xhr) {
+                            if (data == "failure") {
+                                swal({
+                                    icon: "warning",
+                                    text: "Given Email is already Registered with us",
+                                    type: "success",
+                                    buttons: false
+                                });
+                                window.setTimeout(function () { window.location = "../Home/Index"; }, 3000);
+                            }
+                            else {
+                                swal({
+                                    icon: "success",
+                                    text: "Registration Successful, A verification Link has been sent to your email account",
+                                    type: "success",
+                                    buttons: false
+                                });
+                                window.setTimeout(function () { window.location = "../Home/Index"; }, 3000);
+                            }
+                        },
+                        error: function (jqXhr, textStatus, errorMessage) {
+                            swal({
+                                icon: "warning",
+                                text: "Something Could be wrong",
+                                type: "success",
+                                buttons: false
+                            });
+                            window.setTimeout(function () { window.location = "../Home/Index"; }, 3000);
+                        }
+                    });
+                }
+
+            });
+
+
+
+
+        });
+    });
+</script>
+
+<script>
+    $("#fileupload").on("change", function () {
+        var fileUpload = $("#fileupload").get(0);
+        var files = fileUpload.files;
+        // Create FormData object
+        var fileData = new FormData();
+        // Looping over all files and add it to FormData object
+        var ProfileId = $("#hdnProfileId").val();
+
+        fileData.append("ProfileId", ProfileId);
+        for (var i = 0; i < files.length; i++) {
+            fileData.append(files[i].name, files[i]);
+        }
+        if (!(/\.(gif|jpg|jpeg|png)$/i).test(files[0].name)) {
+            swal({
+                icon: "warning",
+                text: "gif, jpg, jpeg, png image file only..!",
+                type: "warning"
+            });
+        }
+        else {
+            $.ajax({
+                url: '/Home/UploadFiles',
+                type: "POST",
+                contentType: false, // Not to set any content header
+                processData: false, // Not to process data
+                data: fileData,
+                success: function (result) {
+                    swal({
+                        icon: "success",
+                        text: "Photo Uploaded Successfully..!",
+                        type: "success",
+                        timer: 3000
+                    });
+                },
+                error: function (err) {
+                    alert(err.statusText);
+                }
+            });
+        }
+    });
+
+</script>
+<script>
+    $(document).ready(function () {
+        $('#chkjob').click(function () {
+            if ($(this).prop("checked") == true) {
+                var hCountry, hState, hCity, hZipcode;
+                hCountry = $("#ddlCountry option:selected").val();
+                hState = $("#ddlState option:selected").val();
+                hCity = $("#ddlCity option:selected").val();
+                hZipcode = $("#txtZipcode").val();
+                $("#ddlJobCountry").val(hCountry);
+                $.ajax({
+                    url: "@Url.Action("States", "DashBoard")",
+                    data: { CountryId: hCountry },
+                    dataType: "json",
+                    type: "GET",
+                    error: function () {
+                        alert(" An error occurred.");
+                    },
+                    success: function (data) {
+                        $("#ddlJobState").html('');
+                        var optionhtml7 = '<option value="' +
+                            0 + '">' + "Select State" + '</option>';
+                        $("#ddlJobState").append(optionhtml7);
+                        $.each(data, function (i) {
+                            var optionhtm8 = '<option value="' + data[i].Value + '">' + data[i].Text + '</option>';
+                            $("#ddlJobState").append(optionhtm8);
+                        });
+                        $("#ddlJobState").val(hState);
+                    }
+                });
+
+                $.ajax({
+                    url: "@Url.Action("Cities", "DashBoard")",
+                    data: { StateId: hState },
+                    dataType: "json",
+                    type: "GET",
+                    error: function () {
+                        alert(" An error occurred.");
+                    },
+                    success: function (data) {
+                        $("#ddlJobCity").html('');
+                        var optionhtml9 = '<option value="' +
+                            0 + '">' + "Select City" + '</option>';
+                        $("#ddlJobCity").append(optionhtml9);
+                        $.each(data, function (i) {
+                            var optionhtml10 = '<option value="' + data[i].Value + '">' + data[i].Text + '</option>';
+                            $("#ddlJobCity").append(optionhtml10);
+                        });
+                        $("#ddlJobCity").val(hCity);
+                    }
+                });
+                $("#txtJobZipcode").val(hZipcode);
+            }
+            else {
+                $("#ddlJobCountry").val('');
+                $("#ddlJobState").val('');
+                $("#ddlJobCity").val('');
+                $("#txtJobZipcode").val('');
+            }
+        });
+    });
+</script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/16.0.8/css/intlTelInput.css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/16.0.8/js/intlTelInput-jquery.min.js"></script>
+
+<script type="text/javascript">
+    $(function () {
+        var code = "+91123456789"; // Assigning value from model.
+        $('#txtMobile').val(code);
+        $('#txtMobile').intlTelInput({
+            autoHideDialCode: true,
+            autoPlaceholder: "ON",
+            dropdownContainer: document.body,
+            formatOnDisplay: true,
+            hiddenInput: "full_number",
+            initialCountry: "auto",
+            nationalMode: true,
+            placeholderNumberType: "MOBILE",
+            preferredCountries: ['US'],
+            separateDialCode: true
+        });
+    });
+</script>

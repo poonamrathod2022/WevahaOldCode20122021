@@ -1,0 +1,1457 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="author" content="WEvaha">
+<title>WEvaha - Profiles Listing</title>
+
+<!-- ========== Favicon Icon ========== -->
+    <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="../img/favicon.ico" type="image/x-icon" />
+
+<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+
+<link rel="stylesheet" href="assets/css/main.css">
+
+<link rel="stylesheet" href="assets/css/normalize.css">
+
+<link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
+
+
+
+<link rel="stylesheet" href="assets/extras/animate.css" type="text/css">
+
+<link rel="stylesheet" href="assets/extras/owl.carousel.css" type="text/css">
+<link rel="stylesheet" href="assets/extras/owl.theme.css" type="text/css">
+
+<link rel="stylesheet" href="assets/extras/settings.css" type="text/css">
+
+<link rel="stylesheet" href="assets/extras/nivo-lightbox.css" type="text/css">
+
+<link rel="stylesheet" href="assets/css/slicknav.css" type="text/css">
+
+<link rel="stylesheet" href="assets/css/responsive.css">
+
+
+<link rel="stylesheet" type="text/css" href="assets/css/colors/sky.css" media="screen" />
+</head>
+<body style="background:#f1f1f2;">
+
+<div class="modal fade" id="sendMessage" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="background:linear-gradient(90deg, #ff99cc 0%, #33ccff 100%); ">
+       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+     <h5 class="modal-title" id="exampleModalLabel" style="font-size:18px;">Send Message</h5>
+       
+      </div>
+      <div class="modal-body">
+      
+      <!--mobile number visible--> 
+      
+      <div class="row">
+       <div class="col-md-12">
+       <div class="popupImg_S">
+
+  <img src="assets/img/profilePic.jpg" alt="profile pic">  </div><div style="text-align:left; float:left; padding:10px 0px 0px 10px;"><span style="color:#3293a1; font-size:18px; font-weight:600;">VaraPrasad V</span></div>
+       </div>
+       
+       <div class="col-md-12" style="padding:15px;">
+       <div style="border:1px solid #ccc; padding:10px; height:130px;"></div>
+       <textarea class="form-control" cols="1" rows="1" placeholder="0/2500"></textarea>
+       </div>
+       
+       </div>
+       
+       <div class=" text-right">
+        
+        <a href="upgrade.html" style="background:linear-gradient(180deg, #5892d2 0%, #ed4789 100%); color:#fff; border-radius:10px; padding:10px 20px; font-size:16px; font-weight:500;" onclick="ShowAndHide()">Submit</a>
+      </div>
+      
+      <!--mobile number visible--> 
+      
+       
+      </div>
+     
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="sendMessageUnpaid" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="background:linear-gradient(90deg, #ff99cc 0%, #33ccff 100%); ">
+       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+     <h5 class="modal-title" id="exampleModalLabel" style="font-size:18px;">Send Message</h5>
+       
+      </div>
+      <div class="modal-body">
+      
+      <!--mobile number visible--> 
+      
+      
+      
+       <div class="row">
+       
+       <div class="col-md-12" style=" text-align:center; padding:30px 0px;"><span style="font-size:18px; color:#333;"> Only Premium Members can Connect with<br>
+
+'Just Joined' Matches</span></div>
+       </div>
+      </div>
+      <div class="modal-footer text-center">
+        
+        <a href="upgrade.html" style="background:linear-gradient(180deg, #5892d2 0%, #ed4789 100%); color:#fff; border-radius:10px; padding:10px 20px; font-size:16px; font-weight:500;" onclick="ShowAndHide()">UPGRADE NOW</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<header id="header-wrap">
+
+
+
+
+<nav class="navbar navbar-default main-navigation" role="navigation" data-spy="affix" data-offset-top="50">
+<div class="container">
+
+<div class="navbar-header">
+<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a class="navbar-brand" href="dashboard.html"><img src="assets/img/logo.png" alt=""></a>
+</div>
+
+
+
+<div class="collapse navbar-collapse" id="navbar">
+<ul class="nav navbar-nav navbar-right">
+<li><a href="myProfile.html">My Profile</a></li>
+<li><a href="">Search Criteria</a></li>
+<li><a href="">Best-Liked</a></li>
+<li><a href="">Who Viewed Me</a></li>
+<li class="dropdown"><a href="">Messages</a>
+<div class="dropdown-menu">
+<div class="tabbable-panel">
+				<div class="tabbable-line">
+					<ul class="nav nav-tabs ">
+						<li class="active">
+							<a href="#notifi" data-toggle="tab">
+							<i class="fa fa-bell"></i> Notifications </a>
+						</li>
+						<li>
+							<a href="#messages" data-toggle="tab">
+							<i class="fa fa-envelope"></i> Messages </a>
+						</li>
+						
+					</ul>
+					<div class="tab-content">
+                    
+						<div class="tab-pane active" id="notifi">
+							
+                            <div class="messages_div">
+                            <a href="">
+                            	<div class="popupImg_Noti"><img src="assets/img/profileImg/2.jpg" alt="profile pic"></div>
+                            	<p class="messages_txt">Hari liked your profile and wants to connect with you!</p>
+                                </a>
+                            </div>
+                            
+                            <div class="messages_div">
+                            <a href="">
+                            	<div class="popupImg_Noti"><img src="assets/img/profileImg/3.jpg" alt="profile pic"></div>
+                            	<p class="messages_txt">Varaprasad liked your profile and wants to connect with you!</p>
+                                </a>
+                            </div>
+                            
+                            <div class="messages_div">
+                            <a href="">
+                            	<div class="popupImg_Noti"><img src="assets/img/profileImg/6.jpg" alt="profile pic"></div>
+                            	<p class="messages_txt">Suresh liked your profile and wants to connect with you!</p>
+                                </a>
+                            </div>
+                            
+                            <div class="messages_div">
+                            <a href="">
+                            	<div class="popupImg_Noti"><img src="assets/img/profileImg/9.jpg" alt="profile pic"></div>
+                            	<p class="messages_txt">Suresh liked your profile and wants to connect with you!</p>
+                                </a>
+                            </div>
+                            
+                            <div class="messages_div">
+                            <a href="">
+                            	<div class="popupImg_Noti"><img src="assets/img/profileImg/7.jpg" alt="profile pic"></div>
+                            	<p class="messages_txt">Arjun liked your profile and wants to connect with you!</p>
+                                </a>
+                            </div>
+                            
+                            
+                            
+						</div>
+                        
+                        
+						<div class="tab-pane" id="messages">
+							
+                            <div class="messages_div">
+                            <a href="">
+                            	<div class="popupImg_Noti"><img src="assets/img/profileImg/3.jpg" alt="profile pic"></div>
+                            	<span class="messages_txt_s"><strong>Varaprasad</strong></span><br>
+
+                                <span class="messages_txt_s">Hi</span>
+                                </a>
+                            </div>
+                            
+                            <div class="messages_div">
+                            <a href="">
+                            	<div class="popupImg_Noti"><img src="assets/img/profileImg/4.jpg" alt="profile pic"></div>
+                            	<span class="messages_txt_s"><strong>Vishu</strong></span><br>
+
+                                <span class="messages_txt_s">How are you</span>
+                                </a>
+                            </div>
+                            
+                            <div class="messages_div">
+                            <a href="">
+                            	<div class="popupImg_Noti"><img src="assets/img/profileImg/5.jpg" alt="profile pic"></div>
+                            	<span class="messages_txt_s"><strong>Teja</strong></span><br>
+
+                                <span class="messages_txt_s">Hi</span>
+                                </a>
+                            </div>
+                            
+                            <div class="messages_div">
+                            <a href="">
+                            	<div class="popupImg_Noti"><img src="assets/img/profileImg/12.jpg" alt="profile pic"></div>
+                            	<span class="messages_txt_s"><strong>Surya</strong></span><br>
+
+                                <span class="messages_txt_s">Hi</span>
+                                </a>
+                            </div>
+                            
+                           <div class="messages_div">
+                            <a href="">
+                            	<div class="popupImg_Noti"><img src="assets/img/profileImg/10.jpg" alt="profile pic"></div>
+                            	<span class="messages_txt_s"><strong>Harish</strong></span><br>
+
+                                <span class="messages_txt_s">Hi</span>
+                                </a>
+                            </div>
+                            
+                            <div style="text-align:right; padding-right:10px; padding-top:7px; font-weight:600; color:#999;"><a href="">See All in Inbox</a></div>
+                            
+						</div>
+						
+					</div>
+				</div>
+			</div>
+</div>
+</li>
+<li><a href="" style="color:#fff; font-size:14px;"><span class="upGr">UPGRADE NOW</span></a></li>
+<li class="dropdown">
+<a href="" class="dropdown-toggle" data-toggle="dropdown"><img src="assets/img/sai/1.jpg" alt="v" class="profLog"> <i class="fa fa-caret-down" aria-hidden="true"></i></a>
+<ul class="dropdown-menu">
+      
+      <li><a href="SubscriptionDetails.html">My Subscription</a></li>
+      <li><a href="#">Logout</a></li>
+     
+    </ul>
+</li></ul>
+</div>
+
+
+<ul class="wpb-mobile-menu">
+<li><a href="myProfile.html">My Profile</a></li>
+<li><a href="">Search Criteria</a></li>
+<li><a href="">Best-Liked</a></li>
+<li><a href="">Who Viewed Me</a></li>
+<li><a href="">Upgrade Now</a></li>
+<li><a href="">Log Out</a></li>
+</ul>
+
+</div>
+</nav>
+
+</header>
+
+
+
+
+
+
+<div class="container">
+
+<div class="row" style="background:#fff; margin-top:50px;">
+<div class="row">
+<div class="col-md-12" style="padding:25px 0px 15px 0px;">
+<div class="mainH1" style="text-align:center;">Search Criteria</div>
+</div>
+</div>
+
+<div class="row" style="margin-bottom:30px;">
+<div class="col-md-12">
+<form>
+
+<div class="form-row">
+    
+    <div class="form-group col-md-3 col-xs-6">
+      <select id="inputState" class="form-control">
+        <option selected="">Gender</option>
+        <option>Male</option>
+         <option>Female</option>
+      </select>
+    </div>
+    <div class="form-group col-md-3 col-xs-6">
+      <select id="inputState" class="form-control">
+        <option selected="">Religion</option>
+        <option>...</option>
+      </select>
+    </div>
+    
+    <div class="form-group col-md-3 col-xs-6">
+      <select id="inputState" class="form-control">
+        <option selected="">Language</option>
+        <option>...</option>
+      </select>
+    </div>
+    <div class="form-group col-md-3 col-xs-6">
+      <select id="inputState" class="form-control">
+        <option selected="">Caste</option>
+        <option>...</option>
+      </select>
+    </div>
+    
+    
+  </div>
+
+  <div class="form-row">
+    
+    <div class="form-group col-md-3 col-xs-6">
+      <select id="inputState" class="form-control">
+        <option selected="">Age From</option>
+        <option>...</option>
+      </select>
+    </div>
+    <div class="form-group col-md-3 col-xs-6">
+      <select id="inputState" class="form-control">
+        <option selected="">Age To</option>
+        <option>...</option>
+      </select>
+    </div>
+    
+    <div class="form-group col-md-3 col-xs-6">
+      <select id="inputState" class="form-control">
+        <option selected="">Height From</option>
+        <option>...</option>
+      </select>
+    </div>
+    <div class="form-group col-md-3 col-xs-6">
+      <select id="inputState" class="form-control">
+        <option selected="">Height To</option>
+        <option>...</option>
+      </select>
+    </div>
+    
+    
+  </div>
+  
+  <div class="form-row">
+  <div class="form-group col-md-3">
+      <select id="inputState" class="form-control">
+        <option selected="">Country of Residence</option>
+        <option>...</option>
+        
+      </select>
+    </div>
+    <div class="form-group col-md-3">
+      <select id="inputState" class="form-control">
+        <option selected="">Status </option>
+        <option>...</option>
+        
+      </select>
+    </div>
+    
+    <div class="form-group col-md-3">
+      <select id="inputState" class="form-control">
+        <option selected="">Profession</option>
+        <option>...</option>
+        
+      </select>
+    </div>
+    
+    <div class="form-group col-md-3">
+      <select id="inputState" class="form-control">
+        <option selected="">Qualification</option>
+        <option>...</option>
+        
+      </select>
+    </div>
+    
+  </div>
+  
+  
+  <div class="form-row">
+  <div class="form-group col-md-3">
+      <select id="inputState" class="form-control">
+        <option selected="">Smoking</option>
+        <option>...</option>
+        
+      </select>
+    </div>
+    <div class="form-group col-md-3">
+      <select id="inputState" class="form-control">
+        <option selected="">Drinking</option>
+        <option>...</option>
+        
+      </select>
+    </div>
+    
+    <div class="form-group col-md-3">
+      <select id="inputState" class="form-control">
+        <option selected="">Kids</option>
+        <option>...</option>
+        
+      </select>
+    </div>
+    
+    <div class="form-group col-md-3">
+      <select id="inputState" class="form-control">
+        <option selected="">Faith in God</option>
+        <option>...</option>
+        
+      </select>
+    </div>
+    
+  </div>
+  
+  
+  <div class="form-row">
+  <div class="form-group col-md-3">
+      <select id="inputState" class="form-control">
+        <option selected="">Cuisine</option>
+        <option>...</option>
+        
+      </select>
+    </div>
+    <div class="form-group col-md-3">
+      <select id="inputState" class="form-control">
+        <option selected="">Travel</option>
+        <option>...</option>
+        
+      </select>
+    </div>
+    
+    <div class="form-group col-md-3">
+      <select id="inputState" class="form-control">
+        <option selected="">Movies</option>
+        <option>...</option>
+        
+      </select>
+    </div>
+    
+    <div class="form-group col-md-3">
+      <select id="inputState" class="form-control">
+        <option selected="">Shopping</option>
+        <option>...</option>
+        
+      </select>
+    </div>
+    
+  </div>
+  
+  
+  <div class="form-row text-center">
+  <a href="#" style="background:#E80443; color:#fff; border-radius:10px; padding:10px 15px; font-size:16px; font-weight:500;" onclick="ShowAndHide1()">Search</a>
+  </div>
+  
+</form>
+</div>
+</div>
+</div>
+
+
+<div class="row" style="margin-top:40px;">
+<div class="col-md-10 col-xs-offset-1">
+
+<div class="row">
+<div class="col-md-12" style="padding:25px 0px 15px 0px;">
+<div class="mainH1" style="text-align:center;">Search Results</div>
+</div>
+</div>
+
+
+<div class="row boxGird"  style="border-right:#e80443 3px solid;"><a href=""><div class="col-md-3" style="padding:0px;"><img src="assets/img/profileImg/13.jpg" alt="img" class="Img-fit-ML"></a></div>
+
+<div class="col-md-6">
+<a href="">
+<div>
+<div class="ML_h3">VaraPrasad V</div>
+<div class="ML_line"></div>
+</div>
+
+<div class="col-md-6">
+<div class="ML_det">28 yrs, 5' 2"</div>
+<div class="ML_det">Never Married</div>
+<div class="ML_det">Hindu, Padmasali</div>
+</div>
+
+<div class="col-md-6">
+
+<div class=" ML_det">Miyapur, Hyderabad</div>
+<div class="ML_det">Telugu, English</div>
+<div class="ML_det">Senior Software Engineer</div>
+</div>
+
+<div class="clearfix"></div>
+
+<div style="margin-top:8px;">
+<div class="ML_det">Hello, here is a quick introduction about my daughter. She has 
+completed her intermediate. As parent...</div>
+
+</div>
+</a>
+</div>
+
+<div class="col-md-3" style="padding-top:50px; text-align:center;">
+
+<div style="border-left:1px #CCC solid; text-align:center;">
+
+<span style="font-weight:bold; font-style:italic;">Like this profile?</span>
+<br>
+<br>
+
+<span style=" border-radius:50%;  padding:20px; color:#fff; font-size:27px;"> <span id="heart" class=""><i class="fa fa-heart-o" aria-hidden="true"></i></span></span><br><br>
+
+
+<a href="" data-toggle="modal" data-target="#sendMessage" style="color:#2da0f4; font-size:27px; paading-top:50px;"><i class="fa fa-envelope"></i></a>
+</div>
+
+</div>
+
+
+</div>
+
+
+<div class="row boxGird"  style="border-right:#e80443 3px solid;">
+<a href="">
+
+<div class="col-md-3" style="padding:0px;"><img src="assets/img/profileImg_new/m-2.jpg" alt="img" class="Img-fit-ML">
+</a>
+</div>
+
+<div class="col-md-6">
+<a href="">
+<div>
+<div class="ML_h3">Surya Kumar</div>
+<div class="ML_line"></div>
+</div>
+
+<div class="col-md-6">
+<div class="ML_det">30 yrs, 5' 8"</div>
+<div class="ML_det">Never Married</div>
+<div class="ML_det">Hindu, Padmasali</div>
+</div>
+
+<div class="col-md-6">
+
+<div class=" ML_det">BHEL, Hyderabad</div>
+<div class="ML_det">Telugu, English</div>
+<div class="ML_det">Govt. Teacher</div>
+</div>
+
+<div class="clearfix"></div>
+
+<div style="margin-top:8px;">
+<div class="ML_det">Hello, here is a quick introduction about my daughter. She has 
+completed her intermediate. As parent...</div>
+
+</div>
+</a>
+</div>
+
+<div class="col-md-3" style="padding-top:50px; text-align:center;">
+
+<div style="border-left:1px #CCC solid; text-align:center;">
+
+<span style="font-weight:bold; font-style:italic;">Like this profile?</span>
+<br>
+<br>
+
+<span style=" border-radius:50%;  padding:20px; color:#fff; font-size:27px;"> <span id="heart" class=""><i class="fa fa-heart-o" aria-hidden="true"></i></span></span><br><br>
+
+
+<a href="" data-toggle="modal" data-target="#sendMessage" style="color:#2da0f4; font-size:27px; paading-top:50px;"><i class="fa fa-envelope"></i></a>
+</div>
+
+</div>
+
+
+</div>
+
+
+
+<div class="row boxGird"  style="border-right:#e80443 3px solid;">
+<a href=""><div class="col-md-3" style="padding:0px;"><img src="assets/img/profileImg_new/m-3.jpg" alt="img" class="Img-fit-ML"></a></div>
+
+<div class="col-md-6">
+<a href="">
+<div>
+<div class="ML_h3">Kiram Kumar</div>
+<div class="ML_line"></div>
+</div>
+
+<div class="col-md-6">
+<div class="ML_det">29 yrs, 5' 11"</div>
+<div class="ML_det">Never Married</div>
+<div class="ML_det">Hindu, Padmasali</div>
+</div>
+
+<div class="col-md-6">
+
+<div class=" ML_det">Sangareddy, Sangareddy</div>
+<div class="ML_det">Telugu, English</div>
+<div class="ML_det">Senior Software Engineer</div>
+</div>
+
+<div class="clearfix"></div>
+
+<div style="margin-top:8px;">
+<div class="ML_det">Hello, here is a quick introduction about my daughter. She has 
+completed her intermediate. As parent...</div>
+
+</div>
+</a>
+</div>
+
+<div class="col-md-3" style="padding-top:50px; text-align:center;">
+
+<div style="border-left:1px #CCC solid; text-align:center;">
+
+<span style="font-weight:bold; font-style:italic;">Like this profile?</span>
+<br>
+<br>
+
+<span style=" border-radius:50%;  padding:20px; color:#fff; font-size:27px;"> <span id="heart" class=""><i class="fa fa-heart-o" aria-hidden="true"></i></span></span><br><br>
+
+
+<a href="" data-toggle="modal" data-target="#sendMessage" style="color:#2da0f4; font-size:27px; paading-top:50px;"><i class="fa fa-envelope"></i></a>
+</div>
+
+</div>
+
+
+</div>
+
+
+<div class="row boxGird"  style="border-right:#e80443 3px solid;">
+<a href="">
+
+<div class="col-md-3" style="padding:0px;"><img src="assets/img/profileImg_new/m-4.jpg" alt="img" class="Img-fit-ML">
+</a>
+</div>
+
+<div class="col-md-6">
+<a href="">
+<div>
+<div class="ML_h3">Madhu Kumar</div>
+<div class="ML_line"></div>
+</div>
+
+<div class="col-md-6">
+<div class="ML_det">32 yrs, 5' 8"</div>
+<div class="ML_det">Never Married</div>
+<div class="ML_det">Hindu, Padmasali</div>
+</div>
+
+<div class="col-md-6">
+
+<div class=" ML_det">KPHB, Hyderabad</div>
+<div class="ML_det">Telugu, English</div>
+<div class="ML_det">Business</div>
+</div>
+
+<div class="clearfix"></div>
+
+<div style="margin-top:8px;">
+<div class="ML_det">Hello, here is a quick introduction about my daughter. She has 
+completed her intermediate. As parent...</div>
+
+</div>
+</a>
+</div>
+
+<div class="col-md-3" style="padding-top:50px; text-align:center;">
+
+<div style="border-left:1px #CCC solid; text-align:center;">
+
+<span style="font-weight:bold; font-style:italic;">Like this profile?</span>
+<br>
+<br>
+
+<span style=" border-radius:50%;  padding:20px; color:#fff; font-size:27px;"> <span id="heart" class=""><i class="fa fa-heart-o" aria-hidden="true"></i></span></span><br><br>
+
+
+<a href="" data-toggle="modal" data-target="#sendMessage" style="color:#2da0f4; font-size:27px; paading-top:50px;"><i class="fa fa-envelope"></i></a>
+</div>
+
+</div>
+
+
+</div>
+
+
+<div class="row boxGird"  style="border-right:#e80443 3px solid;">
+<a href="">
+
+<div class="col-md-3" style="padding:0px;"><img src="assets/img/profileImg_new/m-5.jpg" alt="img" class="Img-fit-ML">
+</a>
+</div>
+
+<div class="col-md-6">
+<a href="">
+<div>
+<div class="ML_h3">Pradeep Kumar</div>
+<div class="ML_line"></div>
+</div>
+
+<div class="col-md-6">
+<div class="ML_det">27 yrs, 5' 9"</div>
+<div class="ML_det">Never Married</div>
+<div class="ML_det">Hindu, Padmasali</div>
+</div>
+
+<div class="col-md-6">
+
+<div class=" ML_det">Suryapet, Hyderabad</div>
+<div class="ML_det">Telugu, English</div>
+<div class="ML_det">Senior Software Engineer</div>
+</div>
+
+<div class="clearfix"></div>
+
+<div style="margin-top:8px;">
+<div class="ML_det">Hello, here is a quick introduction about my daughter. She has 
+completed her intermediate. As parent...</div>
+
+</div>
+</a>
+</div>
+
+<div class="col-md-3" style="padding-top:50px; text-align:center;">
+
+<div style="border-left:1px #CCC solid; text-align:center;">
+
+<span style="font-weight:bold; font-style:italic;">Like this profile?</span>
+<br>
+<br>
+
+<span style=" border-radius:50%;  padding:20px; color:#fff; font-size:27px;"> <span id="heart" class=""><i class="fa fa-heart-o" aria-hidden="true"></i></span></span><br><br>
+
+
+<a href="" data-toggle="modal" data-target="#sendMessage" style="color:#2da0f4; font-size:27px; paading-top:50px;"><i class="fa fa-envelope"></i></a>
+</div>
+
+</div>
+
+
+</div>
+
+
+<div class="row boxGird"  style="border-right:#e80443 3px solid;">
+<a href="">
+
+<div class="col-md-3" style="padding:0px;"><img src="assets/img/profileImg_new/m-6.jpg" alt="img" class="Img-fit-ML">
+</a>
+</div>
+
+<div class="col-md-6">
+<a href="">
+<div>
+<div class="ML_h3">Vinod Kumar</div>
+<div class="ML_line"></div>
+</div>
+
+<div class="col-md-6">
+<div class="ML_det">31 yrs, 5' 9"</div>
+<div class="ML_det">Never Married</div>
+<div class="ML_det">Hindu, Padmasali</div>
+</div>
+
+<div class="col-md-6">
+
+<div class=" ML_det">Koti, Hyderabad</div>
+<div class="ML_det">Telugu, English</div>
+<div class="ML_det">Doctor</div>
+</div>
+
+<div class="clearfix"></div>
+
+<div style="margin-top:8px;">
+<div class="ML_det">Hello, here is a quick introduction about my daughter. She has 
+completed her intermediate. As parent...</div>
+
+</div>
+</a>
+</div>
+
+<div class="col-md-3" style="padding-top:50px; text-align:center;">
+
+<div style="border-left:1px #CCC solid; text-align:center;">
+
+<span style="font-weight:bold; font-style:italic;">Like this profile?</span>
+<br>
+<br>
+
+<span style=" border-radius:50%;  padding:20px; color:#fff; font-size:27px;"> <span id="heart" class=""><i class="fa fa-heart-o" aria-hidden="true"></i></span></span><br><br>
+
+
+<a href="" data-toggle="modal" data-target="#sendMessage" style="color:#2da0f4; font-size:27px; paading-top:50px;"><i class="fa fa-envelope"></i></a>
+</div>
+
+</div>
+
+
+</div>
+
+
+<div class="row boxGird"  style="border-right:#e80443 3px solid;">
+<a href="">
+
+<div class="col-md-3" style="padding:0px;"><img src="assets/img/profileImg_new/m-7.jpg" alt="img" class="Img-fit-ML">
+</a>
+</div>
+
+<div class="col-md-6">
+<a href="">
+<div>
+<div class="ML_h3">Karunakar</div>
+<div class="ML_line"></div>
+</div>
+
+<div class="col-md-6">
+<div class="ML_det">29 yrs, 6' 1"</div>
+<div class="ML_det">Never Married</div>
+<div class="ML_det">Hindu, Padmasali</div>
+</div>
+
+<div class="col-md-6">
+
+<div class=" ML_det">BHEL, Hyderabad</div>
+<div class="ML_det">Telugu, English</div>
+<div class="ML_det">Senior Software Engineer</div>
+</div>
+
+<div class="clearfix"></div>
+
+<div style="margin-top:8px;">
+<div class="ML_det">Hello, here is a quick introduction about my daughter. She has 
+completed her intermediate. As parent...</div>
+
+</div>
+</a>
+</div>
+
+<div class="col-md-3" style="padding-top:50px; text-align:center;">
+
+<div style="border-left:1px #CCC solid; text-align:center;">
+
+<span style="font-weight:bold; font-style:italic;">Like this profile?</span>
+<br>
+<br>
+
+<span style=" border-radius:50%;  padding:20px; color:#fff; font-size:27px;"> <span id="heart" class=""><i class="fa fa-heart-o" aria-hidden="true"></i></span></span><br><br>
+
+
+<a href="" data-toggle="modal" data-target="#sendMessage" style="color:#2da0f4; font-size:27px; paading-top:50px;"><i class="fa fa-envelope"></i></a>
+</div>
+
+</div>
+
+
+</div>
+
+
+<div class="row boxGird"  style="border-right:#e80443 3px solid;">
+<a href="">
+
+<div class="col-md-3" style="padding:0px;"><img src="assets/img/profileImg_new/m-8.jpg" alt="img" class="Img-fit-ML">
+</a>
+</div>
+
+<div class="col-md-6">
+<a href="">
+<div>
+<div class="ML_h3">Shankar</div>
+<div class="ML_line"></div>
+</div>
+
+<div class="col-md-6">
+<div class="ML_det">29 yrs, 5' 11"</div>
+<div class="ML_det">Never Married</div>
+<div class="ML_det">Hindu, Padmasali</div>
+</div>
+
+<div class="col-md-6">
+
+<div class=" ML_det">BHEL, Hyderabad</div>
+<div class="ML_det">Telugu, English</div>
+<div class="ML_det">BHEL Employee</div>
+</div>
+
+<div class="clearfix"></div>
+
+<div style="margin-top:8px;">
+<div class="ML_det">Hello, here is a quick introduction about my daughter. She has 
+completed her intermediate. As parent...</div>
+
+</div>
+</a>
+</div>
+
+<div class="col-md-3" style="padding-top:50px; text-align:center;">
+
+<div style="border-left:1px #CCC solid; text-align:center;">
+
+<span style="font-weight:bold; font-style:italic;">Like this profile?</span>
+<br>
+<br>
+
+<span style=" border-radius:50%;  padding:20px; color:#fff; font-size:27px;"> <span id="heart" class=""><i class="fa fa-heart-o" aria-hidden="true"></i></span></span><br><br>
+
+
+<a href="" data-toggle="modal" data-target="#sendMessage" style="color:#2da0f4; font-size:27px; paading-top:50px;"><i class="fa fa-envelope"></i></a>
+</div>
+
+</div>
+
+
+</div>
+
+
+<div class="row boxGird"  style="border-right:#e80443 3px solid;">
+<a href="">
+
+<div class="col-md-3" style="padding:0px;"><img src="assets/img/profileImg_new/m-9.jpg" alt="img" class="Img-fit-ML">
+</a>
+</div>
+
+<div class="col-md-6">
+<a href="">
+<div>
+<div class="ML_h3">Pradeep</div>
+<div class="ML_line"></div>
+</div>
+
+<div class="col-md-6">
+<div class="ML_det">27 yrs, 5' 9"</div>
+<div class="ML_det">Never Married</div>
+<div class="ML_det">Hindu, Padmasali</div>
+</div>
+
+<div class="col-md-6">
+
+<div class=" ML_det">Chandanagar, Hyderabad</div>
+<div class="ML_det">Telugu, Hindu, English</div>
+<div class="ML_det">IT Employee</div>
+</div>
+
+<div class="clearfix"></div>
+
+<div style="margin-top:8px;">
+<div class="ML_det">Hello, here is a quick introduction about my daughter. She has 
+completed her intermediate. As parent...</div>
+
+</div>
+</a>
+</div>
+
+<div class="col-md-3" style="padding-top:50px; text-align:center;">
+
+<div style="border-left:1px #CCC solid; text-align:center;">
+
+<span style="font-weight:bold; font-style:italic;">Like this profile?</span>
+<br>
+<br>
+
+<span style=" border-radius:50%;  padding:20px; color:#fff; font-size:27px;"> <span id="heart" class=""><i class="fa fa-heart-o" aria-hidden="true"></i></span></span><br><br>
+
+
+<a href="" data-toggle="modal" data-target="#sendMessage" style="color:#2da0f4; font-size:27px; paading-top:50px;"><i class="fa fa-envelope"></i></a>
+</div>
+
+</div>
+
+
+</div>
+
+
+<div class="row boxGird"  style="border-right:#e80443 3px solid;">
+<a href="">
+
+<div class="col-md-3" style="padding:0px;"><img src="assets/img/profileImg_new/m-10.jpg" alt="img" class="Img-fit-ML">
+</a>
+</div>
+
+<div class="col-md-6">
+<a href="">
+<div>
+<div class="ML_h3">Eashan</div>
+<div class="ML_line"></div>
+</div>
+
+<div class="col-md-6">
+<div class="ML_det">31 yrs, 5' 9"</div>
+<div class="ML_det">Never Married</div>
+<div class="ML_det">Hindu, Padmasali</div>
+</div>
+
+<div class="col-md-6">
+
+<div class=" ML_det">BHEL, Hyderabad</div>
+<div class="ML_det">Telugu, English</div>
+<div class="ML_det">Private Employee</div>
+</div>
+
+<div class="clearfix"></div>
+
+<div style="margin-top:8px;">
+<div class="ML_det">Hello, here is a quick introduction about my daughter. She has 
+completed her intermediate. As parent...</div>
+
+</div>
+</a>
+</div>
+
+<div class="col-md-3" style="padding-top:50px; text-align:center;">
+
+<div style="border-left:1px #CCC solid; text-align:center;">
+
+<span style="font-weight:bold; font-style:italic;">Like this profile?</span>
+<br>
+<br>
+
+<span style=" border-radius:50%;  padding:20px; color:#fff; font-size:27px;"> <span id="heart" class=""><i class="fa fa-heart-o" aria-hidden="true"></i></span></span><br><br>
+
+
+<a href="" data-toggle="modal" data-target="#sendMessage" style="color:#2da0f4; font-size:27px; paading-top:50px;"><i class="fa fa-envelope"></i></a>
+</div>
+
+</div>
+
+
+</div>
+
+
+<div class="row boxGird"  style="border-right:#e80443 3px solid;">
+<a href="">
+
+<div class="col-md-3" style="padding:0px;"><img src="assets/img/profileImg_new/m-11.jpg" alt="img" class="Img-fit-ML">
+</a>
+</div>
+
+<div class="col-md-6">
+<a href="">
+<div>
+<div class="ML_h3">Praveen Kumar</div>
+<div class="ML_line"></div>
+</div>
+
+<div class="col-md-6">
+<div class="ML_det">30 yrs, 5' 9"</div>
+<div class="ML_det">Never Married</div>
+<div class="ML_det">Hindu, Padmasali</div>
+</div>
+
+<div class="col-md-6">
+
+<div class=" ML_det">Kukatpally, Hyderabad</div>
+<div class="ML_det">Telugu, English</div>
+<div class="ML_det">Doctor</div>
+</div>
+
+<div class="clearfix"></div>
+
+<div style="margin-top:8px;">
+<div class="ML_det">Hello, here is a quick introduction about my daughter. She has 
+completed her intermediate. As parent...</div>
+
+</div>
+</a>
+</div>
+
+<div class="col-md-3" style="padding-top:50px; text-align:center;">
+
+<div style="border-left:1px #CCC solid; text-align:center;">
+
+<span style="font-weight:bold; font-style:italic;">Like this profile?</span>
+<br>
+<br>
+
+<span style=" border-radius:50%;  padding:20px; color:#fff; font-size:27px;"> <span id="heart" class=""><i class="fa fa-heart-o" aria-hidden="true"></i></span></span><br><br>
+
+
+<a href="" data-toggle="modal" data-target="#sendMessage" style="color:#2da0f4; font-size:27px; paading-top:50px;"><i class="fa fa-envelope"></i></a>
+</div>
+
+</div>
+
+
+</div>
+
+
+<div class="row boxGird"  style="border-right:#e80443 3px solid;">
+<a href="">
+
+<div class="col-md-3" style="padding:0px;"><img src="assets/img/profileImg_new/m-12.jpg" alt="img" class="Img-fit-ML">
+</a>
+</div>
+
+<div class="col-md-6">
+<a href="">
+<div>
+<div class="ML_h3">Anil Kumar</div>
+<div class="ML_line"></div>
+</div>
+
+<div class="col-md-6">
+<div class="ML_det">29 yrs, 5' 8"</div>
+<div class="ML_det">Never Married</div>
+<div class="ML_det">Hindu, Padmasali</div>
+</div>
+
+<div class="col-md-6">
+
+<div class=" ML_det">Miyapur, Hyderabad</div>
+<div class="ML_det">Telugu, English</div>
+<div class="ML_det">Senior Software Engineer</div>
+</div>
+
+<div class="clearfix"></div>
+
+<div style="margin-top:8px;">
+<div class="ML_det">Hello, here is a quick introduction about my daughter. She has 
+completed her intermediate. As parent...</div>
+
+</div>
+</a>
+</div>
+
+<div class="col-md-3" style="padding-top:50px; text-align:center;">
+
+<div style="border-left:1px #CCC solid; text-align:center;">
+
+<span style="font-weight:bold; font-style:italic;">Like this profile?</span>
+<br>
+<br>
+
+<span style=" border-radius:50%;  padding:20px; color:#fff; font-size:27px;"> <span id="heart" class=""><i class="fa fa-heart-o" aria-hidden="true"></i></span></span><br><br>
+
+
+<a href="" data-toggle="modal" data-target="#sendMessage" style="color:#2da0f4; font-size:27px; paading-top:50px;"><i class="fa fa-envelope"></i></a>
+</div>
+
+</div>
+
+
+</div>
+
+
+<div class="row boxGird"  style="border-right:#e80443 3px solid;">
+<a href="">
+
+<div class="col-md-3" style="padding:0px;"><img src="assets/img/profileImg/13.jpg" alt="img" class="Img-fit-ML">
+</a>
+</div>
+
+<div class="col-md-6">
+<a href="">
+<div>
+<div class="ML_h3">Suresh Kumar</div>
+<div class="ML_line"></div>
+</div>
+
+<div class="col-md-6">
+<div class="ML_det">29 yrs, 5' 11"</div>
+<div class="ML_det">Never Married</div>
+<div class="ML_det">Hindu, Padmasali</div>
+</div>
+
+<div class="col-md-6">
+
+<div class=" ML_det">Ashok Nagar, Hyderabad</div>
+<div class="ML_det">Telugu, English</div>
+<div class="ML_det">Business</div>
+</div>
+
+<div class="clearfix"></div>
+
+<div style="margin-top:8px;">
+<div class="ML_det">Hello, here is a quick introduction about my daughter. She has 
+completed her intermediate. As parent...</div>
+
+</div>
+</a>
+</div>
+
+<div class="col-md-3" style="padding-top:50px; text-align:center;">
+
+<div style="border-left:1px #CCC solid; text-align:center;">
+
+<span style="font-weight:bold; font-style:italic;">Like this profile?</span>
+<br>
+<br>
+
+<span style=" border-radius:50%;  padding:20px; color:#fff; font-size:27px;"> <span id="heart" class=""><i class="fa fa-heart-o" aria-hidden="true"></i></span></span><br><br>
+
+
+<a href="" data-toggle="modal" data-target="#sendMessage" style="color:#2da0f4; font-size:27px; paading-top:50px;"><i class="fa fa-envelope"></i></a>
+</div>
+
+</div>
+
+
+</div>
+
+
+<div class="row boxGird"  style="border-right:#e80443 3px solid;">
+<a href="">
+
+<div class="col-md-3" style="padding:0px;"><img src="assets/img/profileImg_new/m-14.jpg" alt="img" class="Img-fit-ML">
+</a>
+</div>
+
+<div class="col-md-6">
+<a href="">
+<div>
+<div class="ML_h3">Ajay Kumar</div>
+<div class="ML_line"></div>
+</div>
+
+<div class="col-md-6">
+<div class="ML_det">30 yrs, 5' 9"</div>
+<div class="ML_det">Never Married</div>
+<div class="ML_det">Hindu, Padmasali</div>
+</div>
+
+<div class="col-md-6">
+
+<div class=" ML_det">Hyder Nagar, Hyderabad</div>
+<div class="ML_det">Telugu, English</div>
+<div class="ML_det">Metro Employee</div>
+</div>
+
+<div class="clearfix"></div>
+
+<div style="margin-top:8px;">
+<div class="ML_det">Hello, here is a quick introduction about my daughter. She has 
+completed her intermediate. As parent...</div>
+
+</div>
+</a>
+</div>
+
+<div class="col-md-3" style="padding-top:50px; text-align:center;">
+
+<div style="border-left:1px #CCC solid; text-align:center;">
+
+<span style="font-weight:bold; font-style:italic;">Like this profile?</span>
+<br>
+<br>
+
+<span style=" border-radius:50%;  padding:20px; color:#fff; font-size:27px;"> <span id="heart" class=""><i class="fa fa-heart-o" aria-hidden="true"></i></span></span><br><br>
+
+
+<a href="" data-toggle="modal" data-target="#sendMessage" style="color:#2da0f4; font-size:27px; paading-top:50px;"><i class="fa fa-envelope"></i></a>
+</div>
+
+</div>
+
+
+</div>
+
+
+<div class="row boxGird"  style="border-right:#e80443 3px solid;">
+<a href="">
+
+<div class="col-md-3" style="padding:0px;"><img src="assets/img/profileImg_new/m-15.jpg" alt="img" class="Img-fit-ML">
+</a>
+</div>
+
+<div class="col-md-6">
+<a href="">
+<div>
+<div class="ML_h3">Harish</div>
+<div class="ML_line"></div>
+</div>
+
+<div class="col-md-6">
+<div class="ML_det">32 yrs, 5' 10"</div>
+<div class="ML_det">Never Married</div>
+<div class="ML_det">Hindu, Padmasali</div>
+</div>
+
+<div class="col-md-6">
+
+<div class=" ML_det">Patancheeru, Hyderabad</div>
+<div class="ML_det">Telugu, English</div>
+<div class="ML_det">Senior Software Engineer</div>
+</div>
+
+<div class="clearfix"></div>
+
+<div style="margin-top:8px;">
+<div class="ML_det">Hello, here is a quick introduction about my daughter. She has 
+completed her intermediate. As parent...</div>
+
+</div>
+</a>
+</div>
+
+<div class="col-md-3" style="padding-top:50px; text-align:center;">
+
+<div style="border-left:1px #CCC solid; text-align:center;">
+
+<span style="font-weight:bold; font-style:italic;">Like this profile?</span>
+<br>
+<br>
+
+<span style=" border-radius:50%;  padding:20px; color:#fff; font-size:27px;"> <span id="heart" class=""><i class="fa fa-heart-o" aria-hidden="true"></i></span></span><br><br>
+
+
+<a href="" data-toggle="modal" data-target="#sendMessage" style="color:#2da0f4; font-size:27px; paading-top:50px;"><i class="fa fa-envelope"></i></a>
+</div>
+
+</div>
+
+
+</div>
+
+
+
+
+</div>
+
+
+</div>
+
+<div class="row">
+<div class="col-md-12" style="margin-top:35px; text-align:center;">
+<nav>
+<ul class="pagination">
+<li>
+<a href="#" aria-label="Previous">
+<span aria-hidden="true">&laquo;</span>
+</a>
+</li>
+<li><a href="#">1</a></li>
+<li><a href="#">2</a></li>
+<li><a href="#">3</a></li>
+<li><a href="#">4</a></li>
+
+<li>
+<a href="#" aria-label="Next">
+<span aria-hidden="true">&raquo;</span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+
+
+</div>
+
+
+
+
+
+
+<div class="container-fluid" style="border-top:1px dotted #999; padding:10px 0px; margin-top:60px;">
+<div class="container">
+<div class="row">
+<div class="col-md-12">
+<ul class="footer_links">
+  <li><a href="../index.html" target="_blank">Home</a></li>
+  <li><a href="../aboutus.html"  target="_blank">About Us</a></li>
+  <li><a href="../Terms-Conditions.html" target="_blank">Terms and Conditions</a></li>  
+  <li><a href="../privacy.html"  target="_blank">Privacy Policy</a></li>
+  <li><a href="../ReportAbuse.html"  target="_blank">Report Misuse</a></li>
+  <li><a href="../contactus.html"  target="_blank">Contact Us</a></li>
+</ul>
+<p class="copyright-text text-center" style="font-size:14px;">
+© Copyright by <a href="">WEvaha.com</a> All Rights Reserved.
+</p>
+</div>
+</div>
+</div>
+</div>
+
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+<script type="text/javascript" src="assets/js/jquery.min.js"></script> <!--imp-->
+<script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
+
+<script type="text/javascript" src="assets/js/jquery.mixitup.js"></script> <!--imp-->
+<script type="text/javascript" src="assets/js/nivo-lightbox.min.js"></script>
+<script type="text/javascript" src="assets/js/jquery.countdown.js"></script>
+<script type="text/javascript" src="assets/js/jquery.counterup.min.js"></script>
+<script type="text/javascript" src="assets/js/owl.carousel.min.js"></script>
+<script type="text/javascript" src="assets/js/form-validator.min.js"></script>
+<script type="text/javascript" src="assets/js/contact-form-script.js"></script>
+<script type="text/javascript" src="assets/js/jquery.themepunch.revolution.min.js"></script> <!--imp-->
+<script type="text/javascript" src="assets/js/jquery.themepunch.tools.min.js"></script>
+<script type="text/javascript" src="assets/js/jquery.slicknav.js"></script> <!--imp-->
+<script src="assets/js/main.js"></script>
+
+<SCRIPT>
+function ShowAndHide() {
+    var x = document.getElementById('SectionName');
+    if (x.style.display == 'none') {
+        x.style.display = 'block';
+    } else {
+        x.style.display = 'none';
+    }
+}
+
+
+function ShowAndHide1() {
+    var x = document.getElementById('SectionName1');
+    if (x.style.display == 'none') {
+        x.style.display = 'block';
+    } else {
+        x.style.display = 'none';
+    }
+}
+
+</SCRIPT>
+
+<script>
+   $(document).ready(function(){
+  $("#heart").click(function(){
+    if($("#heart").hasClass("liked")){
+      $("#heart").html('<i class="fa fa-heart-o" aria-hidden="true"></i>');
+      $("#heart").removeClass("liked");
+    }else{
+      $("#heart").html('<i class="fa fa-heart" aria-hidden="true"></i>');
+      $("#heart").addClass("liked");
+    }
+  });
+});
+</script>
+
+<script>
+$(document).ready(function(){
+  $('[data-toggle="tooltip"]').tooltip();
+});
+</script>
+</body>
+</html>

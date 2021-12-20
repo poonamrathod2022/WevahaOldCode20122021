@@ -1,0 +1,1437 @@
+﻿@model WEvaha.Models.DashboardProfileModel
+@{
+    ViewBag.Title = "GetMyProfile";
+    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+}
+<script src="~/js/aes.js"></script>
+<style type="text/css">
+    #upload_link {
+        text-decoration: none;
+    }
+
+    #upload {
+        display: none
+    }
+
+    #profileupload_link {
+        text-decoration: none;
+    }
+
+    #profileupload {
+        display: none
+    }
+</style>
+
+<script type="text/javascript">
+    $(function () {
+
+        for (i = 18; i <= 70; i++) {
+            $('#ddlAgeFrom').append($('<option>',
+                {
+                    value: i,
+                    text: i
+                }));
+        }
+        for (j = 19; j <= 70; j++) {
+            $('#ddlAgeTo').append($('<option>',
+                {
+                    value: j,
+                    text: j
+                }));
+        }
+    });
+    $(document).ready(function () {
+        $("#btnSubmit").click(function (event) {
+            var from = "getMyProfile";
+            var vSeekingGender = $("#ddlSeekingGender option:selected").val();
+            var vAgeFrom = $("#ddlAgeFrom option:selected").text();
+            if (vAgeFrom === "Age From") { vAgeFrom = "AgeFrom";}
+            var vAgeTo = $("#ddlAgeTo option:selected").text();
+            if (vAgeTo === "Age To") { vAgeTo = "AgeTo"; }
+            var vReligion = $("#ddlsReligion option:selected").val();
+            if (vReligion === "") { vReligion = null; }           
+            var vLanguage = $("#ddlslanguage option:selected").val();
+            if (vLanguage === "") { vLanguage = null; }
+            var vCaste = $("#ddlsCaste option:selected").val();
+            if (vCaste === "" || vCaste=== "0" ) { vCaste = null; }
+
+            var pageindex = 1;
+
+            
+            var key = CryptoJS.enc.Utf8.parse('8080808080808080');
+            var iv = CryptoJS.enc.Utf8.parse('8080808080808080');
+
+           
+            var sUrl = "SeekingGender=" + vSeekingGender +"&AgeFrom = " + vAgeFrom + " & AgeTo=" + vAgeTo + " & religion=" + vReligion + " & caste=" + vCaste + " & Language=" + vLanguage + " & PageIndex=" + pageindex + " & From=" + from;
+            var ciphertext = CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(sUrl), key,
+                {
+                    keySize: 128 / 8,
+                    iv: iv,
+                    mode: CryptoJS.mode.CBC,
+                    padding: CryptoJS.pad.Pkcs7
+                });
+            var url = "../DashBoard/GetSearch?Url=" + ciphertext;
+
+           window.location.href = url;
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#upload_link").on('click', function (e) {
+            e.preventDefault();
+            $("#upload:hidden").trigger('click');
+        });
+        $("#upload").on("change", function () {
+            var fileUpload = $("#upload").get(0);
+            
+            var files = fileUpload.files;
+            // Create FormData object
+            var fileData = new FormData();
+            // Looping over all files and add it to FormData object
+            for (var i = 0; i < files.length; i++) {
+                fileData.append(files[i].name, files[i]);
+            }
+            if (!(/\.(gif|jpg|jpeg|png)$/i).test(files[0].name)) {
+                swal({
+                    icon: "warning",
+                    text: "gif, jpg, jpeg, png image file only..!",
+                    type: "warning"
+                });                         
+            }
+            else {
+                $.ajax({
+                url: '/DashBoard/UploadFiles',
+                type: "POST",
+                contentType: false, // Not to set any content header
+                processData: false, // Not to process data
+                data: fileData,
+                async: false,
+                success: function (result) {
+                    if (result != "") {
+                        swal({
+                            icon: "success",
+                            text: "Photo Uploaded Successfully..!",
+                            type: "success",
+                            buttons: false
+                        });
+                        window.setTimeout(function () { window.location = "../DashBoard/GetMyProfile"; }, 3000);
+                    }
+                },
+                error: function (err) {
+                    alert(err.statusText);
+                }
+            });
+            }
+
+            
+        });
+        $("#profileupload_link").on('click', function (e) {
+            e.preventDefault();
+            $("#profileupload:hidden").trigger('click');
+        });
+        $("#profileupload").on("change", function () {
+            var sfileUpload = $("#profileupload").get(0);
+            var sfiles = sfileUpload.files;
+            // Create FormData object
+            var sfileData = new FormData();
+            // Looping over all files and add it to FormData object
+            for (var i = 0; i < sfiles.length; i++) {
+                sfileData.append(sfiles[i].name, sfiles[i]);
+            }
+            if (!(/\.(gif|jpg|jpeg|png)$/i).test(sfiles[0].name)) {
+                swal({
+                    icon: "warning",
+                    text: "gif, jpg, jpeg, png image file only..!",
+                    type: "warning"
+                });
+            }
+            else {
+                $.ajax({
+                    url: '/DashBoard/CoverPhotoUpload',
+                    type: "POST",
+                    contentType: false, // Not to set any content header
+                    processData: false, // Not to process data
+                    data: sfileData,
+                    //async: false,
+                    success: function (result) {
+                        if (result != "") {
+                            swal({
+                                icon: "success",
+                                text: "Photo Uploaded Successfully..!",
+                                type: "success",
+                                buttons: false
+                            });
+                            window.setTimeout(function () { window.location = "../DashBoard/GetMyProfile"; }, 3000);
+                        }
+                    },
+                    error: function (err) {
+                        swal({
+                            icon: "warning",
+                            text: "problem..!",
+                            type: "warning",
+                            buttons: false
+                        });
+                        // alert(err.statusText);
+                    }
+                });
+            }
+        });
+    });
+</script>
+<link href="../assets/css/style.css" rel="stylesheet" />
+
+<script src="~/Scripts/jquery-ui.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#txtDOB').datepicker({
+            dateFormat: "dd/mm/yy",
+            changeMonth: true,
+            changeYear: true,
+            yearRange: "-60:-18"
+        });
+
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#ddlLanguage").change(function () {
+            var langId = $(this).val();
+            $.ajax({
+            url: "@Url.Action("GetCastebyLanguage", "DashBoard")",
+                data: { LanguageId: langId},
+            dataType: "json",
+            type: "GET",
+            error: function () {
+                alert(" An error occurred.");
+            },
+            success: function (data) {              
+                $(".castestyle").html('');
+                var optionhtml1 = '<option value="' +
+                    0 + '">' + "Select Caste" + '</option>';
+                $(".castestyle").append(optionhtml1);
+                $.each(data, function (i) {
+                    var optionhtml = '<option value="' + data[i].Value + '">' +data[i].Text + '</option>';
+                    $(".castestyle").append(optionhtml);
+                });
+            }
+            });
+        });
+        $("#ddlslanguage").change(function () {
+            var langId = $(this).val();
+            $.ajax({
+            url: "@Url.Action("GetCastebyLanguage", "DashBoard")",
+                data: { LanguageId: langId},
+            dataType: "json",
+            type: "GET",
+            error: function () {
+                alert(" An error occurred.");
+            },
+            success: function (data) {              
+                $("#ddlsCaste").html('');
+                var optionhtml1 = '<option value="' +
+                    0 + '">' + "Select Caste" + '</option>';
+                $("#ddlsCaste").append(optionhtml1);
+                $.each(data, function (i) {
+                    var optionhtml = '<option value="' + data[i].Value + '">' +data[i].Text + '</option>';
+                    $("#ddlsCaste").append(optionhtml);
+                });
+            }
+            });
+        });
+        $("#ddlCountry").change(function () {
+            var CountryId = $(this).val();
+             $.ajax({
+            url: "@Url.Action("States", "DashBoard")",
+                 data: { CountryId: CountryId},
+            dataType: "json",
+            type: "GET",
+            error: function () {
+                alert(" An error occurred.");
+            },
+            success: function (data) {              
+                $("#ddlState").html('');
+                var optionhtml1 = '<option value="' +
+                    0 + '">' + "Select State" + '</option>';
+                $("#ddlState").append(optionhtml1);
+                $.each(data, function (i) {
+                    var optionhtml = '<option value="' + data[i].Value + '">' +data[i].Text + '</option>';
+                    $("#ddlState").append(optionhtml);
+                });
+            }
+            });
+        });
+        //
+        $("#ddlState").change(function () {
+            var StateId = $(this).val();
+            var CountryId = $("#ddlCountry option:selected").val();
+             $.ajax({
+            url: "@Url.Action("Cities", "DashBoard")",
+                 data: { StateId: StateId},
+            dataType: "json",
+            type: "GET",
+            error: function () {
+                alert(" An error occurred.");
+            },
+            success: function (data) {              
+                $("#ddlCity").html('');
+                var optionhtml1 = '<option value="' +
+                    0 + '">' + "Select City" + '</option>';
+                $("#ddlCity").append(optionhtml1);
+                $.each(data, function (i) {
+                    var optionhtml = '<option value="' + data[i].Value + '">' +data[i].Text + '</option>';
+                    $("#ddlCity").append(optionhtml);
+                });
+            }
+            });
+        });
+
+    });
+    
+   
+</script>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12" style="position:relative; padding:0px;">
+            <div class="profPos">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-3 col-sm-12 col-xs-12 text-center">
+                            <div class="profDiv">
+                                <div class="profImgPos">
+                                    <div class="profImgDiv"><a id="profImg_Link" href="@Url.Action("ProfilePicUpload", "DashBoard")" class="profImgLink"><i class="fa fa-camera" aria-hidden="true"></i></a></div>
+                                </div>
+                                @if (Model.userprofilePic.UserProfilePicUrl != null)
+                                {
+                                    <img src="@Model.userprofilePic.UserProfilePicUrl" alt="profile pic">
+                                }
+                                else
+                                {
+                                    <img src="../assets/img/profilePic.jpg" alt="profile pic">
+                                }
+
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-12 col-xs-12 profName">
+                            <div style="font-size:24px; font-weight:bold; color:#c12f5b;">@Model.PersonalDetails.ProfileName @Model.PersonalDetails.ProfileLastName</div>
+                            <div style="font-size:17px; font-weight:bold; color:#3f3e3e; margin-top:5px;">Profile ID :<span style="font-weight:normal; font-size:15px;"><span>WV00</span>@Model.userProfile.ProfileId</span></div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="covImgPos">
+                <div class="covImgDiv">
+                    <input id="profileupload" type="file" />
+                    <a id="profileupload_link" class="covImfLink"><i class="fa fa-camera" aria-hidden="true"></i> &nbsp;Edit Cover Photo</a>
+                </div>
+            </div>
+            @if (Model.coverPhoto.CoverPhotoURL != null)
+            {
+                <img src="@Model.coverPhoto.CoverPhotoURL" alt="img" class="coverPhotoImg">
+            }
+            else
+            {
+                <img src="../assets/img/coverPic.jpg" alt="img">
+            }
+        </div>
+    </div>
+</div>
+
+<div class="container" style="padding-top:130px;">
+    <div class="row">
+        <div class="col-md-12">
+            <div style="float:right"><a href="#" style="background:#E00150; color:#fff; border-radius:10px; padding:10px 15px; font-size:16px; font-weight:500;" ONCLICK="ShowAndHide()"><i class="fa fa-search" aria-hidden="true"></i> &nbsp;Find My Matches</a></div>
+
+        </div>
+
+        <div class="col-md-12" ID="SectionName" STYLE="display:none; margin-bottom:50px; margin-top:10px; background:url(../assets/img/findsearchBg.jpg) repeat-x; border:#CCC 2px solid; padding:25px; border-radius:10px;">
+
+
+            <div class="row">
+                <div class="col-md-12 text-center"><div class="mainH1">Find My Matches</div></div>
+
+            </div>
+
+            <form>
+                <div class="form-row">
+                    <div class="form-group col-md-2">
+                        @Html.DropDownListFor(model => model.userProfile.SeekingGender, new SelectList(Model.userProfile.GenderOpti, "Value", "Text"),  new { @class = "form-control", id = "ddlSeekingGender" })
+
+                    </div>
+                    <div class="form-group col-md-2">
+                        <select id="ddlAgeFrom" class="form-control">
+                            <option>Age From</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <select id="ddlAgeTo" class="form-control">
+                            <option>Age To</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group col-md-2">
+                        @Html.DropDownListFor(model => model.AboutMySelf.sReligion, new SelectList(Model.AboutMySelf.ReligionOpti, "Value", "Text"), "Religion", new { @class = "form-control", id = "ddlsReligion" })
+                    </div>
+                    <div class="form-group col-md-2">
+                        @Html.DropDownListFor(model => model.AboutMySelf.sLanguage, new SelectList(Model.AboutMySelf.LanguageOpti, "Value", "Text"), "Language", new { @class = "form-control", id = "ddlslanguage" })
+                    </div>
+                    <div class="form-group col-md-2">
+                        @Html.DropDownListFor(model => model.AboutMySelf.sCaste, new SelectList(Model.AboutMySelf.sCasteOpti, "Value", "Text"), "Caste", new { @class = "form-control", id = "ddlsCaste" })
+                    </div>
+
+
+                </div>
+                <div class="form-row text-center">
+                    <a href="@Url.Action("SearchCriteria", "DashBoard")" style="background:#DC102F; color:#fff; border-radius:10px; padding:10px 15px; font-size:16px; font-weight:500; opacity:0.3; ">Advance Search</a> &nbsp;
+                    <input type="button" id="btnSubmit" style="background:#098a94; color:#fff; border-radius:10px; padding:10px 15px; font-size:16px; font-weight:500;border:none;" value="Submit" />
+                </div>
+
+            </form>
+
+
+
+        </div>
+
+    </div>
+</div>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="mainH1">My Photos</div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="gallery">
+            @if (Model.profilePhotos != null)
+            {
+                if (Model.profilePhotos.Count > 0)
+                {
+
+                    for (int i = 0; i < Model.profilePhotos.Count; i++)
+                    {
+
+                        <div><a href="@Model.profilePhotos[i].PhotoUrl"><img src="@Model.profilePhotos[i].ThumbnailUrl" width="90" height="90" /></a></div>
+
+                    }
+                }
+
+                if (Model.profilePhotos.Count<10)
+                {
+                    <input id="upload" type="file" />
+                    <a id="upload_link"><img src="../assets/img/addPic.jpg" alt="add" width="90" height="90"></a>
+                }
+            }
+
+
+
+
+        </div>
+    </div>
+</div>
+
+
+
+@using (Html.BeginForm("SaveProfile", "DashBoard", FormMethod.Post))
+{
+    <div class="container ptb-50">
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#myProfile"><i class="fa fa-user" aria-hidden="true"></i> Personal Details</a></li>
+            <li><a data-toggle="tab" href="#abtme"><i class="fa fa-address-card" aria-hidden="true"></i> About Myself</a></li>
+            <li><a data-toggle="tab" href="#PersChoice"><i class="fa fa-address-card" aria-hidden="true"></i> Personal Choices</a></li>
+            <li><a data-toggle="tab" href="#HobbNlei"><i class="fa fa-address-card" aria-hidden="true"></i> Hobbies &amp; Leisure</a></li>
+            <li><a data-toggle="tab" href="#persView"><i class="fa fa-address-card" aria-hidden="true"></i> Personal Views</a></li>
+        </ul>
+
+        <div class="tab-content" style="padding:30px; border-top:#f06056 2px solid; border-bottom:#098a94 3px solid;">
+            <div id="myProfile" class="tab-pane fade in active">
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-8 col-xs-offset-2">
+                            <form>
+                                <div class="form-group">
+                                    <label style="font-size:15px;">First Name</label>
+                                    @Html.TextBoxFor(model => model.PersonalDetails.ProfileName, new { @class = "form-control" })
+
+                                </div>
+                                <div class="form-group">
+                                    <label style="font-size:15px;">Last Name</label>
+                                    @Html.TextBoxFor(model => model.PersonalDetails.ProfileLastName, new { @class = "form-control" })
+
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-6" style="padding-left:0px;">
+                                        <label style="font-size:15px;">Date of Birth</label>
+                                        @Html.TextBoxFor(model => model.PersonalDetails.DateofBirth, new { @id = "txtDOB", @name = "txtDOB", @class = "form-control" })
+                                    </div>
+
+                                    <div class="col-md-6" style="padding-left:0px;">
+                                        <label style="font-size:15px;">Mobile Number</label>
+                                        @Html.TextBoxFor(model => model.PersonalDetails.Mobile, new { @class = "form-control", @placeholder = "Mobile Number", @type = "number" })
+                                    </div>
+
+                                </div>
+
+
+                                <div class="form-group">
+                                    <div class="col-md-6" style="padding-left:0px;">
+                                        <label style="font-size:15px;">Country</label>
+                                        @Html.DropDownListFor(model => model.PersonalDetails.Country, new SelectList(Model.PersonalDetails.CountryOpti, "Value", "Text"), "Country", new { @class = "form-control",@id= "ddlCountry" })
+                                    </div>
+
+                                    <div class="col-md-6" style="padding:0px;">
+                                        <label style="font-size:15px;">State</label>
+                                        @Html.DropDownListFor(model => model.PersonalDetails.State, new SelectList(Model.PersonalDetails.StateOpti, "Value", "Text"), "State", new { @class = "form-control", @id = "ddlState" })
+
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-6" style="padding-left:0px;">
+                                        <label style="font-size:15px;">City</label>
+                                        @Html.DropDownListFor(model => model.PersonalDetails.City, new SelectList(Model.PersonalDetails.CityOpti, "Value", "Text"), "City", new { @class = "form-control", @id = "ddlCity" })
+                                    </div>
+                                    <div class="col-md-6" style="padding:0px;">
+                                        <label style="font-size:15px;">Zip Code / Pin Code</label>
+                                        @Html.TextBoxFor(model => model.PersonalDetails.Zipcode, new { @class = "form-control" })
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-md-6" style="padding-left:0px;">
+                                            <label style="font-size:15px;">FB Link</label>
+                                            @Html.TextBoxFor(model => model.PersonalDetails.FBLink, new { @class = "form-control" })
+                                        </div>
+                                        <div class="col-md-6" style="padding:0px;">
+                                            <label style="font-size:16px;">Insta Link</label>
+                                            @Html.TextBoxFor(model => model.PersonalDetails.InstaLink, new { @class = "form-control" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-6" style="padding-left:0px;">
+                                            <label style="font-size:15px;">Twitter Link</label>
+                                            @Html.TextBoxFor(model => model.PersonalDetails.TwitterLink, new { @class = "form-control" })
+                                        </div>
+                                        <div class="col-md-6" style="padding:0px;">
+                                            <label style="font-size:15px;">Social Media Accts links</label>
+                                            @Html.TextBoxFor(model => model.PersonalDetails.SocialMediaLinks, new { @class = "form-control" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label style="font-size:15px;">Introduction About Myself</label>
+                                        @Html.TextAreaFor(model => model.PersonalDetails.Introduction, new { @name = "Indtoduction", @class = "form-control", @id = "Indtoduction", @rows = "2", @maxlength = "160" })
+                                    </div>
+                                    </div>
+                                        <label style="font-size:16px; color:#098a94;">Who Am I</label><br />
+                                        <label style="font-size:16px;">I’m thankful for</label>
+                                        @Html.TextAreaFor(model => model.WhoAmI.ThankkfulFor, new { @class = "form-control", @rows = "2" })
+
+                                        <label style="font-size:16px;">Best Life Skills</label>
+                                        @Html.TextAreaFor(model => model.WhoAmI.LifeSkills, new { @class = "form-control", @rows = "2" })
+
+                                        <label style="font-size:16px;">Things I Can’t Live Without</label>
+                                        @Html.TextAreaFor(model => model.WhoAmI.ThingsCantLiveWithout, new { @class = "form-control", @rows = "2" })
+
+                                        <label style="font-size:16px;">My friends described me as</label>
+                                        @Html.TextAreaFor(model => model.WhoAmI.FriendsDescribedAs, new { @class = "form-control", @rows = "2" })
+
+
+
+                                        <label style="font-size:16px; color:#098a94;">Self Description</label><br />
+
+                                        <label style="font-size:16px;">Other than your appearance, what is the first thing that people notice about you?</label>
+                                        @Html.TextAreaFor(model => model.SelfDescription.PeopleNoticeFirstThing, new { @class = "form-control", @rows = "2" })
+
+                                        <label style="font-size:16px;">What are you MOST thankful about? Other than life and parents?</label>
+                                        @Html.TextAreaFor(model => model.SelfDescription.MostThankful, new { @class = "form-control", @rows = "2" })
+
+                                        <label style="font-size:15px;">Other than your parents, who has been the most influential person in your life and why?</label>
+                                        @Html.TextAreaFor(model => model.SelfDescription.MostInfluentPerson, new { @class = "form-control", @rows = "2" })
+
+                                        <label style="font-size:15px;">Is there anything that you like so much that you cannot live without it? (Other than Kin and pets)</label>
+                                        @Html.TextAreaFor(model => model.SelfDescription.CannotLiveWithout, new { @class = "form-control", @rows = "2" })
+
+                                        <label style="font-size:15px;">How do you typically spend your leisure time?</label>
+                                        @Html.TextAreaFor(model => model.SelfDescription.SpendLeisureTime, new { @class = "form-control", @rows = "2" })
+
+                                        <label style="font-size:15px;">Looking back on your life, what are you most proud of?</label>
+                                        @Html.TextAreaFor(model => model.SelfDescription.MostProudOf, new { @class = "form-control", @rows = "2" })
+
+                                        <label style="font-size:16px;">What makes you a lovable person?</label>
+                                        @Html.TextAreaFor(model => model.SelfDescription.LovablePerson, new { @class = "form-control", @rows = "2" })
+
+                                        <label style="font-size:15px;">What is the most important quality that you are looking for in another person?</label>
+                                        @Html.TextAreaFor(model => model.SelfDescription.ImportantQualityofaPerson, new { @class = "form-control", @rows = "2" })
+
+                                        <label style="font-size:15px;">Is there any additional information you would like your matches to know about you?</label>
+                                        @Html.TextAreaFor(model => model.SelfDescription.AdditionalInfo, new { @class = "form-control", @rows = "2" })
+
+
+
+</form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div id="abtme" class="tab-pane fade">
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-8 col-xs-offset-2">
+
+
+                            <div class="form-group">
+                                <div class="col-md-6" style="padding-left:0px;">
+                                    <label style="font-size:15px;">Height</label>
+                                    @Html.DropDownListFor(model => model.AboutMySelf.Height, new SelectList(Model.AboutMySelf.HeightOpti, "Value", "Text"), "Height", new { @class = "form-control" })
+
+                                </div>
+
+                                <div class="col-md-6" style="padding:0px;">
+                                    <label style="font-size:15px;">Relationship Status</label>
+                                    @Html.DropDownListFor(model => model.AboutMySelf.RelationshipStatus, new SelectList(Model.AboutMySelf.RelationshipStatusOpti, "Value", "Text"), "Relation Status", new { @class = "form-control" })
+
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-6" style="padding-left:0px;">
+                                    <label style="font-size:15px;">Kids</label>
+                                    @Html.DropDownListFor(model => model.AboutMySelf.Kids, new SelectList(Model.AboutMySelf.KidsOpti, "Value", "Text"), "Kids", new { @class = "form-control" })
+
+                                </div>
+
+                                <div class="col-md-6" style="padding:0px;">
+                                    <label style="font-size:15px;">Pets</label>
+                                    @Html.DropDownListFor(model => model.AboutMySelf.Pets, new SelectList(Model.AboutMySelf.PetsOpti, "Value", "Text"), "Pets", new { @class = "form-control" })
+
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label style="font-size:15px;">Education</label>
+                                @Html.DropDownListFor(model => model.AboutMySelf.Education, new SelectList(Model.AboutMySelf.EducationOpti, "Value", "Text"), "Education", new { @class = "form-control" })
+
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-6" style="padding-left:0px;">
+                                    <label style="font-size:15px;">Do you Smoke?</label>
+                                    @Html.DropDownListFor(model => model.AboutMySelf.Smoke, new SelectList(Model.AboutMySelf.SmokeOpti, "Value", "Text"), "Do you Smoke?", new { @class = "form-control" })
+
+                                </div>
+
+                                <div class="col-md-6" style="padding:0px;">
+                                    <label style="font-size:15px;">How Often Do you Drink?</label>
+                                    @Html.DropDownListFor(model => model.AboutMySelf.Drink, new SelectList(Model.AboutMySelf.DrinkOpti, "Value", "Text"), "How Often Do you Drink?", new { @class = "form-control" })
+
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-6" style="padding-left:0px;">
+                                    <label style="font-size:15px;">Ethnicity</label>
+                                    @Html.DropDownListFor(model => model.AboutMySelf.Ethnicity, new SelectList(Model.AboutMySelf.EthnicityOpti, "Value", "Text"), "-Select One-", new { @class = "form-control" })
+
+                                </div>
+
+                                <div class="col-md-6" style="padding:0px;">
+                                    <label style="font-size:15px;">Religion</label>
+                                    @Html.DropDownListFor(model => model.AboutMySelf.Religion, new SelectList(Model.AboutMySelf.ReligionOpti, "Value", "Text"), "Religion", new { @class = "form-control" })
+
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-6" style="padding-left:0px;">
+                                    <label style="font-size:15px;">Language</label>
+                                    @Html.DropDownListFor(model => model.AboutMySelf.Language, new SelectList(Model.AboutMySelf.LanguageOpti, "Value", "Text"), "Language", new { @class = "form-control",@id="ddlLanguage" })
+
+                                </div>
+
+                                <div class="col-md-6" style="padding-left:0px;">
+                                    <label style="font-size:15px;">Caste</label>
+                                   @Html.DropDownListFor(model => model.AboutMySelf.Caste, new SelectList(Model.AboutMySelf.CasteOpti, "Value", "Text"), "Caste", new { @class = "castestyle form-control", @id ="ddlCaste"})
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-6" style="padding-left:0px;">
+                                    <label style="font-size:15px;">Job</label>
+                                    @Html.DropDownListFor(model => model.AboutMySelf.Job, new SelectList(Model.AboutMySelf.JobOpti, "Value", "Text"), "Job", new { @class = "form-control" })
+
+                                </div>
+
+                                <div class="col-md-6" style="padding:0px;">
+
+                                    <label style="font-size:15px;">City of Job</label>
+                                    @Html.TextBoxFor(model => model.AboutMySelf.CityofJob, new { @class = "form-control" })
+
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-12" style="padding-left:0px;">
+                                    <label style="font-size:15px;">Country of Job</label>
+                                    @Html.TextBoxFor(model => model.AboutMySelf.CountryofJob, new { @class = "form-control", PlaceHolder = "Country of Job" })
+
+                                </div>
+
+
+                            </div>
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div id="PersChoice" class="tab-pane fade">
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-10 col-xs-offset-1">
+
+
+                            <div class="form-group">
+                                <div class="col-md-12" style="padding-left:0px;">
+
+                                    <label style="font-size:15px;">Achieving personal goals</label>
+                                    @Html.DropDownListFor(model => model.PersonalChoices.Goals, new SelectList(Model.PersonalChoices.GoalsOpti, "Value", "Text"), "Achieving personal goals", new { @class = "form-control" })
+
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-12" style="padding-left:0px;">
+                                    <label style="font-size:15px;">Maintaining a network of close friend(s)</label>
+                                    @Html.DropDownListFor(model => model.PersonalChoices.FriendsNetwork, new SelectList(Model.PersonalChoices.FriendsNetworkOpti, "Value", "Text"), "Maintaining a network of close friend(s)", new { @class = "form-control" })
+
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-12" style="padding-left:0px;">
+                                    <label style="font-size:15px;">Using humor to make Friends laugh</label>
+                                    @Html.DropDownListFor(model => model.PersonalChoices.FriendLaugh, new SelectList(Model.PersonalChoices.FriendLaughOpti, "Value", "Text"), "Using humor to make Friends laugh", new { @class = "form-control" })
+
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-12" style="padding-left:0px;">
+                                    <label style="font-size:15px;">Making improvements (and repairs) around the house</label>
+                                    @Html.DropDownListFor(model => model.PersonalChoices.HouseImprovements, new SelectList(Model.PersonalChoices.HouseImprovementsOpti, "Value", "Text"), "Making improvements (and repairs) around the house", new { @class = "form-control" })
+
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-12" style="padding-left:0px;">
+                                    <label style="font-size:15px;">Volunteering my time to causes I care about</label>
+                                    @Html.DropDownListFor(model => model.PersonalChoices.CareAbout, new SelectList(Model.PersonalChoices.CareAboutOpti, "Value", "Text"), "Volunteering my time to causes I care about", new { @class = "form-control" })
+
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-12" style="padding-left:0px;">
+                                    <label style="font-size:15px;">Maintaining an organized life</label>
+                                    @Html.DropDownListFor(model => model.PersonalChoices.OrganizedLife, new SelectList(Model.PersonalChoices.OrganizedLifeOpti, "Value", "Text"), "Maintaining an organized life", new { @class = "form-control" })
+
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-12" style="padding-left:0px;">
+                                    <label style="font-size:15px;">Managing my finances</label>
+                                    @Html.DropDownListFor(model => model.PersonalChoices.Finances, new SelectList(Model.PersonalChoices.FinancesOpti, "Value", "Text"), "Managing my finances", new { @class = "form-control" })
+
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-12" style="padding-left:0px;">
+                                    <label style="font-size:15px;">Entertaining in my home</label>
+                                    @Html.DropDownListFor(model => model.PersonalChoices.HomeEntertaining, new SelectList(Model.PersonalChoices.HomeEntertainingOpti, "Value", "Text"), "Entertaining in my home", new { @class = "form-control" })
+
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-12" style="padding-left:0px;">
+                                    <label style="font-size:15px;">Raising and/or caring for children</label>
+                                    @Html.DropDownListFor(model => model.PersonalChoices.CaringforChildren, new SelectList(Model.PersonalChoices.CaringforChildrenOpti, "Value", "Text"), "Raising and/or caring for children", new { @class = "form-control" })
+
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-12" style="padding-left:0px;">
+                                    <label style="font-size:15px;">Creating romance in a relationship</label>
+                                    @Html.DropDownListFor(model => model.PersonalChoices.RomanceinRelation, new SelectList(Model.PersonalChoices.RomanceinRelationOpti, "Value", "Text"), "Creating romance in a relationship", new { @class = "form-control" })
+
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-12" style="padding-left:0px;">
+                                    <label style="font-size:15px;">Socializing</label>
+                                    @Html.DropDownListFor(model => model.PersonalChoices.Socializing, new SelectList(Model.PersonalChoices.SocializingOpti, "Value", "Text"), "Socializing", new { @class = "form-control" })
+
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-12" style="padding-left:0px;">
+                                    <label style="font-size:15px;">Creating a peaceful, beautiful home environment</label>
+                                    @Html.DropDownListFor(Mode => Model.PersonalChoices.HomeEnvironment, new SelectList(Model.PersonalChoices.HomeEnvironmentOpti, "Value", "Text"), "Creating a peaceful, beautiful home environment", new { @class = "form-control" })
+
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-12" style="padding-left:0px;">
+                                    <label style="font-size:15px;">Sharing my beliefs through teaching, participation, and example</label>
+                                    @Html.DropDownListFor(model => model.PersonalChoices.SharingBeliefs, new SelectList(Model.PersonalChoices.SharingBeliefsOpti, "Value", "Text"), "Sharing my beliefs through teaching, participation, and example", new { @class = "form-control" })
+
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-12" style="padding-left:0px;">
+                                    <label style="font-size:15px;">Keeping physically fit</label>
+                                    @Html.DropDownListFor(model => model.PersonalChoices.PhysicalFit, new SelectList(Model.PersonalChoices.PhysicalFitOpti, "Value", "Text"), "Keeping physically fit", new { @class = "form-control" })
+
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-12" style="padding-left:0px;">
+                                    <label style="font-size:15px;">Remaining calm yet resilient during a crisis</label>
+                                    @Html.DropDownListFor(model => model.PersonalChoices.CalmDuringCrisis, new SelectList(Model.PersonalChoices.CalmDuringCrisisOpti, "Value", "Text"), "Remaining calm yet resilient during a crisis", new { @class = "form-control" })
+
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-12" style="padding-left:0px;">
+                                    <label style="font-size:15px;">Communicating my innermost thoughts and feelings</label>
+                                    @Html.DropDownListFor(model => model.PersonalChoices.ThoughtsAndfeelings, new SelectList(Model.PersonalChoices.ThoughtsAndfeelingsOpti, "Value", "Text"), "Communicating my innermost thoughts and feelings", new { @class = "form-control" })
+
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-12" style="padding-left:0px;">
+                                    <label style="font-size:15px;">Helping those who are less fortunate or in need</label>
+                                    @Html.DropDownListFor(model => model.PersonalChoices.HelpingFortunates, new SelectList(Model.PersonalChoices.HelpingFortunatesOpti, "Value", "Text"), "Helping those who are less fortunate or in need", new { @class = "form-control" })
+
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-12" style="padding-left:0px;">
+                                    <label style="font-size:15px;">Resolving conflict</label>
+                                    @Html.DropDownListFor(model => model.PersonalChoices.ResolveConflict, new SelectList(Model.PersonalChoices.ResolveConflictOpti, "Value", "Text"), "Resolving conflict", new { @class = "form-control" })
+
+                                </div>
+                            </div>
+
+
+
+                            <div class="form-group">
+                                <div class="col-md-12" style="padding-left:0px;">
+                                    <label style="font-size:15px;">Finding new adventures and unique experiences</label>
+                                    @Html.DropDownListFor(model => model.PersonalChoices.Adventures, new SelectList(Model.PersonalChoices.AdventuresOpti, "Value", "Text"), "Finding new adventures and unique experiences", new { @class = "form-control" })
+
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-12" style="padding-left:0px;">
+                                    <label style="font-size:15px;">Continuing to expand my knowledge and awareness</label>
+                                    @Html.DropDownListFor(model => model.PersonalChoices.KnowledgeAndAwareness, new SelectList(Model.PersonalChoices.KnowledgeAndAwarenessOpti, "Value", "Text"), "Continuing to expand my knowledge and awareness", new { @class = "form-control" })
+
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-12" style="padding-left:0px;">
+                                    <label style="font-size:15px;">Long-term personal planning</label>
+                                    @Html.DropDownListFor(model => model.PersonalChoices.ProfessionalPlanning, new SelectList(Model.PersonalChoices.ProfessionalPlanningOpti, "Value", "Text"), "Long-term personal planning", new { @class = "form-control" })
+
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-12" style="padding-left:0px;">
+                                    <label style="font-size:15px;">Understanding local, national, and world events</label>
+                                    @Html.DropDownListFor(model => model.PersonalChoices.EventsUnderstanding, new SelectList(Model.PersonalChoices.EventsUnderstandingOpti, "Value", "Text"), "Understanding local, national, and world events", new { @class = "form-control" })
+
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-12" style="padding-left:0px;">
+                                    <label style="font-size:15px;">Finding pleasure and content in simple things</label>
+                                    @Html.DropDownListFor(model => model.PersonalChoices.FindingPleasure, new SelectList(Model.PersonalChoices.FindingPleasureOpti, "Value", "Text"), "Finding pleasure and content in simple things", new { @class = "form-control" })
+
+
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-12" style="padding-left:0px;">
+                                    <label style="font-size:15px;">Culture and Tradition</label>
+                                    @Html.DropDownListFor(model => model.PersonalChoices.CultureAndTradition, new SelectList(Model.PersonalChoices.CultureAndTraditionOpti, "Value", "Text"), "Culture and Tradition", new { @class = "form-control" })
+
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-12" style="padding-left:0px;">
+                                    <label style="font-size:15px;">Finding creative solutions to everyday problems</label>
+                                    @Html.DropDownListFor(model => model.PersonalChoices.CreativeSolutions, new SelectList(Model.PersonalChoices.CreativeSolutionsOpti, "Value", "Text"), "Finding creative solutions to everyday problems", new { @class = "form-control" })
+
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-12" style="padding-left:0px;">
+                                    <label style="font-size:15px;">Making new friends</label>
+                                    @Html.DropDownListFor(model => model.PersonalChoices.MakingFriends, new SelectList(Model.PersonalChoices.MakingFriendsOpti, "Value", "Text"), "Making new friends", new { @class = "form-control" })
+
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-12" style="padding-left:0px;">
+                                    <label style="font-size:15px;">Cooking for my family and friends</label>
+                                    @Html.DropDownListFor(model => model.PersonalChoices.CookingForFamily, new SelectList(Model.PersonalChoices.CookingForFamilyOpti, "Value", "Text"), "Cooking for my family and friends", new { @class = "form-control" })
+
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-12" style="padding-left:0px;">
+                                    <label style="font-size:15px;">Earning income to provide for my family</label>
+                                    @Html.DropDownListFor(model => model.PersonalChoices.ProvideIncomeforFamily, new SelectList(Model.PersonalChoices.ProvideIncomeforFamilyOpti, "Value", "Text"), "Earning income to provide for my family", new { @class = "form-control" })
+
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-12" style="padding-left:0px;">
+                                    <label style="font-size:15px;">Co-ordinating household schedules</label>
+                                    @Html.DropDownListFor(model => model.PersonalChoices.HouseholdSchedules, new SelectList(Model.PersonalChoices.HouseholdSchedulesOpti, "Value", "Text"), "Co-ordinating household schedules", new { @class = "form-control" })
+
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-12" style="padding-left:0px;">
+                                    <label style="font-size:15px;">Being a good friend and companion</label>
+                                    @Html.DropDownListFor(model => model.PersonalChoices.BeingAgoodFriend, new SelectList(Model.PersonalChoices.BeingAgoodFriendOpti, "Value", "Text"), "Being a good friend and companion", new { @class = "form-control" })
+
+                                </div>
+                            </div>
+
+
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+            <div id="HobbNlei" class="tab-pane fade">
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-8 col-xs-offset-2">
+
+                            <div class="form-group">
+                                <div class="col-md-12" style="padding-left:0px;">
+                                    <label style="font-size:15px;">I Like cars and Driving</label>
+                                    @Html.TextAreaFor(model => model.Hobbies.CarsAndDriving, new { @class = "form-control", @placeholder = "I Like cars and Driving", @rows = "2" })
+
+                                    <label style="font-size:15px;">I spend my Free time</label>
+                                    @Html.TextAreaFor(model => model.Hobbies.SpendFreeTime, new { @class = "form-control", @placeholder = "I spend my Free time", @rows = "2" })
+
+                                    <label style="font-size:15px;">Sports I like</label>
+                                    @Html.TextAreaFor(model => model.Hobbies.SportsILike, new { @class = "form-control", @placeholder = "Sports I like", @rows = "2" })
+
+                                    <label style="font-size:15px;">Instruments I can play</label>
+                                    @Html.TextAreaFor(model => model.Hobbies.InstrumentsIPlay, new { @class = "form-control", @placeholder = "Instruments I can play", @rows = "2" })
+
+                                    <label style="font-size:15px;">Music</label>
+                                    @Html.TextAreaFor(model => model.Hobbies.Music, new { @class = "form-control", @placeholder = "Music", @rows = "2" })
+
+                                    <label style="font-size:15px;">Vacations</label>
+                                    @Html.TextAreaFor(model => model.Hobbies.Vacations, new { @class = "form-control", @placeholder = "Vacations", @rows = "2" })
+
+                                    <label style="font-size:15px;">Favorite</label>
+                                    @Html.TextAreaFor(model => model.Hobbies.Favorite, new { @class = "form-control", @placeholder = "Favorite", @rows = "2" })
+
+                                    <label style="font-size:15px;">TV shows</label>
+                                    @Html.TextAreaFor(model => model.Hobbies.TVShows, new { @class = "form-control", @placeholder = "TV shows", @rows = "2" })
+
+                                    <label style="font-size:15px;">Movies</label>
+                                    @Html.TextAreaFor(model => model.Hobbies.Movies, new { @class = "form-control", @placeholder = "Movies", @rows = "2" })
+
+                                    <label style="font-size:15px;">Favorite books</label>
+                                    @Html.TextAreaFor(model => model.Hobbies.Favorite, new { @class = "form-control", @placeholder = "Favorite books", @rows = "2" })
+
+                                    <label style="font-size:15px;">Travel</label>
+                                    @Html.TextAreaFor(model => model.Hobbies.Travel, new { @class = "form-control", @placeholder = "Travel", @rows = "2" })
+
+                                    <label style="font-size:15px;">Exercising</label>
+                                    @Html.TextAreaFor(model => model.Hobbies.Excercising, new { @class = "form-control", @placeholder = "Exercising", @rows = "2" })
+
+                                    <label style="font-size:15px;">Hiking</label>
+                                    @Html.TextAreaFor(model => model.Hobbies.Hiking, new { @class = "form-control", @placeholder = "Hiking", @rows = "2" })
+
+                                    <label style="font-size:15px;">Driving</label>
+                                    @Html.TextAreaFor(model => model.Hobbies.Driving, new { @class = "form-control", @placeholder = "Driving", @rows = "2" })
+
+                                    <label style="font-size:15px;">Beaches</label>
+                                    @Html.TextAreaFor(model => model.Hobbies.Beaches, new { @class = "form-control", @placeholder = "Beaches", @rows = "2" })
+
+
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+            <div id="persView" class="tab-pane fade">
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-10 col-xs-offset-1">
+
+
+                            <div class="form-group">
+                                <div class="col-md-12" style="padding-left:0px;">
+                                    <label style="font-size:15px;">Faith In God</label>
+                                    @Html.DropDownListFor(model => model.PersonalViews.FaithInGod, new SelectList(Model.PersonalViews.FaithInGodOpti, "Value", "Text"), "Faith In God", new { @class = "form-control" })
+
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-12" style="padding-left:0px;">
+                                    <label style="font-size:15px;">Religion</label>
+                                    @Html.DropDownListFor(model => model.PersonalViews.Religion, new SelectList(Model.PersonalViews.ReligionOpti, "Value", "Text"), "Religion", new { @class = "form-control" })
+
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-12" style="padding-left:0px;">
+                                    <label style="font-size:15px;">Caste</label>
+                                    @Html.DropDownListFor(model => model.PersonalViews.Caste, new SelectList(Model.PersonalViews.CasteOpti, "Value", "Text"), "Caste", new {@id="ddlPCaste", @class = "form-control" })
+
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-12" style="padding-left:0px;">
+                                    <label style="font-size:15px;">Superstitious</label>
+                                    @Html.DropDownListFor(model => model.PersonalViews.Superstitious, new SelectList(Model.PersonalViews.SuperstitiousOpti, "Value", "Text"), "Superstitious", new { @class = "form-control" })
+
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-12" style="padding-left:0px;">
+                                    <label style="font-size:15px;">Astrology</label>
+                                    @Html.DropDownListFor(model => model.PersonalViews.Astrology, new SelectList(Model.PersonalViews.AstrologyOpti, "Value", "Text"), "Astrology", new { @class = "form-control" })
+
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-12" style="padding-left:0px;">
+                                    <label style="font-size:15px;">Food</label>
+                                    @Html.DropDownListFor(model => model.PersonalViews.Food, new SelectList(Model.PersonalViews.FoodOpti, "Value", "Text"), "Food", new { @class = "form-control" })
+
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-12" style="padding-left:0px;">
+                                    <label style="font-size:15px;">Outside eating</label>
+                                    @Html.DropDownListFor(model => model.PersonalViews.OutsideEating, new SelectList(Model.PersonalViews.OutsideEatingOpti, "Value", "Text"), "Outside eating", new { @class = "form-control" })
+
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-12" style="padding-left:0px;">
+                                    <label style="font-size:15px;">Movies</label>
+                                    @Html.DropDownListFor(model => model.PersonalViews.Movies, new SelectList(Model.PersonalViews.MoviesOpti, "Value", "Text"), "Movies", new { @class = "form-control" })
+
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-12" style="padding-left:0px;">
+                                    <label style="font-size:15px;">On Relaxing</label>
+                                    @Html.DropDownListFor(model => model.PersonalViews.OnRelaxing, new SelectList(Model.PersonalViews.OnRelaxingOpti, "Value", "Text"), "On Relaxing", new { @class = "form-control" })
+
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-12" style="padding-left:0px;">
+                                    <label style="font-size:15px;">Travel</label>
+                                    @Html.DropDownListFor(model => model.PersonalViews.Travel, new SelectList(Model.PersonalViews.TravelOpti, "Value", "Text"), "Travel", new { @class = "form-control" })
+
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-12" style="padding-left:0px;">
+                                    <label style="font-size:15px;">Shopping</label>
+                                    @Html.DropDownListFor(model => model.PersonalViews.Shopping, new SelectList(Model.PersonalViews.ShoppingOpti, "Value", "Text"), "Shopping", new { @class = "form-control" })
+
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-12" style="padding-left:0px;">
+                                    <label style="font-size:15px;">Spending</label>
+                                    @Html.DropDownListFor(model => model.PersonalViews.Spending, new SelectList(Model.PersonalViews.SpendingOpti, "Value", "Text"), "Spending", new { @class = "form-control" })
+
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-12" style="padding-left:0px;">
+                                    <label style="font-size:15px;">Being Self</label>
+                                    @Html.DropDownListFor(model => model.PersonalViews.BeingSelf, new SelectList(Model.PersonalViews.BeingSelfOpti, "Value", "Text"), "Being Self", new { @class = "form-control" })
+
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-12" style="padding-left:0px;">
+                                    <label style="font-size:15px;">Humor</label>
+                                    @Html.DropDownListFor(model => model.PersonalViews.Humor, new SelectList(Model.PersonalViews.HumorOpti, "Value", "Text"), "Humor", new { @class = "form-control" })
+
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-12" style="padding-left:0px;">
+                                    <label style="font-size:15px;">Anxious</label>
+                                    @Html.DropDownListFor(model => model.PersonalViews.Anxious, new SelectList(Model.PersonalViews.AnxiousOpti, "Value", "Text"), "Anxious", new { @class = "form-control" })
+
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-12" style="padding-left:0px;">
+                                    <label style="font-size:15px;">Tension</label>
+                                    @Html.DropDownListFor(model => model.PersonalViews.Tension, new SelectList(Model.PersonalViews.TensionOpti, "Value", "Text"), "Tension", new { @class = "form-control" })
+
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-12" style="padding-left:0px;">
+                                    <label style="font-size:15px;">Speaking my mind</label>
+                                    @Html.DropDownListFor(model => model.PersonalViews.SpeakingMind, new SelectList(Model.PersonalViews.SpeakingMindOpti, "Value", "Text"), "Speaking my mind", new { @class = "form-control" })
+
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-12" style="padding-left:0px;">
+                                    <label style="font-size:15px;">Sad Times</label>
+                                    @Html.DropDownListFor(model => model.PersonalViews.SadTimes, new SelectList(Model.PersonalViews.SadTimesOpti, "Value", "Text"), "Sad Times", new { @class = "form-control" })
+
+                                </div>
+                            </div>
+
+
+
+                            <div class="form-group">
+                                <div class="col-md-12" style="padding-left:0px;">
+                                    <label style="font-size:15px;">Angry</label>
+                                    @Html.DropDownListFor(model => model.PersonalViews.Angry, new SelectList(Model.PersonalViews.AngryOpti, "Value", "Text"), "Angry", new { @class = "form-control" })
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-12" style="padding-left:0px;">
+                                    <label style="font-size:15px;">Talkative</label>
+                                    @Html.DropDownListFor(model => model.PersonalViews.Talkative, new SelectList(Model.PersonalViews.TalkativeOpti, "Value", "Text"), "Talkative", new { @class = "form-control" })
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-12" style="padding-left:0px;">
+                                    <label style="font-size:15px;">Fate</label>
+                                    @Html.DropDownListFor(model => model.PersonalViews.Fate, new SelectList(Model.PersonalViews.FateOpti, "Value", "Text"), "Fate", new { @class = "form-control" })
+
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-12" style="padding-left:0px;">
+                                    <label style="font-size:15px;">Self Control</label>
+                                    @Html.DropDownListFor(model => model.PersonalViews.SelfControl, new SelectList(Model.PersonalViews.SelfControlOpti, "Value", "Text"), "Self Control", new { @class = "form-control" })
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-12" style="padding-left:0px;">
+                                    <label style="font-size:15px;">Misunderstood</label>
+                                    @Html.DropDownListFor(model => model.PersonalViews.MisUnderstood, new SelectList(Model.PersonalViews.MisUnderstoodOpti, "Value", "Text"), "Misunderstood", new { @class = "form-control" })
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-12" style="padding-left:0px;">
+                                    <label style="font-size:15px;">Achieve Goals</label>
+                                    @Html.DropDownListFor(model => model.PersonalViews.AchieveGoals, new SelectList(Model.PersonalViews.AchieveGoalsOpti, "Value", "Text"), "Achieve Goals", new { @class = "form-control" })
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-12" style="padding-left:0px;">
+                                    <label style="font-size:15px;">Caring</label>
+                                    @Html.DropDownListFor(model => model.PersonalViews.Caring, new SelectList(Model.PersonalViews.CaringOpti, "Value", "Text"), "Caring", new { @class = "form-control" })
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-12" style="padding-left:0px;">
+                                    <label style="font-size:15px;">Systematic</label>
+                                    @Html.DropDownListFor(model => model.PersonalViews.Systematic, new SelectList(Model.PersonalViews.SystematicOpti, "Value", "Text"), "Systematic", new { @class = "form-control" })
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-12" style="padding-left:0px;">
+                                    <label style="font-size:15px;">Creativity</label>
+                                    @Html.DropDownListFor(model => model.PersonalViews.Creativity, new SelectList(Model.PersonalViews.CreativityOpti, "Value", "Text"), "Creativity", new { @class = "form-control" })
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-12" style="padding-left:0px;">
+                                    <label style="font-size:15px;">Forgiving</label>
+                                    @Html.DropDownListFor(model => model.PersonalViews.Forgiving, new SelectList(Model.PersonalViews.ForgivingOpti, "Value", "Text"), "Forgiving", new { @class = "form-control" })
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-12" style="padding-left:0px;">
+                                    <label style="font-size:15px;">Sensitivity</label>
+                                    @Html.DropDownListFor(model => model.PersonalViews.Sensitivity, new SelectList(Model.PersonalViews.SensitivityOpti, "Value", "Text"), "Sensitivity", new { @class = "form-control" })
+
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-12" style="padding-left:0px;">
+                                    <label style="font-size:15px;">Admitting my faults</label>
+                                    @Html.DropDownListFor(model => model.PersonalViews.AdmittingFaults, new SelectList(Model.PersonalViews.AdmittingFaultsOpti, "Value", "Text"), "Admitting my faults", new { @class = "form-control" })
+
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-12" style="padding-left:0px;">
+                                    <label style="font-size:15px;">Ego</label>
+                                    @Html.DropDownListFor(model => model.PersonalViews.Ego, new SelectList(Model.PersonalViews.EgoOpti, "Value", "Text"), "Ego", new { @class = "form-control" })
+
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-12" style="padding-left:0px;">
+                                    <label style="font-size:15px;">Friendship</label>
+                                    @Html.DropDownListFor(model => model.PersonalViews.Friendship, new SelectList(Model.PersonalViews.FriendshipOpti, "Value", "Text"), "Friendship", new { @class = "form-control" })
+
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-12" style="padding-left:0px;">
+                                    <label style="font-size:15px;">Daily chores</label>
+                                    @Html.DropDownListFor(model => model.PersonalViews.DailyChores, new SelectList(Model.PersonalViews.DailyChoresOpti, "Value", "Text"), "Daily chores", new { @class = "form-control" })
+
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-12" style="padding-left:0px;">
+                                    <label style="font-size:15px;">Tolerance</label>
+                                    @Html.DropDownListFor(model => model.PersonalViews.Tolerance, new SelectList(Model.PersonalViews.ToleranceOpti, "Value", "Text"), "Tolerance", new { @class = "form-control" })
+
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-12" style="padding-left:0px;">
+                                    <label style="font-size:15px;">Tech Savvy</label>
+                                    @Html.DropDownListFor(model => model.PersonalViews.TechSavvy, new SelectList(Model.PersonalViews.TechSavvyOpti, "Value", "Text"), "Tech Savvy", new { @class = "form-control" })
+
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-12" style="padding-left:0px;">
+                                    <label style="font-size:15px;">Internet</label>
+                                    @Html.DropDownListFor(model => model.PersonalViews.Internet, new SelectList(Model.PersonalViews.InternetOpti, "Value", "Text"), "Internet", new { @class = "form-control" })
+
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-12" style="padding-left:0px;">
+                                    <label style="font-size:15px;">Politics</label>
+                                    @Html.DropDownListFor(model => model.PersonalViews.Politics, new SelectList(Model.PersonalViews.PoliticsOpti, "Value", "Text"), "Politics", new { @class = "form-control" })
+
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-12" style="padding-left:0px;">
+                                    <label style="font-size:15px;">Society</label>
+                                    @Html.DropDownListFor(model => model.PersonalViews.Society, new SelectList(Model.PersonalViews.SocietyOpti, "Value", "Text"), "Society", new { @class = "form-control" })
+
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-12" style="padding-left:0px;">
+                                    <label style="font-size:15px;">Taking Initiative</label>
+                                    @Html.DropDownListFor(model => model.PersonalViews.TakingInitiative, new SelectList(Model.PersonalViews.TakingInitiativeOpti, "Value", "Text"), "Taking Initiative", new { @class = "form-control" })
+
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-12" style="padding-left:0px;">
+                                    <label style="font-size:15px;">Family Values</label>
+                                    @Html.DropDownListFor(model => model.PersonalViews.FamilyValues, new SelectList(Model.PersonalViews.FamilyValuesOpti, "Value", "Text"), "Family Values", new { @class = "form-control" })
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="form-group text-center" style=" padding-top:40px; clear:both;">
+                <input type="submit" style="background:#E00150; color:#fff; border-radius:10px; padding:10px 15px; font-size:16px; font-weight:500;" value="Save">
+
+            </div>
+
+        </div>
+    </div>
+
+}
+    
+  

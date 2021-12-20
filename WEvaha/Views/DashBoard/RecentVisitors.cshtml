@@ -1,0 +1,41 @@
+﻿
+@{
+    ViewBag.Title = "RecentVisitors";
+    Layout = "~/Views/Shared/_Layout_New_Dashboard.cshtml";
+}
+
+<div class="container">
+    <div class="row" style="background:#fff; margin-top:50px;">
+        <div class="row">
+            <div class="col-md-12" style="padding:25px 0px 15px 0px;">
+                <div class="mainH1" style="text-align:center;">Recent Visitors</div>
+            </div>
+        </div>
+    </div>
+    <div class="container" style="margin-bottom:30px;">
+        <div id="RecentVistorsReasult">
+            @Html.Partial("_SearchResult")
+        </div>
+    </div>
+
+</div>
+<script>
+
+    function getCompatableMatches(page) {
+        var from = 2;
+        $('#RecentVistorsReasult').html('');
+        $.ajax('/DashBoard/CompatableMatches', {
+            type: 'POST',  // http method
+            data: { pageIndex: page, From: from },  // data to submit
+            success: function (data, status, xhr) {
+                // $('p').append('status: ' + status + ', data: ' + data);
+                $('#CompatableMatchesReasult').html(data);
+            },
+            error: function (jqXhr, textStatus, errorMessage) {
+                // $('p').append('Error' + errorMessage);
+            }
+        });
+    }
+</script>
+
+

@@ -1,0 +1,444 @@
+﻿
+@{
+    ViewBag.Title = "GetBasicSearchResult";
+    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+}
+
+<div class="container">
+
+    <div class="row" style="background:#fff; margin-top:50px;">
+        <div class="row">
+            <div class="col-md-12" style="padding:25px 0px 15px 0px;">
+                <div class="mainH1" style="text-align:center;">Search Criteria</div>
+            </div>
+        </div>
+
+        <div class="row" style="margin-bottom:30px;">
+            <div class="col-md-12">
+                <form>
+                    <div class="form-row">
+
+                        <div class="form-group col-md-3 col-xs-6">
+                            <select id="inputState" class="form-control">
+                                <option selected="">Age From</option>
+                                <option>...</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3 col-xs-6">
+                            <select id="inputState" class="form-control">
+                                <option selected="">Age To</option>
+                                <option>...</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-3 col-xs-6">
+                            <select id="inputState" class="form-control">
+                                <option selected="">Height From</option>
+                                <option>...</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3 col-xs-6">
+                            <select id="inputState" class="form-control">
+                                <option selected="">Height To</option>
+                                <option>...</option>
+                            </select>
+                        </div>
+
+
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-3">
+                            <select id="inputState" class="form-control">
+                                <option selected="">Country of Residence</option>
+                                <option>...</option>
+
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <select id="inputState" class="form-control">
+                                <option selected="">Status </option>
+                                <option>...</option>
+
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-3">
+                            <select id="inputState" class="form-control">
+                                <option selected="">Profession</option>
+                                <option>...</option>
+
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-3">
+                            <select id="inputState" class="form-control">
+                                <option selected="">Qualification</option>
+                                <option>...</option>
+
+                            </select>
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-row">
+                        <div class="form-group col-md-3">
+                            <select id="inputState" class="form-control">
+                                <option selected="">Smoking</option>
+                                <option>...</option>
+
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <select id="inputState" class="form-control">
+                                <option selected="">Drinking</option>
+                                <option>...</option>
+
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-3">
+                            <select id="inputState" class="form-control">
+                                <option selected="">Kids</option>
+                                <option>...</option>
+
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-3">
+                            <select id="inputState" class="form-control">
+                                <option selected="">Faith in God</option>
+                                <option>...</option>
+
+                            </select>
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-row">
+                        <div class="form-group col-md-3">
+                            <select id="inputState" class="form-control">
+                                <option selected="">Cuisine</option>
+                                <option>...</option>
+
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <select id="inputState" class="form-control">
+                                <option selected="">Travel</option>
+                                <option>...</option>
+
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-3">
+                            <select id="inputState" class="form-control">
+                                <option selected="">Movies</option>
+                                <option>...</option>
+
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-3">
+                            <select id="inputState" class="form-control">
+                                <option selected="">Shopping</option>
+                                <option>...</option>
+
+                            </select>
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-row text-center">
+                        <a href="#" style="background:#E80443; color:#fff; border-radius:10px; padding:10px 15px; font-size:16px; font-weight:500;" onclick="ShowAndHide1()">Search</a>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row" style="margin-top:40px;">
+        <div class="col-md-9">
+
+            <div class="row">
+                <a href="" class="boxGird">
+                    <div class="col-md-4" style="padding:0px;"><img src="assets/img/profileImg/13.jpg" alt="img" class="Img-fit-ML"></div>
+                    <div class="col-md-8">
+
+                        <div class="row ">
+                            <div class="col-md-12">
+                                <!--<div class="ML_fav"><i class="heart fa fa-heart-o"></i></div>-->
+                                <div class="ML_h3">VaraPrasad V</div>
+                                <div class="ML_line"></div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 col-xs-6 ML_det">28 yrs, 5' 2"</div>
+                            <div class="col-md-6 col-xs-6 ML_det">Never Married</div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 col-xs-6 ML_det">Hindu, Padmasali</div>
+                            <div class="col-md-6 col-xs-6 ML_det">Miyapur, Hyderabad</div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 col-xs-6 ML_det">Telugu, English</div>
+                            <div class="col-md-6 col-xs-6 ML_det">Senior Software Engineer</div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div style="background:#CCC; height:1px; margin-top:15px;"></div>
+                                <div class="ML_det">
+                                    Hello, here is a quick introduction about my daughter. She has
+                                    completed her intermediate. As parent...
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </a>
+            </div>
+
+            <div class="row">
+                <a href="" class="boxGird">
+                    <div class="col-md-4" style="padding:0px;"><img src="assets/img/profileImg/12.jpg" alt="img" class="Img-fit-ML"></div>
+                    <div class="col-md-8">
+
+                        <div class="row ">
+                            <div class="col-md-12">
+                                <!--<div class="ML_fav"><i class="heart fa fa-heart-o"></i></div>-->
+                                <div class="ML_h3">Surya Kiran K</div>
+                                <div class="ML_line"></div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 col-xs-6 ML_det">29 yrs, 5' 9"</div>
+                            <div class="col-md-6 col-xs-6 ML_det">Never Married</div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 col-xs-6 ML_det">Hindu, Padmasali</div>
+                            <div class="col-md-6 col-xs-6 ML_det">BHEL, Hyderabad</div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 col-xs-6 ML_det">Telugu, English</div>
+                            <div class="col-md-6 col-xs-6 ML_det">Civil Engineer</div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div style="background:#CCC; height:1px; margin-top:15px;"></div>
+                                <div class="ML_det">
+                                    Hello, here is a quick introduction about my daughter. She has
+                                    completed her intermediate. As parent...
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </a>
+            </div>
+
+
+            <div class="row">
+                <a href="" class="boxGird">
+                    <div class="col-md-4" style="padding:0px;"><img src="assets/img/profileImg/15.jpg" alt="img" class="Img-fit-ML"></div>
+                    <div class="col-md-8">
+
+                        <div class="row ">
+                            <div class="col-md-12">
+                                <!--<div class="ML_fav"><i class="heart fa fa-heart-o"></i></div>-->
+                                <div class="ML_h3">Prakesh Kumar</div>
+                                <div class="ML_line"></div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 col-xs-6 ML_det">30 yrs, 5' 11"</div>
+                            <div class="col-md-6 col-xs-6 ML_det">Never Married</div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 col-xs-6 ML_det">Hindu, Padmasali</div>
+                            <div class="col-md-6 col-xs-6 ML_det">Kammam, Telangana</div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 col-xs-6 ML_det">Telugu, English</div>
+                            <div class="col-md-6 col-xs-6 ML_det">Business</div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div style="background:#CCC; height:1px; margin-top:15px;"></div>
+                                <div class="ML_det">
+                                    Hello, here is a quick introduction about my daughter. She has
+                                    completed her intermediate. As parent...
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </a>
+            </div>
+
+
+            <div class="row">
+                <a href="" class="boxGird">
+                    <div class="col-md-4" style="padding:0px;"><img src="assets/img/profileImg/10.jpg" alt="img" class="Img-fit-ML"></div>
+                    <div class="col-md-8">
+
+                        <div class="row ">
+                            <div class="col-md-12">
+                                <!--<div class="ML_fav"><i class="heart fa fa-heart-o"></i></div>-->
+                                <div class="ML_h3">Sagameshwar J</div>
+                                <div class="ML_line"></div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 col-xs-6 ML_det">31 yrs, 5' 6"</div>
+                            <div class="col-md-6 col-xs-6 ML_det">Never Married</div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 col-xs-6 ML_det">Hindu, Padmasali</div>
+                            <div class="col-md-6 col-xs-6 ML_det">Ameerpet, Hyderabad</div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 col-xs-6 ML_det">Telugu, English</div>
+                            <div class="col-md-6 col-xs-6 ML_det">Govt Teacher</div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div style="background:#CCC; height:1px; margin-top:15px;"></div>
+                                <div class="ML_det">
+                                    Hello, here is a quick introduction about my daughter. She has
+                                    completed her intermediate. As parent...
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </a>
+            </div>
+
+
+
+            <div class="row">
+                <a href="" class="boxGird">
+                    <div class="col-md-4" style="padding:0px;"><img src="assets/img/profileImg/16.jpg" alt="img" class="Img-fit-ML"></div>
+                    <div class="col-md-8">
+
+                        <div class="row ">
+                            <div class="col-md-12">
+                                <!--<div class="ML_fav"><i class="heart fa fa-heart-o"></i></div>-->
+                                <div class="ML_h3">Mahesh Kumar P</div>
+                                <div class="ML_line"></div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 col-xs-6 ML_det">30 yrs, 5' 10"</div>
+                            <div class="col-md-6 col-xs-6 ML_det">Never Married</div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 col-xs-6 ML_det">Hindu, Padmasali</div>
+                            <div class="col-md-6 col-xs-6 ML_det">Sangareddy, Telangana</div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 col-xs-6 ML_det">Telugu, English</div>
+                            <div class="col-md-6 col-xs-6 ML_det">Senior Developer</div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div style="background:#CCC; height:1px; margin-top:15px;"></div>
+                                <div class="ML_det">
+                                    Hello, here is a quick introduction about my daughter. She has
+                                    completed her intermediate. As parent...
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </a>
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+            <div style="background:#999; color:#fff; font-size:21px;">
+                <br>
+                <br>
+                <br><br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12" style="margin-top:35px; text-align:center;">
+            <nav>
+                <ul class="pagination">
+                    <li>
+                        <a href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+
+                    <li>
+                        <a href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+
+</div>

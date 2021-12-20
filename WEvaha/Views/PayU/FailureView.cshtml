@@ -1,0 +1,33 @@
+﻿
+@{
+    ViewBag.Title = "FailureView";
+    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+}
+
+<div class="container" style="padding:10px; background:#fff; margin-top:100px; margin-bottom:100px; border:1px #e7e7e7 solid;">
+
+
+    <div class="row">
+        <div class="col-md-12 text-center" style="padding:25px 0px;">
+
+            <h3 style="color:#C40000;">Payment Failed</h3><br>
+
+            <p style="text-align:center;">
+                In case money was deducted from your account, your bank could take 7–14 days to credit the refund in your account.<br>
+
+                Transaction ID :@ViewBag.TransactionId<br>
+
+            </p>
+
+        </div>
+        <div class="text-center"><a onclick="RedirectDashBoard();"><img src="../assets/img/dashBoard_btn.png" alt="dashboard button" width="180px" height="45"></a></div>
+    </div>
+
+</div>
+
+
+<script type="text/javascript">
+    function RedirectDashBoard() {
+        window.location ="../DashBoard/DashBoard"
+    }
+</script>

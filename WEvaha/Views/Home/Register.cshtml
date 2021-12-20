@@ -1,0 +1,269 @@
+﻿@model WEvaha.Models.Register
+
+
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_Layout_Main.cshtml";
+}
+
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/mvc/5.1/jquery.validate.unobtrusive.min.js"></script>
+
+@using (Html.BeginForm("Register", "Home", FormMethod.Post, new { onsubmit = "ValidateUser();" }))
+{
+    @Html.AntiForgeryToken()
+
+
+    <!--================ Start Home Banner Area =================-->
+    <div class="container-fluid" style="background:url(../img/banner/regisBg.jpg) center no-repeat; overflow:hidden; z-index:0;">
+        <div class="container">
+            <form method="post" id="registerform" class="wpcf7-form">
+
+                <div class="row">
+                    <div class="col-md-6 offset-md-3 text-center" style="margin-top:110px; margin-bottom:60px;">
+
+
+                        <h3 class="text-center" style="color:#fff; font-weight:400;">START <span style="color:#3A3A3A;">FREE</span> TODAY</h3>
+                        <hr color="#FFFFFF" width="50%" style="margin-bottom:20px;">
+
+                        <div style="position:relative;">
+
+                            <div style="float:left; width:48%;">
+                                <span style="color:#fff; padding-left:10px;">I am</span>
+                                <div style="border:1px solid #ccc; padding:10px 20px 0px 10px; border-radius:10px; background:#fff; margin-bottom:10px;">
+                                    <label class="container1">
+                                        a woman
+                                        @Html.RadioButtonFor(model => model.Gender, "Female")
+
+                                        @*<input type="radio" name="radio">*@
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+
+                                <div style="border:1px solid #ccc; padding:10px 20px 0px 10px; border-radius:10px; background:#fff; margin-bottom:10px;">
+                                    <label class="container1">
+                                        a man
+                                        @Html.RadioButtonFor(model => model.Gender, "Male")
+
+                                        @*<input type="radio" name="radio">*@
+                                        <span class="checkmark1"></span>
+                                    </label>
+                                </div>
+
+
+                            </div>
+
+                            <div style="float:right; width:48%;">
+                                <span style="color:#fff; padding-left:10px;">Looking for</span>
+                                <div style="border:1px solid #ccc; padding:10px 20px 0px 10px; border-radius:10px; background:#fff; margin-bottom:10px;">
+                                    <label class="container1">
+                                        a woman
+                                        @Html.RadioButtonFor(model => model.SeekingGender, "Female")
+
+                                        @*<input type="radio" name="radio">*@
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+
+                                <div style="border:1px solid #ccc; padding:10px 20px 0px 10px; border-radius:10px; background:#fff; margin-bottom:10px;">
+                                    <label class="container1">
+                                        a man
+                                        @Html.RadioButtonFor(model => model.SeekingGender, "Male")
+
+                                        @*<input type="radio" name="radio">*@
+                                        <span class="checkmark1"></span>
+                                    </label>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+                        <div></div>
+
+
+                        <div class="form-group has-search" style="background:#fff; border-radius:10px; float:left; width:100%;">
+                            <span class="fa fa-envelope form-control-feedback"></span>
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(x => x.Email, "", new { @class = "form-control", @id = "Email", @name = "Email", placeholder = "Your Mail" })
+                            </div>
+                        </div>
+
+                        <div class="form-group has-search" style="background:#fff; border-radius:10px; float:left; width:100%;">
+                            <span class="fa fa-lock form-control-feedback"></span>
+                            @Html.TextBoxFor(x => x.Password, "", new { @class = "form-control", @id = "Password", @name = "Password", placeholder = "Create your Password" })
+                            @*<input type="text" class="form-control" placeholder="Create your Password" style="opacity:1; padding-bottom:23px; padding-top:23px;">*@
+                        </div>
+
+                        <div class="form-group has-search" style="background:#fff; border-radius:10px; float:left; width:100%;">
+                            <span class="fa fa-lock form-control-feedback"></span>
+                            @Html.TextBoxFor(x => x.ConfirmPassword, "", new { @class = "form-control", placeholder = "Confirm Password" })
+                            @*<input type="text" class="form-control" placeholder="Confirm Password" style="opacity:1; padding-bottom:23px; padding-top:23px;">*@
+                        </div>
+
+                        <div style="float:left; width:100%;">
+                            <p style="color:#fff; font-size:12px; line-height:18px;">By clicking below to Get Started, you confirm that you agree to our Terms &amp; Conditions and you have read and understood our Privacy Policy</p>
+                        </div>
+
+                        <div style="float:left; width:100%; ">
+                            @*<a href="" id="btn-signup" type="submit" class="loBtn"><img src="../img/loginBtn.png" alt="btn"></a>*@
+                            <button id="btn-signup" type="submit" name="btn-signup" class="btn btn-info"><i class="icon-hand-right"></i><img src="../img/loginBtn.png" alt="btn"></button>
+
+                        </div>
+
+
+
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+}
+<section class="feature_area section_gap_top">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="main_title text-center">
+                    <h2 class="mb-3 wevahaHead"><span style="color:#00bcd5;">Spend Time</span>&nbsp;<span style="color:#FF3300;">–</span>&nbsp;<span style="color:#B0B000;">It’s your Life</span></h2>
+
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-4">
+                <div class="single_feature">
+                    <div class="icon text-center"><img src="../img/match_icon.png" width="130" height="130" alt="match"></div>
+                    <div class="desc">
+                        <h4 class="mt-3 mb-2 text-center" style="color:#ef5d54;">Like-Minded Connections</h4>
+                        <p>
+                            WE do things a little differently, while you provide us your requirements our system’s Best-Algorithms will Predict &amp; Present Like-Minded Matches for you to choose from.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4">
+                <div class="single_feature">
+                    <div class="icon text-center"><img src="../img/help_icon.png" width="130" height="130" alt="match"></div>
+                    <div class="desc">
+                        <h4 class="mt-3 mb-2 text-center" style="color:#00aeae;">Traditional Affinity</h4>
+                        <p>
+                            WE Value Traditions the most, but within those traditions a Compatibility Companion is what we value the utmost. WE are here to help you to make you do it Right.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4">
+                <div class="single_feature">
+                    <div class="icon text-center"><img src="../img/secured_icon.png" width="130" height="130" alt="match"></div>
+                    <div class="desc">
+                        <h4 class="mt-3 mb-2 text-center" style="color:#617bbe;">Secure &amp; Confidential</h4>
+                        <p>
+                            WE have a Secure Development Life Cycle for Vulnerability Management to help &amp; secure Data by Encryption process to provide protection, Confidentiality &amp; Integrity.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+@*}*@
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("#btn-signup").click(function () {
+
+
+                $('#registerform').validate({ // initialize the plugin
+                    rules: {
+                        'model.Gender': {
+                            required: true
+
+                        },
+                        'model.Email': {
+                            required: true,
+                            email: true
+                        },
+                        'model.SeekingGender': {
+                            required: true
+
+                        },
+                        'model.Password': {
+                            required: true,
+                            minlength: 6
+                        },
+
+                        'model.ConfirmPassword': {
+                            required: true,
+                            equalTo: 'model.Password'
+                        },
+
+
+                    },
+
+                    messages: {
+                        'model.Gender': " Please Select Your Gender",
+                        'model.Email': {
+                            required: "Enter Email",
+                            email: "Please Enter Valid Email"
+                        },
+                        'model.SeekingGender': " Enter Bar Council Regd No",
+                        'mobile.Password': {
+                            required: "Enter password",
+                            minlength: "Password must be at least 6 characters long"
+                        },
+                        'mobile.ConfirmPassword': {
+                            required: "Enter confirm password",
+                            equalTo: "Password and Confirm password Miss-match"
+                        },
+
+                    },
+
+                    submitHandler: function (form) { // for demo
+                         $.ajax({
+                        type: 'POST',
+                             url: "@(Url.Action("Register", "Home"))",
+                             data: { Email: Email, Gender: Gender, SeekingGender: SeekingGender, Password: Password },
+                        success: function (data) {
+
+
+
+                                alert("Thank you for register with us, we will Get back to shortly....!");
+
+
+
+
+                              location.reload();
+
+                        }
+
+
+                     });
+                        return false; // for demo
+                    }
+                });
+
+            });
+        });
+</script>

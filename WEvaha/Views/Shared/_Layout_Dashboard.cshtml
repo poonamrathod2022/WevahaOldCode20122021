@@ -1,0 +1,358 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="WEvaha">
+    <title>WEvaha - DashBoard</title>
+
+    <!-- ========== Favicon Icon ========== -->
+    <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="../img/favicon.ico" type="image/x-icon" />
+
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/normalize.css">
+    <link rel="stylesheet" href="../assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="../assets/extras/animate.css" type="text/css">
+    <link rel="stylesheet" href="../assets/extras/owl.carousel.css" type="text/css">
+    <link rel="stylesheet" href="../assets/extras/owl.theme.css" type="text/css">
+    <link rel="stylesheet" href="../assets/extras/settings.css" type="text/css">
+    <link rel="stylesheet" href="../assets/extras/nivo-lightbox.css" type="text/css">
+    <link rel="stylesheet" href="../assets/css/slicknav.css" type="text/css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/colors/sky.css" media="screen" />
+
+
+    @*<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>*@
+    <script type="text/javascript" src="~/assets/js/jquery.min.js"></script>
+    <!----->
+    <link href="../assets/css/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link href="../css/zoom.css" rel="stylesheet" />
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.css'>
+
+    @*<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">*@
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="../js/aes.js"></script>
+    <script src="../Scripts/jquery-ui.js"></script>
+    <!---->
+
+    <script>$("#myPartialViewContainer").load();</script>
+
+
+    <style type="text/css">
+        #upload_link {
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        #upload {
+            display: none
+        }
+
+        #profileupload_link {
+            text-decoration: none;
+        }
+
+        #profileupload {
+            display: none
+        }
+    </style>
+
+
+
+    <style type="text/css">
+
+        a,
+        a:hover {
+            border: none;
+            text-decoration: none;
+        }
+
+            img,
+            a img {
+                border: none;
+            }
+
+        pre {
+            overflow-x: scroll;
+            background: #ffffff;
+            border: 1px solid #cecece;
+            padding: 10px;
+        }
+
+        .clear {
+            clear: both;
+        }
+
+        .zoomed > .container {
+            -webkit-filter: blur(3px);
+            filter: blur(3px);
+            background:
+        }
+
+
+        .gallery {
+            float: left;
+            background: #ffffff;
+            padding: 20px 20px 10px 20px;
+            margin: 0;
+            -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.25);
+            -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.25);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.25);
+            -webkit-border-radius: 2px;
+            -moz-border-radius: 2px;
+            border-radius: 2px;
+        }
+
+            .gallery div {
+                float: left;
+                padding: 0 10px 10px 0;
+                /*background:url(../img/banner/abt_innerBan.jpg)*/
+            }
+
+                .gallery div:nth-child(6n) {
+                    padding-right: 0;
+                }
+
+            .gallery a,
+            .gallery img {
+                float: left;
+            }
+
+        /*  bhoechie tab */
+        div.bhoechie-tab-container {
+            z-index: 10;
+            background-color: #ffffff;
+            padding: 0 !important;
+            border-radius: 4px;
+            -moz-border-radius: 4px;
+            border: 1px solid #ddd;
+            margin-top: 20px;
+            /* margin-left: 50px;*/
+            -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
+            box-shadow: 0 6px 12px rgba(0,0,0,.175);
+            -moz-box-shadow: 0 6px 12px rgba(0,0,0,.175);
+            background-clip: padding-box;
+            opacity: 0.97;
+            filter: alpha(opacity=97);
+        }
+
+        div.bhoechie-tab-menu {
+            padding-right: 0;
+            padding-left: 0;
+            padding-bottom: 0;
+        }
+
+            div.bhoechie-tab-menu div.list-group {
+                margin-bottom: 0;
+            }
+
+                div.bhoechie-tab-menu div.list-group > a {
+                    margin-bottom: 0;
+                    font-size: 20px;
+                    padding: 20px 10px;
+                }
+
+                    div.bhoechie-tab-menu div.list-group > a .glyphicon,
+                    div.bhoechie-tab-menu div.list-group > a .fa {
+                        /*  color: #5A55A3;*/
+                    }
+
+                    div.bhoechie-tab-menu div.list-group > a:first-child {
+                        border-top-right-radius: 0;
+                        -moz-border-top-right-radius: 0;
+                    }
+
+                    div.bhoechie-tab-menu div.list-group > a:last-child {
+                        border-bottom-right-radius: 0;
+                        -moz-border-bottom-right-radius: 0;
+                    }
+
+                    div.bhoechie-tab-menu div.list-group > a.active,
+                    div.bhoechie-tab-menu div.list-group > a.active .glyphicon,
+                    div.bhoechie-tab-menu div.list-group > a.active .fa {
+                        background-color: #e92952;
+                        background-image: #e92952;
+                        color: #ffffff;
+                        border: none;
+                    }
+
+                        div.bhoechie-tab-menu div.list-group > a.active:after {
+                            content: '';
+                            position: absolute;
+                            left: 100%;
+                            top: 50%;
+                            margin-top: -13px;
+                            border-left: 0;
+                            border-bottom: 13px solid transparent;
+                            border-top: 13px solid transparent;
+                            border-left: 10px solid #e92952;
+                        }
+
+        div.bhoechie-tab-content {
+            background-color: #ffffff;
+            /* border: 1px solid #eeeeee; */
+            padding-left: 20px;
+            padding-top: 10px;
+            padding-bottom: 40px;
+        }
+
+        div.bhoechie-tab div.bhoechie-tab-content:not(.active) {
+            display: none;
+        }
+
+        .ReDot {
+            color: #F00;
+        }
+
+        .loadingModal {
+            display: none;
+            position: fixed;
+            z-index: 10;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background: rgba( 205, 205, 255, .8 ) url('http://i.stack.imgur.com/FhHRx.gif') 50% 50% no-repeat;
+        }
+
+        /* When the body has the loading class, we turn
+        the scrollbar off with overflow:hidden */
+        body.loading .loadingModal {
+            overflow: hidden;
+        }
+
+        /* Anytime the body has the loading class, our
+        modal element will be visible */
+        body.loading .loadingModal {
+            display: block;
+        }
+
+        .fileInfo {
+            /*float: right;
+            margin-top: -20px;*/
+            margin-left: 60px;
+        }
+    </style>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.css'>
+    <link href="~/build/css/intlTelInput.css" rel="stylesheet" />
+</head>
+<body >
+    <div class="loadingModal"></div>
+    <header id="header-wrap">
+        <nav class="navbar navbar-default main-navigation" role="navigation" data-spy="affix" data-offset-top="50">
+            <div class="container">
+
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="@Url.Action("DashBoard", "DashBoard")"><img src="../img/logo.png" alt=""></a>
+                </div>
+
+                <div id="myPartialViewContainer">
+                    @Html.Partial("~/Views/Shared/_NavigationBar.cshtml")
+                </div>
+
+                <ul class="wpb-mobile-menu">
+                    <li><a href="@Url.Action("GetMyProfile", "DashBoard")">My Profile</a></li>
+                    <li><a href="">Search Criteria</a></li>
+                    <li><a href="">Best-Liked</a></li>
+                    <li><a href="">Who Viewed Me</a></li>
+
+                    <li><a href="">Upgrade Now</a></li>
+                    <li><a href="">Log Out</a></li>
+                </ul>
+
+            </div>
+        </nav>
+
+    </header>
+
+    <!--================ End Header Menu Area =================-->
+    @RenderBody()
+
+    <div class="container-fluid" style="border-top:1px dotted #999; padding:10px 0px; margin-top:30px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <ul class="footer_links">
+                        <li><a href="@Url.Action("DashBoard", "DashBoard")" target="_blank">Home</a></li>
+                        <li><a href="@Url.Action("AboutUs", "Home")" target="_blank">About Us</a></li>
+                        <li><a href="@Url.Action("TermsofUse", "Home")" target="_blank">Terms and Conditions</a></li>
+                        <li><a href="@Url.Action("PrivacyPolicy", "Home")" target="_blank">Privacy Policy</a></li>
+                        <li><a href="@Url.Action("ReportAbuse", "Home")" target="_blank">Report Misuse</a></li>
+                        <li><a href="@Url.Action("ContactUs", "Home")" target="_blank">Contact Us</a></li>
+                    </ul>
+                    <p class="copyright-text text-center" style="font-size:14px;">
+                        © Copyright by <a href="">WEvaha.com</a> All Rights Reserved.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>*@
+
+    <script src="../assets/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../assets/js/jquery.mixitup.js"></script>
+    <script type="text/javascript" src="../assets/js/nivo-lightbox.min.js"></script>
+    <script type="text/javascript" src="../assets/js/jquery.countdown.js"></script>
+
+    <script type="text/javascript" src="../assets/js/owl.carousel.min.js"></script>
+    <script type="text/javascript" src="../assets/js/form-validator.min.js"></script>
+    <script type="text/javascript" src="../assets/js/contact-form-script.js"></script>
+    <script type="text/javascript" src="../assets/js/jquery.themepunch.revolution.min.js"></script>
+    <script type="text/javascript" src="../assets/js/jquery.themepunch.tools.min.js"></script>
+    <script type="text/javascript" src="../assets/js/jquery.slicknav.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <script src="../js/zoom.js"></script>
+
+
+
+    <script>
+
+        $(document).ready(function () {
+            $("div.bhoechie-tab-menu>div.list-group>a").click(function (e) {
+                e.preventDefault();
+                $(this).siblings('a.active').removeClass("active");
+                $(this).addClass("active");
+                var index = $(this).index();
+                $("div.bhoechie-tab>div.bhoechie-tab-content").removeClass("active");
+                $("div.bhoechie-tab>div.bhoechie-tab-content").eq(index).addClass("active");
+            });
+        });
+
+    </script>
+
+
+    <script>
+        function ShowAndHide() {
+            var x = document.getElementById('SectionName');
+            if (x.style.display == 'none') {
+                x.style.display = 'block';
+            } else {
+                x.style.display = 'none';
+            }
+        }
+
+
+        function ShowAndHide1() {
+            var x = document.getElementById('SectionName1');
+            if (x.style.display == 'none') {
+                x.style.display = 'block';
+            } else {
+                x.style.display = 'none';
+            }
+        }
+
+    </script>
+</body>
+</html>
+

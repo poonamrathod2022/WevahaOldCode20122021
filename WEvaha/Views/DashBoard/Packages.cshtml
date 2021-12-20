@@ -1,0 +1,424 @@
+﻿@model WEvaha.Models.DashboardProfileModel
+@{
+    ViewBag.Title = "Packages";
+    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+}
+
+<style>
+
+    .box {
+        display: none;
+        margin-top: 2px;
+    }
+
+    .card {
+        border: none;
+        padding: 25px 40px;
+        background: #fff;
+    }
+
+        .card::after {
+            position: absolute;
+            z-index: -1;
+            opacity: 0;
+            -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+            transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .card:hover {
+            transform: scale(1.02, 1.02);
+            -webkit-transform: scale(1.02, 1.02);
+            backface-visibility: hidden;
+            will-change: transform;
+            box-shadow: 0 1rem 3rem rgba(0,0,0,.75) !important;
+        }
+
+            .card:hover::after {
+                opacity: 1;
+            }
+
+            .card:hover .btn-outline-primary {
+                color: white;
+                background: #007bff;
+            }
+</style>
+
+<div class="container-fluid" style="background: linear-gradient(90deg, #ff99cc 0%, #33ccff 100%); padding:20px 0px 70px 0px;">
+    <div class="container p-5">
+        <div class="row">
+            <div class="col-md-12" style="text-align:center; padding:30px 0px;">
+                <h2 style="color:#fff;">Upgrade Now and Get Premium Benefits</h2>
+                <div style="color:#fff; font-size:18px;">
+
+                    <label><input type="radio" name="colorRadio" value="green" checked="checked"> GLOBAL (&#x24;)</label>&nbsp;
+                    <label><input type="radio" name="colorRadio" value="red"> INDIA (&#8377;)</label>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="row red box">
+
+            <div class="col-lg-3 col-md-12 mb-3">
+                <div class="card h-100 shadow-lg">
+                    <div class="card-body">
+                        <div class="text-center p-3">
+                            <span class="priceH1">@Model.LPackages[0].PackageName</span> <span class="priceH3">@Model.LPackages[0].PackageDuration Month</span>
+                            <br>
+
+                            <br>
+                            <span class="priceAmt">&#8377; @Model.LPackages[0].PerMonth<span style="font-size:15px;">/month</span></span>
+                            <br>
+                            <span class="priceH3_g">&#8377;@Model.LPackages[0].PackagePrice</span>
+                            <br><br>
+
+
+                        </div>
+
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><i class="fa fa-check" style="color:#00B700;"></i> Send Unlimited Messages</li>
+                        <li class="list-group-item"><i class="fa fa-check" style="color:#00B700;"></i> Views upto 25 Contact Numbers</li>
+                    </ul>
+                    <div class="card-body text-center">
+                        <a href="@Url.Action("PayUPayment", "PayU",new {@Model.LPackages[0].PackageId,@Model.LPackages[0].PackagePrice,@Model.LPackages[0].PackageName})" class="btn btn-outline-primary btn-lg" style="border-radius:30px">Select</a>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-12 mb-3">
+                <div class="card h-100 shadow-lg">
+                    <div class="card-body">
+                        <div class="text-center p-3">
+                            <span class="priceH1">@Model.LPackages[1].PackageName</span> <span class="priceH3">@Model.LPackages[1].PackageDuration Months</span>
+                            <br>
+
+                            <br>
+                            <span class="priceAmt">&#8377; @Model.LPackages[1].PerMonth<span style="font-size:15px;">/month</span></span><br>
+
+                            <span class="priceH3_g">&#8377; @Model.LPackages[1].PackagePrice</span>
+                            <br><br>
+
+
+                        </div>
+
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><i class="fa fa-check" style="color:#00B700;"></i> Send Unlimited Messages</li>
+                        <li class="list-group-item"><i class="fa fa-check" style="color:#00B700;"></i> Views upto 90 Contact Numbers</li>
+
+
+                    </ul>
+                    <div class="card-body text-center">
+                        <a href="@Url.Action("PayUPayment", "PayU",new {@Model.LPackages[1].PackageId,@Model.LPackages[1].PackagePrice,@Model.LPackages[1].PackageName})" class="btn btn-outline-primary btn-lg" style="border-radius:30px">Select</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-12 mb-3">
+                <div class="card h-100 shadow-lg">
+                    <div class="card-body">
+                        <div class="text-center p-3">
+                            <span class="priceH1">@Model.LPackages[2].PackageName</span> <span class="priceH3">@Model.LPackages[2].PackageDuration Months</span>
+                            <br>
+
+                            <br>
+                            <span class="priceAmt">&#8377;@Model.LPackages[2].PerMonth<span style="font-size:15px;">/month</span></span><br>
+
+                            <span class="priceH3_g">&#8377; @Model.LPackages[2].PackagePrice</span>
+                            <br><br>
+
+
+                        </div>
+
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><i class="fa fa-check" style="color:#00B700;"></i> Send Unlimited Messages</li>
+                        <li class="list-group-item"><i class="fa fa-check" style="color:#00B700;"></i> Views upto 200 Contact Numbers</li>
+
+
+                    </ul>
+                    <div class="card-body text-center">
+                        <a href="@Url.Action("PayUPayment", "PayU",new {@Model.LPackages[2].PackageId,@Model.LPackages[2].PackagePrice,@Model.LPackages[2].PackageName})" class="btn btn-outline-primary btn-lg" style="border-radius:30px">Select</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-12 mb-3">
+                <div class="card h-100 shadow-lg">
+                    <div class="card-body">
+                        <div class="text-center p-3">
+                            <span class="priceH1">@Model.LPackages[3].PackageName</span> <span class="priceH3">@Model.LPackages[3].PackageDuration Months</span>
+                            <br>
+
+                            <br>
+                            <span class="priceAmt">&#8377; @Model.LPackages[3].PerMonth<span style="font-size:15px;">/month</span></span><br>
+                            <span class="priceH3_g">&#8377; @Model.LPackages[3].PackagePrice</span>
+                            <br><br>
+
+                        </div>
+
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><i class="fa fa-check" style="color:#00B700;"></i> Send Unlimited Messages</li>
+                        <li class="list-group-item"><i class="fa fa-check" style="color:#00B700;"></i> Views upto 300 Contact Numbers</li>
+
+
+                    </ul>
+                    <div class="card-body text-center">
+                        <a href="@Url.Action("PayUPayment", "PayU",new {@Model.LPackages[3].PackageId,@Model.LPackages[3].PackagePrice,@Model.LPackages[3].PackageName})" class="btn btn-outline-primary btn-lg" style="border-radius:30px">Select</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row green box" style="display:block;">
+
+
+            <div class="col-lg-3 col-md-12 mb-3">
+                <div class="card h-100 shadow-lg">
+                    <div class="card-body">
+                        <div class="text-center p-3">
+                            <span class="priceH1">@Model.LPackages[4].PackageName</span> <span class="priceH3">@Model.LPackages[4].PackageDuration Month</span>
+                            <br>
+
+                            <br>
+                            <span class="priceAmt">&#x24; @Model.LPackages[4].PerMonth<span style="font-size:15px;">/month</span></span>
+                            <br><span class="priceH3_g">&#x24; @Model.LPackages[4].PackagePrice</span>
+                            <br><br>
+
+                        </div>
+
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><i class="fa fa-check" style="color:#00B700;"></i> Send Unlimited Messages</li>
+                        <li class="list-group-item"><i class="fa fa-check" style="color:#00B700;"></i> Views upto 25 Contact Numbers</li>
+                    </ul>
+                    <div class="card-body text-center">
+                        <a href="@Url.Action("Index", "Paypal",new {@Model.LPackages[4].PackageId,@Model.LPackages[4].PackagePrice,@Model.LPackages[4].PackageName})" class="btn btn-outline-primary btn-lg" style="border-radius:30px">Select</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-12 mb-3">
+                <div class="card h-100 shadow-lg">
+                    <div class="card-body">
+                        <div class="text-center p-3">
+                            <span class="priceH1">@Model.LPackages[5].PackageName</span> <span class="priceH3">@Model.LPackages[5].PackageDuration Months</span>
+                            <br>
+
+                            <br>
+                            <span class="priceAmt">&#x24; @Model.LPackages[5].PerMonth<span style="font-size:15px;">/month</span></span>
+                            <br><span class="priceH3_g">&#x24; @Model.LPackages[5].PackagePrice</span>
+
+                            <br><br>
+
+
+                        </div>
+
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><i class="fa fa-check" style="color:#00B700;"></i> Send Unlimited Messages</li>
+                        <li class="list-group-item"><i class="fa fa-check" style="color:#00B700;"></i> Views upto 90 Contact Numbers</li>
+
+
+                    </ul>
+                    <div class="card-body text-center">
+                        <a href="@Url.Action("Index", "Paypal",new {@Model.LPackages[5].PackageId,@Model.LPackages[5].PackagePrice,@Model.LPackages[5].PackageName})" class="btn btn-outline-primary btn-lg" style="border-radius:30px">Select</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-12 mb-3">
+                <div class="card h-100 shadow-lg">
+                    <div class="card-body">
+                        <div class="text-center p-3">
+                            <span class="priceH1">@Model.LPackages[6].PackageName</span> <span class="priceH3">@Model.LPackages[6].PackageDuration Months</span>
+                            <br>
+
+                            <br>
+                            <span class="priceAmt">&#x24; @Model.LPackages[6].PerMonth<span style="font-size:15px;">/month</span></span>
+                            <br><span class="priceH3_g">&#x24; @Model.LPackages[6].PackagePrice</span>
+
+                            <br><br>
+
+
+                        </div>
+
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><i class="fa fa-check" style="color:#00B700;"></i> Send Unlimited Messages</li>
+                        <li class="list-group-item"><i class="fa fa-check" style="color:#00B700;"></i> Views upto 200 Contact Numbers</li>
+
+
+                    </ul>
+                    <div class="card-body text-center">
+                        <a href="@Url.Action("Index", "Paypal",new {@Model.LPackages[6].PackageId,@Model.LPackages[6].PackagePrice,@Model.LPackages[6].PackageName})" class="btn btn-outline-primary btn-lg" style="border-radius:30px">Select</a>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-lg-3 col-md-12 mb-3">
+                <div class="card h-100 shadow-lg">
+                    <div class="card-body">
+                        <div class="text-center p-3">
+                            <span class="priceH1">@Model.LPackages[7].PackageName</span> <span class="priceH3">@Model.LPackages[7].PackageDuration Months</span>
+                            <br>
+
+                            <br>
+                            <span class="priceAmt">&#x24; @Model.LPackages[7].PerMonth<span style="font-size:15px;">/month</span></span>
+                            <br><span class="priceH3_g">&#x24; @Model.LPackages[7].PackagePrice</span>
+
+                            <br><br>
+
+
+                        </div>
+
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><i class="fa fa-check" style="color:#00B700;"></i> Send Unlimited Messages</li>
+                        <li class="list-group-item"><i class="fa fa-check" style="color:#00B700;"></i> Views upto 300 Contact Numbers</li>
+
+
+                    </ul>
+                    <div class="card-body text-center">
+                        <a href="@Url.Action("Index", "Paypal",new {@Model.LPackages[7].PackageId,@Model.LPackages[7].PackagePrice,@Model.LPackages[7].PackageName})" class="btn btn-outline-primary btn-lg" style="border-radius:30px">Select</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content" style=" background:url(../assets/img/popupHbg.jpg) repeat-x;">
+            <div class="modal-header">
+                <div style="color:#fff; text-align:center; font-size:26px; font-weight:bold; font-style:italic; padding:10px 0px;">Congratulations!  Your Luck has Shined Upon you</div>
+
+            </div>
+            <div class="modal-body" style="background:#ed3f7c; padding:20px 15px 0px 0px;">
+
+                <div class="row">
+                    <div class="col-md-5"><img src="../assets/img/popupImg.png" alt="pic"></div>
+                    <div class="col-md-7">
+                        <p style="color:#fff; font-size:15px; font-weight:bold; text-align:justify;">
+                            You Have Been Selected to Receive a 3 Month Free Package with WEvaha. We are Happy to Announce that you can Proceed to Browse all Profiles and Message Anyone of your Choice. Choose Right – Choose Bright!
+                            <br>
+                            <br>
+
+                            Thank you<br>
+
+                            CEO WEvaha.com
+
+                        </p>
+
+                        <span style="color:#fff; font-style:italic; font-weight:normal;">Enter Code to Avail This Opportunity.</span>
+
+                        <div style="padding:10px 0px; margin-bottom:10px; ">
+
+
+                            <div style="width:30%; float:left; margin-right:7px; padding-top:0px; background:#CCC; text-align:center;">
+                                <span style="color:#191919; font-size:13px;">PROMO CODE</span>
+                                <div style=" text-align:center; font-weight:bold; color:#191919; font-size:17px; background:#fff;">
+                                    WEvaha100
+                                </div>
+                            </div>
+
+                            <div class="input-group" style="width:65%; float:left; ">
+                                <input type="search" id="txtpromocode" class="form-control" placeholder="Enter the PROMO Code" style="border-radius:3px 0px 0px 3px;">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-primary" type="button" style="background:#29a8df; border:none; border-left:2px #FF0 solid; border-radius:0px 5px 5px 0px; padding:13px 15px; margin-top:0px;" id="btnEnter">Enter</button>
+                                </span>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('input[type="radio"]').click(function () {
+            var inputValue = $(this).attr("value");
+            var targetBox = $("." + inputValue);
+            $(".box").not(targetBox).hide();
+            $(targetBox).show();
+        });
+    });
+    function MakePaymentPayu(PackageId, PackagePrice, PackageName) {
+        $.ajax('/DashBoard/Payment', {
+            type: 'POST',  // http method
+            data: { PackageId: PackageId, PackagePrice: PackagePrice, PackageName: PackageName },  // data to submit
+            success: function (data, status, xhr) {
+                // $('p').append('status: ' + status + ', data: ' + data);
+                //$('#AdvSearchReasult').html(data);
+            },
+            error: function (jqXhr, textStatus, errorMessage) {
+                // $('p').append('Error' + errorMessage);
+            }
+        });
+
+    }
+</script>
+<script>
+    $(window).on('load', function () {
+        var delayMs = 100; // delay in milliseconds
+
+        setTimeout(function () {
+            $('#myModal').modal('show');
+        }, delayMs);
+    });
+    $("#btnEnter").click(function () {
+        var promCode = $("#txtpromocode").val();
+        if (promCode == "WEvaha100") {
+            $.ajax('/DashBoard/Payment', {
+                type: 'POST',  // http method
+                //  data: { PackageId: PackageId, PackagePrice: PackagePrice, PackageName: PackageName },  // data to submit
+                success: function (data, status, xhr) {
+                    swal({
+                        icon: "success",
+                        type: "success",
+                        text: "Congratulations! You have Subscribed 3 Month Free Package with WEvaha.",
+                        timer: 1000,
+                        buttons: false
+                    });
+                    window.setTimeout(function () {
+                        var url = "../DashBoard/GetMyProfile";
+                        window.location.href = url;
+                    }, 1000);
+                },
+                error: function (jqXhr, textStatus, errorMessage) {
+                    swal({
+                        icon: "warning",
+                        type: "warning",
+                        text: "Please Enter Valid Coupon Code",
+                        timer: 1000,
+                        buttons: false
+                    });
+                }
+            });
+
+        }
+        else {
+            swal({
+                icon: "warning",
+                type: "warning",
+                text: "Please Enter Valid Coupon Code",
+                timer: 1000,
+                buttons: false
+            });
+        }
+    });
+</script>

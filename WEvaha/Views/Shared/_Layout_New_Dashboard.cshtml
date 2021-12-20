@@ -1,0 +1,721 @@
+﻿@model WEvaha.Models.DashboardProfileModel
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="WEvaha">
+    <title>WEvaha - DashBoard</title>
+
+    <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="../img/favicon.ico" type="image/x-icon" />
+
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/normalize.css">
+    <link rel="stylesheet" href="../assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="../assets/extras/animate.css" type="text/css">
+    <link rel="stylesheet" href="../assets/extras/owl.carousel.css" type="text/css">
+    <link rel="stylesheet" href="../assets/extras/owl.theme.css" type="text/css">
+    <link rel="stylesheet" href="../assets/extras/settings.css" type="text/css">
+    <link rel="stylesheet" href="../assets/extras/nivo-lightbox.css" type="text/css">
+    <link rel="stylesheet" href="../assets/css/slicknav.css" type="text/css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/colors/sky.css" media="screen" />
+    <link rel="stylesheet" href="../build/css/intlTelInput.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="../css/jqueryValidate.css" />
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <style type="text/css">
+
+        a,
+        a:hover {
+            border: none;
+            text-decoration: none;
+        }
+
+            img,
+            a img {
+                border: none;
+            }
+
+        pre {
+            overflow-x: scroll;
+            background: #ffffff;
+            border: 1px solid #cecece;
+            padding: 10px;
+        }
+
+        .clear {
+            clear: both;
+        }
+
+        .zoomed > .container {
+            -webkit-filter: blur(3px);
+            filter: blur(3px);
+        }
+
+
+        .gallery {
+            float: left;
+            background: #ffffff;
+            padding: 20px 20px 10px 20px;
+            margin: 0;
+            -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.25);
+            -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.25);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.25);
+            -webkit-border-radius: 2px;
+            -moz-border-radius: 2px;
+            border-radius: 2px;
+        }
+
+            .gallery div {
+                float: left;
+                padding: 0 10px 10px 0;
+                /*background:url(../img/banner/abt_innerBan.jpg)*/
+            }
+
+                .gallery div:nth-child(6n) {
+                    padding-right: 0;
+                }
+
+            .gallery a,
+            .gallery img {
+                float: left;
+            }
+    </style>
+
+    <style>
+        #upload_link {
+            text-decoration: none;
+        }
+
+        #upload {
+            display: none
+        }
+    </style>
+
+
+    <style>
+
+        /*  bhoechie tab */
+        div.bhoechie-tab-container {
+            z-index: 10;
+            background-color: #ffffff;
+            padding: 0 !important;
+            border-radius: 4px;
+            -moz-border-radius: 4px;
+            border: 1px solid #ddd;
+            margin-top: 20px;
+            /* margin-left: 50px;*/
+            -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
+            box-shadow: 0 6px 12px rgba(0,0,0,.175);
+            -moz-box-shadow: 0 6px 12px rgba(0,0,0,.175);
+            background-clip: padding-box;
+            opacity: 0.97;
+            filter: alpha(opacity=97);
+        }
+
+        div.bhoechie-tab-menu {
+            padding-right: 0;
+            padding-left: 0;
+            padding-bottom: 0;
+        }
+
+            div.bhoechie-tab-menu div.list-group {
+                margin-bottom: 0;
+            }
+
+                div.bhoechie-tab-menu div.list-group > a {
+                    margin-bottom: 0;
+                    font-size: 20px;
+                    padding: 20px 10px;
+                }
+
+                    div.bhoechie-tab-menu div.list-group > a .glyphicon,
+                    div.bhoechie-tab-menu div.list-group > a .fa {
+                        /*  color: #5A55A3;*/
+                    }
+
+                    div.bhoechie-tab-menu div.list-group > a:first-child {
+                        border-top-right-radius: 0;
+                        -moz-border-top-right-radius: 0;
+                    }
+
+                    div.bhoechie-tab-menu div.list-group > a:last-child {
+                        border-bottom-right-radius: 0;
+                        -moz-border-bottom-right-radius: 0;
+                    }
+
+                    div.bhoechie-tab-menu div.list-group > a.active,
+                    div.bhoechie-tab-menu div.list-group > a.active .glyphicon,
+                    div.bhoechie-tab-menu div.list-group > a.active .fa {
+                        background-color: #e92952;
+                        background-image: #e92952;
+                        color: #ffffff;
+                        border: none;
+                    }
+
+                        div.bhoechie-tab-menu div.list-group > a.active:after {
+                            content: '';
+                            position: absolute;
+                            left: 100%;
+                            top: 50%;
+                            margin-top: -13px;
+                            border-left: 0;
+                            border-bottom: 13px solid transparent;
+                            border-top: 13px solid transparent;
+                            border-left: 10px solid #e92952;
+                        }
+
+        div.bhoechie-tab-content {
+            background-color: #ffffff;
+            /* border: 1px solid #eeeeee; */
+            padding-left: 20px;
+            padding-top: 10px;
+            padding-bottom: 40px;
+        }
+
+        div.bhoechie-tab div.bhoechie-tab-content:not(.active) {
+            display: none;
+        }
+
+        .ReDot {
+            color: #F00;
+        }
+    </style>
+    <link href="../assets/css/style.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link href="../css/zoom.css" rel="stylesheet" />
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.css'>
+
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="~/js/aes.js"></script>
+    <script src="../Scripts/jquery-ui.js"></script>
+
+    <style type="text/css">
+        #upload_link {
+            text-decoration: none;
+        }
+
+        #upload {
+            display: none
+        }
+
+        #profileupload_link {
+            text-decoration: none;
+        }
+
+        #profileupload {
+            display: none
+        }
+    </style>
+
+
+    <script type="text/javascript">
+                $(function () {
+
+                    for (i = 18; i <= 75; i++) {
+                        $('#ddlAgeFrom').append($('<option>',
+                            {
+                                value: i,
+                                text: i
+                            }));
+                    }
+                    for (j = 19; j <= 75; j++) {
+                        $('#ddlAgeTo').append($('<option>',
+                            {
+                                value: j,
+                                text: j
+                            }));
+                    }
+                });
+                $(document).ready(function () {
+                    $("#btnSubmit").click(function (event) {
+                        var from = "getMyProfile";
+                        var vSeekingGender = $("#ddlSeekingGender option:selected").val();
+                        var vAgeFrom = $("#ddlAgeFrom option:selected").text();
+                        if (vAgeFrom === "Age From") { vAgeFrom = "AgeFrom"; }
+                        var vAgeTo = $("#ddlAgeTo option:selected").text();
+                        if (vAgeTo === "Age To") { vAgeTo = "AgeTo"; }
+                        var vReligion = $("#ddlReligion option:selected").val();
+                        if (vReligion === "") { vReligion = null; }
+                        var vLanguage = $("#ddlslanguage option:selected").val();
+                        if (vLanguage === "") { vLanguage = null; }
+                        var vCaste = $("#ddlsCaste option:selected").val();
+                        if (vCaste === "" || vCaste === "0") { vCaste = null; }
+
+                        var pageindex = 1;
+
+                        var key = CryptoJS.enc.Utf8.parse('8080808080808080');
+                        var iv = CryptoJS.enc.Utf8.parse('8080808080808080');
+
+
+                        var sUrl = "SeekingGender=" + vSeekingGender + "&AgeFrom = " + vAgeFrom + " & AgeTo=" + vAgeTo + " & religion=" + vReligion + " & caste=" + vCaste + " & Language=" + vLanguage + " & PageIndex=" + pageindex + " & From=" + from;
+                        var ciphertext = CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(sUrl), key,
+                            {
+                                keySize: 128 / 8,
+                                iv: iv,
+                                mode: CryptoJS.mode.CBC,
+                                padding: CryptoJS.pad.Pkcs7
+                            });
+                        var url = "../DashBoard/GetSearch?Url=" + ciphertext;
+
+                        window.location.href = url;
+                    });
+                });
+    </script>
+    <script type="text/javascript">
+                $(document).ready(function () {
+                    $("#upload_link").on('click', function (e) {
+                        e.preventDefault();
+                        $("#upload:hidden").trigger('click');
+                    });
+                    $("#upload").on("change", function () {
+                        var fileUpload = $("#upload").get(0);
+
+                        var files = fileUpload.files;
+                        // Create FormData object
+                        var fileData = new FormData();
+                        // Looping over all files and add it to FormData object
+                        for (var i = 0; i < files.length; i++) {
+                            fileData.append(files[i].name, files[i]);
+                        }
+                        if (!(/\.(gif|jpg|jpeg|png)$/i).test(files[0].name)) {
+                            swal({
+                                icon: "warning",
+                                text: "gif, jpg, jpeg, png image file only..!",
+                                type: "warning"
+                            });
+                        }
+                        else {
+                            $.ajax({
+                                url: '/DashBoard/UploadFiles',
+                                type: "POST",
+                                contentType: false, // Not to set any content header
+                                processData: false, // Not to process data
+                                data: fileData,
+                                async: false,
+                                success: function (result) {
+                                    if (result != "") {
+                                        swal({
+                                            icon: "success",
+                                            text: "Photo Uploaded Successfully..!",
+                                            type: "success",
+                                            buttons: false
+                                        });
+                                        window.setTimeout(function () { window.location = "../DashBoard/GetMyProfile"; }, 3000);
+                                    }
+                                },
+                                error: function (err) {
+                                    alert(err.statusText);
+                                }
+                            });
+                        }
+                    });
+                    $("#profileupload_link").on('click', function (e) {
+                        e.preventDefault();
+                        $("#profileupload:hidden").trigger('click');
+                    });
+                    $("#profileupload").on("change", function () {
+                        var sfileUpload = $("#profileupload").get(0);
+                        var sfiles = sfileUpload.files;
+                        // Create FormData object
+                        var sfileData = new FormData();
+                        // Looping over all files and add it to FormData object
+                        for (var i = 0; i < sfiles.length; i++) {
+                            sfileData.append(sfiles[i].name, sfiles[i]);
+                        }
+                        if (!(/\.(gif|jpg|jpeg|png)$/i).test(sfiles[0].name)) {
+                            swal({
+                                icon: "warning",
+                                text: "gif, jpg, jpeg, png image file only..!",
+                                type: "warning"
+                            });
+                        }
+                        else {
+                            $.ajax({
+                                url: '/DashBoard/CoverPhotoUpload',
+                                type: "POST",
+                                contentType: false, // Not to set any content header
+                                processData: false, // Not to process data
+                                data: sfileData,
+                                //async: false,
+                                success: function (result) {
+                                    if (result != "") {
+                                        swal({
+                                            icon: "success",
+                                            text: "Photo Uploaded Successfully..!",
+                                            type: "success",
+                                            buttons: false
+                                        });
+                                        window.setTimeout(function () { window.location = "../DashBoard/GetMyProfile"; }, 3000);
+                                    }
+                                },
+                                error: function (err) {
+                                    swal({
+                                        icon: "warning",
+                                        text: "problem..!",
+                                        type: "warning",
+                                        buttons: false
+                                    });
+                                    // alert(err.statusText);
+                                }
+                            });
+                        }
+                    });
+                });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#myPartialViewContainer").load();
+        });
+    </script>
+
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    $('#txtDOB').datepicker({
+                        dateFormat: "dd/mm/yy",
+                        changeMonth: true,
+                        changeYear: true,
+                        yearRange: "-60:-18"
+                    });
+
+                });
+    </script>
+    <script type="text/javascript">
+    $(document).ready(function () {
+        $("#ddlLanguage").change(function () {
+            var langId = $(this).val();
+            $.ajax({
+            url: "@Url.Action("GetCastebyLanguage", "DashBoard")",
+                data: { LanguageId: langId},
+            dataType: "json",
+            type: "GET",
+            success: function (data) {
+                $(".castestyle").html('');
+                var optionhtml1 = '<option value="' +
+                    0 + '">' + "Select Caste" + '</option>';
+                $(".castestyle").append(optionhtml1);
+                $.each(data, function (i) {
+                    var optionhtml = '<option value="' + data[i].Value + '">' +data[i].Text + '</option>';
+                    $(".castestyle").append(optionhtml);
+                });
+            }
+            });
+        });
+        $("#ddlslanguage").change(function () {
+            var langId = $(this).val();
+            $.ajax({
+            url: "@Url.Action("GetCastebyLanguage", "DashBoard")",
+                data: { LanguageId: langId},
+            dataType: "json",
+            type: "GET",
+            success: function (data) {
+                $("#ddlsCaste").html('');
+                var optionhtml1 = '<option value="' +
+                    0 + '">' + "Select Caste" + '</option>';
+                $("#ddlsCaste").append(optionhtml1);
+                $.each(data, function (i) {
+                    var optionhtml = '<option value="' + data[i].Value + '">' +data[i].Text + '</option>';
+                    $("#ddlsCaste").append(optionhtml);
+                });
+            }
+            });
+        });
+
+    });
+    </script>
+
+</head>
+<body>
+    <header id="header-wrap">
+        <nav class="navbar navbar-default main-navigation" role="navigation" data-spy="affix" data-offset-top="50">
+            <div class="container">
+
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="@Url.Action("DashBoard", "DashBoard")"><img src="../img/logo.png" alt=""></a>
+                </div>
+                <div id="myPartialViewContainer">
+                    @Html.Partial("~/Views/Shared/_NavigationBar.cshtml")
+                </div>
+                <ul class="wpb-mobile-menu">
+                    <li><a href="@Url.Action("GetMyProfile", "DashBoard")">My Profile</a></li>
+                    <li><a href="">Search</a></li>
+                    <li><a href="">Best-Liked</a></li>
+                    <li><a href="">Who Viewed Me</a></li>
+                    <li><a href="">Upgrade Now</a></li>
+                    <li><a href="">Log Out</a></li>
+                </ul>
+
+            </div>
+        </nav>
+
+    </header>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12" style="position:relative; padding:0px;">
+                <div class="profPos">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-3 col-sm-12 col-xs-12 text-center">
+                                <div class="profDiv">
+
+                                    @if (Model.userprofilePic.UserProfilePicUrl != null)
+                                    {
+                                        <div class="profImgPos">
+                                            <div class="profImgDiv"><a href="@Url.Action("SetDefaultPhoto", "DashBoard")" class="profImgLink"><i class="fa fa-camera" aria-hidden="true"></i></a></div>
+                                        </div>
+                                        <img src="@Model.userprofilePic.UserProfilePicUrl" alt="profile pic" class="profileImg">
+                                    }
+                                    else
+                                    {
+                                        <div class="profImgPos">
+                                            <div class="profImgDiv"><a href="@Url.Action("SetDefaultPhoto", "DashBoard")" class="profImgLink"><i class="fa fa-camera" aria-hidden="true"></i></a></div>
+                                        </div>
+                                        <img src="../assets/img/profilePic.jpg" alt="profile pic" class="profileImg">
+                                    }
+
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-12 col-xs-12 profName">
+                                <div style="font-size:24px; font-weight:bold; color:#c12f5b;">@Model.PersonalDetails.ProfileName @Model.PersonalDetails.ProfileLastName</div>
+                                <div style="font-size:17px; font-weight:bold; color:#3f3e3e; margin-top:5px;">Profile ID :<span style="font-weight:normal; font-size:15px;"><span>WE00</span>@Model.userProfile.ProfileId</span></div>
+                                <input type="hidden" id="hdnUserId" value="@Model.userProfile.ProfileId" />
+                            </div>
+                            <div class="col-md-6 col-sm-12 col-xs-12 profIcon">
+                                <a href="@Url.Action("DashBoard", "DashBoard")"><img src="../assets/img/dashBoard_btn.png" alt="dashboard button"></a>
+
+                                @if (Request.RawUrl != "/DashBoard/SearchCriteria")
+                                {
+                                    <a href="#" ONCLICK="ShowAndHide()"><img src="../assets/img/find_btn.png" alt="findBtn"></a>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="covImgPos">
+                    @{
+                        if (Request.RawUrl == "/DashBoard/DashBoard")
+                        { <div class="covImgDiv">
+                                <input id="profileupload" type="file" />
+                                <a id="profileupload_link" class="covImfLink"><i class="fa fa-camera" aria-hidden="true"></i> &nbsp;Edit Cover Photo</a>
+                            </div>
+                        }
+                    }
+                </div>
+
+                @if (Model.coverPhoto.CoverPhotoURL != null)
+                {
+                    <img src="@Model.coverPhoto.CoverPhotoURL" alt="img" class="coverPhotoImg">
+                }
+                else
+                {
+                    <img src="../assets/img/coverPic.jpg" alt="img">
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="container" style="padding-top:130px;">
+        @if (Request.RawUrl != "/DashBoard/SearchCriteria")
+        {
+            <div class="row">
+
+
+                <div class="col-md-12" ID="SectionName" STYLE="display:none; margin-bottom:50px; margin-top:10px; background:url(../assets/img/findsearchBg.jpg) repeat-x; border:#CCC 2px solid; padding:25px; border-radius:10px;">
+
+
+                    <div class="row">
+                        <div class="col-md-12 text-center"><div class="mainH1">Find My Matches</div></div>
+                    </div>
+
+                    <form>
+                        <div class="form-row">
+                            <div class="form-group col-md-2">
+                                @Html.DropDownListFor(model => model.userProfile.SeekingGender, new SelectList(Model.userProfile.GenderOpti, "Value", "Text"), new { @class = "form-control", id = "ddlSeekingGender" })
+                            
+                            </div>
+                            <div class="form-group col-md-2">
+                                <select id="ddlAgeFrom" class="form-control">
+                                    <option>Age From</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <select id="ddlAgeTo" class="form-control">
+                                    <option>Age To</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-2">
+                                @Html.DropDownListFor(model => model.AboutMySelf.sReligion, new SelectList(Model.AboutMySelf.ReligionOpti, "Value", "Text"), "Religion", new { @class = "form-control", id = "ddlReligion" })
+                            </div>
+                            <div class="form-group col-md-2">
+                                @Html.DropDownListFor(model => model.AboutMySelf.sLanguage, new SelectList(Model.AboutMySelf.LanguageOpti, "Value", "Text"), "Language", new { @class = "form-control", id = "ddlslanguage" })
+                            </div>
+                            <div class="form-group col-md-2">
+                                @Html.DropDownListFor(model => model.AboutMySelf.sCaste, new SelectList(Model.AboutMySelf.sCasteOpti, "Value", "Text"), "Caste", new { @class = "form-control", id = "ddlsCaste" })
+                            </div>
+                        </div>
+                        <div class="form-row text-center">
+                            <a href="@Url.Action("SearchCriteria", "DashBoard")"><img src="~/assets/img/AdvSearch_btn.png"></a>
+                            <a id="btnSubmit"><img src="~/assets/img/submit_btn.png" style="cursor:pointer;"></a>
+                        </div>
+                    </form>
+
+
+
+                </div>
+
+            </div>
+        }
+    </div>
+    @if (Request.RawUrl != "/DashBoard/SetDefaultPhoto")
+    {
+        if (Model.profilePhotos != null)
+        {
+            if (Model.profilePhotos.Count > 0)
+            {
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12" style="padding-top:30px;">
+                            <div class="mainH1">My Photos</div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="gallery">
+                            @for (int i = 0; i < Model.profilePhotos.Count; i++)
+                            {
+                                <div><a href="@Model.profilePhotos[i].PhotoUrl"><img src="@Model.profilePhotos[i].ThumbnailUrl" width="90" height="90" /></a></div>
+                            }
+                            @if (Request.RawUrl == "/DashBoard/DashBoard")
+                            {
+                                if (Model.profilePhotos.Count < 10)
+                                {
+                                    <input id="upload" type="file" />
+                                    <a id="upload_link" style="cursor:pointer;"><img src="../assets/img/addPic.jpg" alt="add" width="90" height="90"></a>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    }
+    @RenderBody()
+
+    <div class="container-fluid" style="border-top:1px dotted #999; padding:10px 0px; margin-top:30px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <ul class="footer_links">
+                        <li><a href="@Url.Action("DashBoard", "DashBoard")" target="_blank">Home</a></li>
+                        <li><a href="@Url.Action("AboutUs", "Home")" target="_blank">About Us</a></li>
+                        <li><a href="@Url.Action("TermsofUse", "Home")" target="_blank">Terms and Conditions</a></li>
+                        <li><a href="@Url.Action("PrivacyPolicy", "Home")" target="_blank">Privacy Policy</a></li>
+                        <li><a href="@Url.Action("ReportAbuse", "Home")" target="_blank">Report Misuse</a></li>
+                        <li><a href="@Url.Action("ContactUs", "Home")" target="_blank">Contact Us</a></li>
+                    </ul>
+                    <p class="copyright-text text-center" style="font-size:14px;">
+                        © Copyright by <a href="">WEvaha.com</a> All Rights Reserved.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="../assets/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../assets/js/jquery.mixitup.js"></script>
+    <script type="text/javascript" src="../assets/js/nivo-lightbox.min.js"></script>
+    <script type="text/javascript" src="../assets/js/jquery.countdown.js"></script>
+
+    <script type="text/javascript" src="../assets/js/owl.carousel.min.js"></script>
+    <script type="text/javascript" src="../assets/js/form-validator.min.js"></script>
+    <script type="text/javascript" src="../assets/js/contact-form-script.js"></script>
+    <script type="text/javascript" src="../assets/js/jquery.themepunch.revolution.min.js"></script>
+    <script type="text/javascript" src="../assets/js/jquery.themepunch.tools.min.js"></script>
+    <script type="text/javascript" src="../assets/js/jquery.slicknav.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <script src="../js/zoom.js"></script>
+
+    <SCRIPT>
+        function ShowAndHide() {
+            var x = document.getElementById('SectionName');
+            if (x.style.display == 'none') {
+                x.style.display = 'block';
+            } else {
+                x.style.display = 'none';
+            }
+        }
+
+
+        function ShowAndHide1() {
+            var x = document.getElementById('SectionName1');
+            if (x.style.display == 'none') {
+                x.style.display = 'block';
+            } else {
+                x.style.display = 'none';
+            }
+        }
+
+    </SCRIPT>
+
+    <script src="/Scripts/jquery-ui.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#txtDOB').datepicker({
+                dateFormat: "dd/mm/yy",
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "-60:-18"
+            });
+
+        });
+    </script>
+
+
+    <script src="../build/js/intlTelInput.js"></script>
+    <script>
+        var input = document.querySelector("#phone");
+        window.intlTelInput(input, {
+            // allowDropdown: false,
+            // autoHideDialCode: false,
+            // autoPlaceholder: "off",
+            // dropdownContainer: document.body,
+            // excludeCountries: ["us"],
+            // formatOnDisplay: false,
+            // geoIpLookup: function(callback) {
+            //   $.get("http://ipinfo.io", function() {}, "jsonp").always(function(resp) {
+            //     var countryCode = (resp && resp.country) ? resp.country : "";
+            //     callback(countryCode);
+            //   });
+            // },
+            // hiddenInput: "full_number",
+            // initialCountry: "auto",
+            // localizedCountries: { 'de': 'Deutschland' },
+            // nationalMode: false,
+            // onlyCountries: ['us', 'gb', 'ch', 'ca', 'do'],
+            // placeholderNumberType: "MOBILE",
+            // preferredCountries: ['cn', 'jp'],
+            // separateDialCode: true,
+            utilsScript: "build/js/utils.js",
+        });
+    </script>
+    @*<script>$('#myModal').modal({ backdrop: 'static', keyboard: false })</script>*@
+</body>
+</html>

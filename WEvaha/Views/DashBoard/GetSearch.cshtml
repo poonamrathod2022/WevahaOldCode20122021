@@ -1,0 +1,217 @@
+﻿@model WEvaha.Models.DashboardProfileModel
+@{
+    ViewBag.Title = "GetSearch";
+    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+    var dbcount = ViewBag.dbCount;
+    var Currentpage = ViewBag.Currentpage;
+    var SourcePage = ViewBag.Sourcepage;
+
+}
+@*<script src="../js/jquery-3.2.1.min.js"></script>*@
+<script src="../js/aes.js"></script>
+<script type="text/javascript">
+    
+    $(document).ready(function () {
+        $("#btnSubmit").click(function (event) {
+            var from = "GetSearch"
+            var page = 1;
+            var vSeekingGender = $("#ddlSeekingGender option:selected").val();
+            var vAgeFrom = $("#ddlAgeFrom option:selected").text();
+            if (vAgeFrom === "Age From") { vAgeFrom = "AgeFrom"; }
+            var vAgeTo = $("#ddlAgeTo option:selected").text();
+            if (vAgeTo === "Age To") { vAgeTo = "AgeTo"; }
+            var vReligion = $("#ddlsReligion option:selected").val();
+            if (vReligion === "") { vReligion = null; }
+            var vLanguage = $("#ddlsLanguage option:selected").val();
+            if (vLanguage === undefined) { vLanguage = null; }
+            var vCaste = $("#ddlsCaste option:selected").val();
+            if (vCaste === undefined || vCaste=="" || vCaste === "0") { vCaste = null; }
+
+            var key = CryptoJS.enc.Utf8.parse('8080808080808080');
+            var iv = CryptoJS.enc.Utf8.parse('8080808080808080');
+
+
+            var sUrl = "SeekingGender=" + vSeekingGender +"&AgeFrom = " + vAgeFrom + " & AgeTo=" + vAgeTo + " & religion=" + vReligion + " & caste=" + vCaste + " & Language=" + vLanguage + " & PageIndex=" + page + " & From=" + from;
+            var ciphertext = CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(sUrl), key,
+                {
+                    keySize: 128 / 8,
+                    iv: iv,
+                    mode: CryptoJS.mode.CBC,
+                    padding: CryptoJS.pad.Pkcs7
+                });
+            var url = "../DashBoard/GetSearch?Url=" + ciphertext;
+            $.ajax(url, {
+                type: 'POST',  // http method
+                //data: { Url:url},  // data to submit
+                success: function (data, status, xhr) {
+                    // $('p').append('status: ' + status + ', data: ' + data);
+                    $('#BasicSearchReasult').html('');
+                    $('#BasicSearchReasult').html(data);
+                },
+                error: function (jqXhr, textStatus, errorMessage) {
+                    $('p').append('Error' + errorMessage);
+                }
+            });               
+        });
+        $("#ddlLanguage").change(function () {
+            var langId = $(this).val();
+            $.ajax({
+            url: "@Url.Action("GetCastebyLanguage", "DashBoard")",
+                data: { LanguageId: langId},
+            dataType: "json",
+            type: "GET",
+            error: function () {
+                alert(" An error occurred.");
+            },
+            success: function (data) {              
+                $("#ddlCaste").html('');
+                var optionhtml1 = '<option value="' +
+                    0 + '">' + "Select Caste" + '</option>';
+                $("#ddlCaste").append(optionhtml1);
+                $.each(data, function (i) {
+                    var optionhtml = '<option value="' + data[i].Value + '">' +data[i].Text + '</option>';
+                    $("#ddlCaste").append(optionhtml);
+                });
+            }
+            });
+        });
+
+    });
+    function getbasicsearchdata(page) {
+        var from = "GetSearch"
+        var vSeekingGender = $("#ddlSeekingGender option:selected").val();
+        var vAgeFrom = $("#ddlAgeFrom option:selected").text();
+        if (vAgeFrom === "Age From") { vAgeFrom = "AgeFrom"; }
+        var vAgeTo = $("#ddlAgeTo option:selected").text();
+        if (vAgeTo === "Age To") { vAgeTo = "AgeTo"; }
+        var vReligion = $("#ddlsReligion option:selected").val();
+        if (vReligion === "") { vReligion = null; }
+        var vLanguage = $("#ddlsLanguage option:selected").val();
+        if (vLanguage === undefined) { vLanguage = null; }
+        var vCaste = $("#ddlsCaste option:selected").val();
+        if (vCaste === undefined || vCaste === "0" || vCaste === "") { vCaste = null; }
+
+        var key = CryptoJS.enc.Utf8.parse('8080808080808080');
+        var iv = CryptoJS.enc.Utf8.parse('8080808080808080');
+
+
+        var sUrl = "SeekingGender=" + vSeekingGender +"&AgeFrom = " + vAgeFrom + " & AgeTo=" + vAgeTo + " & religion=" + vReligion + " & caste=" + vCaste + " & Language=" + vLanguage + " & PageIndex=" + page + " & From=" + from;
+        var ciphertext = CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(sUrl), key,
+            {
+                keySize: 128 / 8,
+                iv: iv,
+                mode: CryptoJS.mode.CBC,
+                padding: CryptoJS.pad.Pkcs7
+            });
+        var url = "../DashBoard/GetSearch?Url=" + ciphertext;
+        $.ajax(url, {
+            type: 'POST',  // http method
+            //data: { Url:url},  // data to submit
+            success: function (data, status, xhr) {
+                // $('p').append('status: ' + status + ', data: ' + data);
+                $('#BasicSearchReasult').html('');
+                $('#BasicSearchReasult').html(data);
+            },
+            error: function (jqXhr, textStatus, errorMessage) {
+                $('p').append('Error' + errorMessage);
+            }
+        });        
+        }
+    
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {      
+        $("#ddlsLanguage").change(function () {
+            var langId = $(this).val();
+            $.ajax({
+            url: "@Url.Action("GetCastebyLanguage", "DashBoard")",
+                data: { LanguageId: langId},
+            dataType: "json",
+            type: "GET",
+            success: function (data) {
+                $("#ddlsCaste").html('');
+                var optionhtml1 = '<option value="' +
+                    0 + '">' + "Select Caste" + '</option>';
+                $("#ddlsCaste").append(optionhtml1);
+                $.each(data, function (i) {
+                    var optionhtml = '<option value="' + data[i].Value + '">' +data[i].Text + '</option>';
+                    $("#ddlsCaste").append(optionhtml);
+                });
+            }
+            });
+        });
+
+    });
+
+
+</script>
+
+<body style="background:url(../assets/img/bg.jpg) repeat;">
+
+
+    <div class="container">
+
+        <div class="row" style=" margin-top: 20px;">
+            <div class="col-md-6">
+                <div class="mainH1" style="font-size:28px; padding-top:10px;">Search Criteria</div>
+            </div>
+            <div class="col-md-6 text-right">
+                <a href="@Url.Action("DashBoard", "DashBoard")"><img src="../assets/img/dashBoard_btn.png" alt="dashboard button" width="180px" height="45"></a>
+            </div>
+        </div>
+
+        <div class="row" style="background:#fff; margin-top:10px;">
+            <div class="row">
+                <div class="col-md-12" style="padding:25px 0px 15px 0px;">
+                    
+                </div>
+            </div>
+
+            <div class="row" style="margin-bottom:30px;">
+                <div class="col-md-12">
+                    <form>
+                        <div class="form-row">
+                            <div class="form-group col-md-2">
+                                @Html.DropDownListFor(model => model.userProfile.SeekingGender, new SelectList(Model.userProfile.GenderOpti, "Value", "Text"), new { @class = "form-control", id = "ddlSeekingGender" })
+
+                            </div>
+
+                            <div class="form-group col-md-2">
+                                @Html.DropDownListFor(model => model.AboutMySelf.AgeFrom, new SelectList(Model.AboutMySelf.AgeFromOption, "Value", "Text"), "Age From", new { @class = "form-control", id = "ddlAgeFrom" })
+                            </div>
+                            <div class="form-group col-md-2">
+                                @Html.DropDownListFor(model => model.AboutMySelf.AgeTo, new SelectList(Model.AboutMySelf.AgeToOption, "Value", "Text"), "Age To", new { @class = "form-control", id = "ddlAgeTo" })
+                            </div>
+
+                            <div class="form-group col-md-2">
+                                @Html.DropDownListFor(model => model.AboutMySelf.Religion, new SelectList(Model.AboutMySelf.ReligionOpti, "Value", "Text"), "Religion", new { @class = "form-control", id = "ddlsReligion" })
+                            </div>
+                            <div class="form-group col-md-2">
+                                @Html.DropDownListFor(model => model.AboutMySelf.Language, new SelectList(Model.AboutMySelf.LanguageOpti, "Value", "Text"), "Language", new { @class = "form-control", @id = "ddlsLanguage" })
+                            </div>
+                            <div class="form-group col-md-2">
+                                @Html.DropDownListFor(model => model.AboutMySelf.Caste, new SelectList(Model.AboutMySelf.CasteOpti, "Value", "Text"), "Caste", new { @class = "form-control", id = "ddlsCaste" })
+                            </div>
+                        </div>
+                        <div class="form-row text-center">
+                            <a href="@Url.Action("SearchCriteria", "DashBoard")"><img src="~/assets/img/AdvSearch_btn.png"></a>
+                            <a id="btnSubmit"><img src="~/assets/img/submit_btn.png" style="cursor:pointer;"></a>
+                        </div>
+</form>
+                </div>
+            </div>
+        </div>
+        
+        <div class="container" style="margin-bottom:30px;">
+            <div id="BasicSearchReasult">
+                @Html.Partial("_SearchResult")
+            </div>
+        </div>
+
+
+
+
+    </div>
+
+
+</body>

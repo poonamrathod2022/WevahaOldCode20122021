@@ -1,0 +1,274 @@
+﻿@model WEvaha.Models.WevahaViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout_Main.cshtml";
+}
+<!--================ Start Home Banner Area =================-->
+<section class="home_banner_area">
+    <div class="banner_inner">
+        <div class="container-fluid ">
+            <div class="row">
+                <div class="col-md-12 text-center" style="margin-bottom:30px;">
+                    <h2 class="H2Pad">A USA Indian Matrimony | Traditional &amp; Scientific Compatibility</h2>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-5 BanBoxLeft">
+                    <div class="BanBoxSize">
+                        <h3 class="text-center" style="color:#fff; font-weight:400;">START <span style="color:#ffa500;">FREE</span> TODAY</h3>
+                        <hr color="#FFFFFF" width="50%" style="margin-bottom:20px;">
+                        <form id="formIndex" enctype="multipart/form-data">
+                            @Html.AntiForgeryToken()
+                            <div style="position:relative;">
+
+                                <div style="float:left; width:48%;">
+                                    <span style="color:#fff; padding-left:10px;">I am</span>
+                                    <div style="border:1px solid #ccc; padding:10px 20px 0px 10px; border-radius:10px; background:#fff; margin-bottom:10px;">
+                                        <label class="container1">
+                                            a woman
+                                            @Html.RadioButtonFor(x => x.userProfile.Gender, "1", "Female")
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
+
+                                    <div style="border:1px solid #ccc; padding:10px 20px 0px 10px; border-radius:10px; background:#fff; margin-bottom:10px;">
+                                        <label class="container1">
+                                            a man
+                                            @Html.RadioButtonFor(x => x.userProfile.Gender, "2",new {@checked = true })
+                                            <span class="checkmark1"></span>
+                                        </label>
+                                    </div>
+
+
+                                </div>
+
+                                <div style="float:right; width:48%;">
+                                    <span style="color:#fff; padding-left:10px;">Looking for</span>
+                                    <div style="border:1px solid #ccc; padding:10px 20px 0px 10px; border-radius:10px; background:#fff; margin-bottom:10px;">
+                                        <label class="container1">
+                                            a woman
+                                            @Html.RadioButtonFor(x => x.userProfile.SeekingGender, "Female", new { @checked = true })
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
+
+                                    <div style="border:1px solid #ccc; padding:10px 20px 0px 10px; border-radius:10px; background:#fff; margin-bottom:10px;">
+                                        <label class="container1">
+                                            a man
+                                            @Html.RadioButtonFor(x => x.userProfile.SeekingGender, "Male")
+                                            <span class="checkmark1"></span>
+                                        </label>
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+                            <div class="form-group has-search" style="background:#fff; border-radius:10px; float:left; width:100%;">
+                                <span class="fa fa-envelope form-control-feedback"></span>
+                                @Html.TextBoxFor(x => x.userProfile.Email, new { placeholder = "Your Mail", @class = "form-control", @Name= "Email",@Id= "Email" })
+                            </div>
+                            <div class="form-group has-search" style="background:#fff; border-radius:10px; float:left; width:100%;">
+                                <span class="fa fa-lock form-control-feedback"></span>
+                                @Html.PasswordFor(x => x.userProfile.Password, new { placeholder = "Password", @class = "form-control", @Name = "Password", @Id = "Password" })
+                            </div>
+                            <div class="form-group has-search" style="background:#fff; border-radius:10px; float:left; width:100%;">
+                                <span class="fa fa-lock form-control-feedback"></span>
+                                @Html.PasswordFor(x => x.userProfile.ConfirmPassword, new { placeholder = "Retype password", @class = "form-control",@Name ="ConfirmPassword", @Id = "ConfirmPassword" })
+                            </div>
+                            <div style="float:left; width:100%;">
+                                <p style="color:#fff; font-size:12px; line-height:18px;">By clicking below to Get Started, you confirm that you agree to our Terms & Conditions and you have read and understood our Privacy Policy</p>
+                            </div>
+                            <div style="float:left;width:100%;">
+                                <a id="btnSubmit" class="loBtn"><img src="../img/loginBtn.png" alt="btn"></a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-md-7"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="feature_area section_gap_top">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="main_title text-center">
+                    <h2 class="mb-3 wevahaHead"><span style="color:#00bcd5;">Spend Time</span> <span style="color:#FF3300;">–</span> <span style="color:#B0B000;">It’s your Life</span></h2>
+
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-4">
+                <div class="single_feature">
+                    <div class="icon text-center"><img src="../img/match_icon.png" width="130" height="130" alt="match"></div>
+                    <div class="desc">
+                        <h4 class="mt-3 mb-2 text-center" style="color:#ef5d54;">Like-Minded Connections</h4>
+                        <p>
+                            WE do things a little differently, while you provide us your requirements our system’s Best-Algorithms will Predict & Present Like-Minded Matches for you to choose from.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4">
+                <div class="single_feature">
+                    <div class="icon text-center"><img src="../img/help_icon.png" width="130" height="130" alt="match"></div>
+                    <div class="desc">
+                        <h4 class="mt-3 mb-2 text-center" style="color:#00aeae;">Traditional Affinity</h4>
+                        <p>
+                            WE Value Traditions the most, but within those traditions a Compatibility Companion is what we value the utmost. WE are here to help you to make you do it Right.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4">
+                <div class="single_feature">
+                    <div class="icon text-center"><img src="../img/secured_icon.png" width="130" height="130" alt="match"></div>
+                    <div class="desc">
+                        <h4 class="mt-3 mb-2 text-center" style="color:#617bbe;">Secure &amp; Confidential</h4>
+                        <p>
+                            WE have a Secure Development Life Cycle for Vulnerability Management to help & secure Data by Encryption process to provide protection, Confidentiality & Integrity.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<div class="container-fluid" style="background:url(../img/banner/tradiBanner.jpg) center; background-size:cover; padding:40px 0px; margin-bottom:80px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center mt-25">
+                <h2 class="wevahaHead" style="color:#fff;">A Traditional and Scientific Compatibility</h2><br>
+                <br>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-5 text-center"><img src="../img/img2.png" alt="img"></div>
+            <div class="col-md-7" style="padding-top:60px;">
+
+
+                <p style="color:#fff;">Our core committee has designed some basic questions which would actually help you and our system to search suitable matches. After all it’s 1 life and you need 1 Right partner. These questions are what differentiate’s eSandhi from other matrimonial website competitors.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fluid" style="margin-bottom:80px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center mt-25">
+                <h2 class="wevahaHead"><span style="color:#00bcd5;">Choose Right</span> <span style="color:#FF3300;">–</span> Choose Bright</h2>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-7" style="padding-top:70px;">
+
+
+                <p>The key to a successful marriage is a successful relationship. Vital Characteristics are based on knowledge and experience, and are more likely to alter based on life-events and results we get. You can find matches on the default criteria or you can have WEvaha.com application choose the match for you based on the 5 sectors or you can create a search agent.</p>
+            </div>
+            <div class="col-md-5 text-center"><img src="../img/img1.png" alt="img"></div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid" style="background:url(../img/banner/helpBanner.jpg) center; background-size:cover; padding:80px 0px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <h2 style="color:#fff;">WE’re Here to Help You</h2>
+                <p style="color:#fff; text-align:center;">Registering with WEvaha is the first step of finding A Companion-for-Life.</p>
+                <h4 style="color:#fff;">WE’RE AVAILABLE 24/7 - 365 DAYS-A-YEAR</h4><br>
+
+                <a href="index.html" class="genric-btn success circle arrow">GET ZINGED<span class="ti-arrow-right"></span></a>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("#btnSubmit").click(function () {            
+        var formdata = $("#formIndex").serialize();
+        $.ajax({
+            url: "/Home/SaveProfile",
+            type: "POST",
+            dataType: 'json',
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            data: formdata,
+            success: function (data, status, xhr) {
+                alert("coming");
+            }
+
+        });
+               
+        });
+
+    });
+</script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("#btnSubmit").click(function () {
+            alert("coming1");
+                $("#RegisterForm").validate({
+                    rules: {
+                        email: {
+                            required: true,
+                            email: true
+                        },
+                        password: {
+                            required: true,
+                            minlength: 6
+                        },
+                        cnfpassword: {
+                            required: true,
+                            equalTo: "#password"
+                        }
+                    },
+                    messages: {
+                        email: {
+                            required: "Enter Email",
+                            email: "Please Enter Valid Email"
+                        },
+                        Password: {
+                            required: "Enter password",
+                            minlength: "Password must be at least 6 characters long"
+                        },
+                        cnfpassword: {
+                            required: "Enter confirm password",
+                            equalTo: "Password and Confirm password Miss-match"
+                        }
+                    },
+                    submitHandler: function (form) { // for demo
+            //            alert("coming1");
+            //        var formdata = $("#formIndex").serialize();
+            //    $.ajax({
+            //        url: "/Home/SaveProfile",
+            //        type: "POST",
+            //        dataType: 'json',
+            //        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            //        data: formdata,
+            //        success: function (data, status, xhr) {
+            //            alert("coming");
+            //        }
+
+            //    });
+            //}
+            //});
+        });
+</script>

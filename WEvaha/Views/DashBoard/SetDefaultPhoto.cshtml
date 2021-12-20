@@ -1,0 +1,108 @@
+﻿@model WEvaha.Models.DashboardProfileModel
+@{
+    ViewBag.Title = "SetDefaultPhoto";
+    Layout = "~/Views/Shared/_Layout_New_Dashboard.cshtml";
+}
+
+
+
+
+<div class="container">
+
+    <div class="row" style="background:#fff; margin-top:10px;">
+        <div class="row">
+            <div class="col-md-12" style="padding:25px 0px 15px 0px;">
+
+            </div>
+        </div>
+        @if (Model.profilePhotos != null)
+        {
+            if (Model.profilePhotos.Count > 0)
+            {
+                <div class="row" style="margin-bottom:30px;">
+                    <div class="col-md-12">
+                        <form>
+                            <div class="form-row">
+                                <h2>My Photos</h2>
+
+
+                                <div class="row">
+                                    @for (int i = 0; i < Model.profilePhotos.Count; i++)
+                                    {
+                                        if ((i % 4) == 0)
+                                        {
+                                            @(new HtmlString("</div><div class='row'>"))
+                                        }
+                                        <div class="col-md-3">
+                                            <a href="#" ONCLICK="SetDefault(@Model.profilePhotos[i].ProfileId,@Model.profilePhotos[i].PhotoId)">
+                                                <img src="@Model.profilePhotos[i].PhotoUrl" alt="Snow" style="margin-bottom:20px; height: 300px;
+    object-fit: cover; width:100%;">
+                                            </a>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="col-md-12 text-center">
+
+                    <img src="../assets/img/noData-icon.jpg" alt="img">
+                    <div style="font-size:18px; color:#252525; font-weight:bold;">No Photos Found</div>
+                    <p style="text-align:center;">
+                        Please Upload your Photos Under 'My Photos' Section<br>
+                        in Profile Page
+                    </p>
+                    @*<a href="@Url.Action("GetMyProfile", "DashBoard")"><img src="../assets/img/viewMatches.png" alt="btn"></a>*@
+                </div>
+            }
+        }
+
+    </div>
+
+
+    <div class="container" style="margin-bottom:30px;">
+
+    </div>
+
+
+
+
+</div>
+
+
+
+<script type="text/javascript">
+    function SetDefault(ProfileId, PhotoId) {      
+        $.ajax({
+            url: '/DashBoard/SetDefaultPhoto',
+            type: "POST",           
+            data: { ProfileId: ProfileId, PhotoId: PhotoId},           
+            success: function (result) {
+                if (result != "") {
+                    swal({
+                        icon: "success",
+                        text: "Selected Photo Set As Default Successfully..!",
+                        type: "success",
+                        buttons: false
+                    });
+                    window.setTimeout(function () { window.location = "../DashBoard/DashBoard"; }, 1000);
+                }
+            },
+            error: function (err) {
+                swal({
+                    icon: "warning",
+                    text: "problem..!",
+                    type: "warning",
+                    buttons: false
+                });
+                window.setTimeout(function () { window.location = "../DashBoard/DashBoard"; }, 1000);
+                // alert(err.statusText);
+            }
+        });
+    }
+</script>

@@ -1,0 +1,197 @@
+﻿
+@{
+    ViewBag.Title = "ReportAbuse";
+    Layout = "~/Views/Shared/_Layout_Main.cshtml";
+}
+
+<!--================ Start Home Banner Area =================-->
+<section class="banner_area" style="background:url(../img/banner/abuse_innerBan.jpg)  no-repeat right">
+    <div class="banner_inner d-flex align-items-center">
+        <div class="overlay"></div>
+        <!--<div class="container">
+        <div class="row justify-content-center">
+        <div class="col-lg-6">
+        <div class="banner_content text-center">
+        <h2>About Us</h2>
+        <div class="page_link">
+        <a href="index.html">Home</a>
+        <a href="about-us.html">About Us</a>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>-->
+    </div>
+</section>
+
+
+<section class="feature_area section_gap_top1">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-12 col-lg-12">
+                <div class="main_title text-center">
+                    <h1 class="mb-3 wevahaHead"><span style="color:#00bcd5;">Report Abuse</span></h1><br>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <p style="font-style:normal;">
+                    We have stringent policies against those members who misuse our services. For us to act and stop any abuse or violation, we need all your support and extended co-operation.<br>
+                    <br>
+
+
+                    Alert us by writing to us: reportabuse@wevaha.com, for us to initiate necessary action against the offender.<br>
+                    <br>
+
+
+                    Also, while reporting such complaints, please provide all evidence including any e-mail (Full header of the e-mail) you may have received.<br>
+                    <br>
+
+                    <strong style="color:#F00;">Note: Your personal details will not be disclosed.</strong>
+
+                </p>
+            </div>
+            <div class="col-md-6">
+                <h4 style="font-weight:500; text-align:center;">Abuse Category</h4>
+                <hr>
+
+                <form name="ReportAbuseForm" id="ReportAbuseForm">
+
+                    <div class="input-group-icon mt-10">
+                        <div class="icon"><i class="ti-eye" aria-hidden="true"></i></div>
+                        <div class="form-select">
+                            <select id="CCategory" name="CCategory" required>
+                                <option value="1">Select your abuse category *	</option>
+
+                                <option value="Illicit email">Illicit email</option>
+                                <option value="Unsolicited email">Unsolicited email</option>
+                                <option value="Fraudulent Profile">Fraudulent Profile</option>
+                                <option value="Photograph being Suspect">Photograph being Suspect</option>
+                                <option value="Any Other">Any Other</option>
+                            </select>
+
+                        </div>
+                        <div class="mt-10">
+                            <textarea class="single-textarea" id="Subject" name="Subject" placeholder="Subject *" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Subject *'" required spellcheck="false" style="height:50px;"></textarea>
+                        </div>
+
+                        <div class="mt-10">
+                            <textarea class="single-textarea" name="Message" id="Message" placeholder="Message *" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Message'" required spellcheck="false" style="height:50px;"></textarea>
+                        </div>
+
+                        <div class="mt-10">
+                            <textarea class="single-textarea" name="Complaint" id="Complaint" placeholder="Complaint" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Complaint'" spellcheck="false" style="height:50px;"></textarea>
+                        </div>
+
+                        <div class="mt-10">
+                            <textarea class="single-textarea" name="CEmail" id="CEmail" placeholder="Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email*'" required spellcheck="false" style="height:50px;"></textarea>
+                        </div>
+
+                        <div style="margin-top:30px; text-align:center;">
+                            <button class="genric-btn primary circle" type="submit" value="submit" id="btnReportAbuse">Submit</button>
+                        </div>
+                    </div>
+
+                        </form>
+
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+
+
+
+<div class="container-fluid" style="background:url(../img/banner/helpBanner.jpg) center; background-size:cover; padding:80px 0px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <h2 style="color:#fff;">WE’re Here to Help You</h2>
+                <p style="color:#fff; text-align:center;">Registering with WEvaha is the first step of finding A Companion-for-Life.</p>
+                <h4 style="color:#fff;">WE’RE AVAILABLE 24/7 - 365 DAYS-A-YEAR</h4><br>
+
+                <a href="@Url.Action("Index", "Home")" class="genric-btn success circle arrow">GET ZINGED<span class="ti-arrow-right"></span></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("#btnReportAbuse").click(function () {
+
+            $('#ReportAbuseForm').validate({ // initialize the plugin
+                    rules: {
+
+                        CCategory: {
+                            required: true
+                    },
+                    Subject: {
+                        required: true
+                    },
+                    Message: {
+                        required: true
+                    },
+
+                        CEmail: {
+                            required: true
+                        }
+
+                    },
+
+                    messages: {
+
+                        CCategory: {
+                            required: "Please Select Category"
+                        },
+                        Subject: {
+                            required: "Please Enter Subject"
+                        },
+                        Message: {
+                            required: "Please Enter Message"
+                        },
+
+
+                        CEmail: {
+                            required: "Please Enter your Email"
+                        }
+                    },
+
+                submitHandler: function (form) { // for demo
+                    var Category, Subject, Message, Complaint, Email;
+                    Category = $("#CCategory").val();
+                    Subject = $("#Subject").val();
+                    Message = $("#Message").val();
+                    Complaint = $("#Complaint").val();
+                    Email = $("#CEmail").val();
+
+                        var valdata = $("#ReportAbuseForm").serialize();
+                        $.ajax({
+                            type: 'POST',
+                            dataType: 'json',
+                            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                            url: "@(Url.Action("ReportAbuseForm", "Home"))",
+                            data: { Category: Category, Subject: Subject, Message: Message, Complaint: Complaint, Email: Email },
+                            //data: valdata,
+                            success: function (data) {
+                                swal({
+                                    icon: "warning",
+                                    text: "Your Complaint Successfully Registered With Us...Our Team will get back to you Shortly..!",
+                                    type: "success",
+                                    buttons: false
+                                });
+                                window.setTimeout(function () { window.location = "../Home/Index"; }, 3000);
+
+                            }
+                      });                    }
+                });
+
+            });
+        });
+</script>

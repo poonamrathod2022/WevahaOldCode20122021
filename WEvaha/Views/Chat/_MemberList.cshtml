@@ -1,0 +1,94 @@
+﻿@model List<WE.BusinessEntities.MessageUserList>
+
+<div class="col-md-12" style="padding-left:30px; overflow-y: scroll; height:350px; padding:3px 2px;">
+
+    @if (Model != null && Model.Count > 0)
+    {
+        for (var i = 0; i < Model.Count; i++)
+        {
+            var profilePhoto = "/assets/img/profileImg/" + i + ".jpg";
+            var timediff = (DateTime.Now.AddMinutes(2) - Model[i].LastMessageDate).ToString("mm").TrimStart('0');
+            <a href="">
+                <div class="messages_div">
+                    <div class="popupImg_Noti">
+                        <div class="inbox_leftAct"></div>
+                        <img src="@Model[i].UserProfilePic.UserProfilePicUrl" alt="profile pic">
+                    </div>
+                    <span class="messages_txt_s"><strong>@Model[i].ProfileName</strong></span><br>
+                    <span class="messages_txt_s">ABC...</span>
+                    <div class="leftSid_rightIcons">
+                        <span style="font-size:11px; color:#999;">@timediff m</span>&nbsp;<a href="" style="color:#999;"><i class="fa fa-star"></i></a><br>
+                        <div class="leftSid_time">@Model[i].UnreadMsg</div>
+                    </div>
+                </div>
+            </a>
+        }
+
+    }
+
+
+
+    @*<a href="">
+            <div class="messages_div">
+                <div class="popupImg_Noti">
+                    <div class="inbox_leftAct"></div>
+                    <img src="~/assets/img/profileImg/3.jpg" alt="profile pic">
+                </div>
+                <span class="messages_txt_s"><strong>Surya Prakesh</strong></span><br>
+
+                <span class="messages_txt_s">How are you</span>
+                <div class="leftSid_rightIcons">
+                    <span style="font-size:11px; color:#999;">5m</span>&nbsp;<a href="" style="color:#999;"><i class="fa fa-star"></i></a><br>
+                    <div class="leftSid_time">2</div>
+                </div>
+            </div>
+        </a>
+
+        <a href="">
+            <div class="messages_div_S">
+                <div class="popupImg_Noti">
+                    <div class="inbox_leftAct"></div>
+                    <img src="~/assets/img/profileImg/5.jpg" alt="profile pic">
+                </div>
+                <span class="messages_txt_s"><strong>Teja</strong></span><br>
+
+                <span class="messages_txt_s">Hi Friend</span>
+                <div class="leftSid_rightIcons">
+                    <span style="font-size:11px; color:#999;">5m</span>&nbsp;<a href="" style="color:#999;"><i class="fa fa-star"></i></a>
+
+                </div>
+            </div>
+        </a>
+
+        <a href="">
+            <div class="messages_div">
+                <div class="popupImg_Noti">
+                    <div class="inbox_leftInact"></div>
+                    <img src="~/assets/img/profileImg/12.jpg" alt="profile pic">
+                </div>
+                <span class="messages_txt_s"><strong>Anil Kumar</strong></span><br>
+
+                <span class="messages_txt_s">Hi</span>
+                <div class="leftSid_rightIcons">
+                    <span style="font-size:11px; color:#999;">1h</span>&nbsp;<a href="" style="color:#999;"><i class="fa fa-star"></i></a><br>
+
+                </div>
+            </div>
+        </a>
+
+        <a href="">
+            <div class="messages_div">messages_div
+                <div class="popupImg_Noti">
+                    <div class="inbox_leftInact"></div>
+                    <img src="~/assets/img/profileImg/10.jpg" alt="profile pic">
+                </div>
+                <span class="messages_txt_s"><strong>Harish</strong></span><br>
+
+                <span class="messages_txt_s">Hi</span>
+                <div class="leftSid_rightIcons">
+                    <span style="font-size:11px; color:#999;">1d</span>&nbsp;<a href="" style="color:#999;"><i class="fa fa-star"></i></a><br>
+
+                </div>
+            </div>
+        </a>*@
+</div>

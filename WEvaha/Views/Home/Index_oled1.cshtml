@@ -1,0 +1,328 @@
+@model WEvaha.Models.WevahaViewModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout_Main.cshtml";
+}
+<!--================ Start Home Banner Area =================-->
+
+<section class="home_banner_area1">
+    <div class="banner_inner1">
+        <video autoplay muted="" loop id="myVideo">
+            <source src="../img/GirlBrowsing.mp4" type="video/mp4">
+            Your browser does not support HTML5 video.
+        </video>
+        <div class="container" style="position:absolute; top:80px; left:0px;">
+            <div class="row">
+                <div class="col-md-5" style="text-align:center;">
+                    <h4 class="wevahaBanHead">Trusted Indian Matrimony</h4>
+                </div>
+                <div class="col-md-7"></div>
+            </div>
+            <div class="row">
+                <div class="col-md-5 BanBoxLeft">
+                    <div class="BanBoxSize">
+                        <form id="RegisterForm" name="RegisterForm">
+                            <h3 class="text-center" style="color:#fff; font-weight:400;">FIND <span style="color:#ffa500;">LOVE</span> FOR <span style="color:#ffa500;">LIFE</span>!</h3>
+                            <hr color="#FFFFFF" width="50%" style="margin-bottom:20px;">
+
+                            <div style="position:relative;">
+
+                                <div style="float:left; width:48%;">
+                                    <span style="color:#fff; padding-left:10px;">I am</span>
+                                    <div style="border:1px solid #ccc; padding:10px 20px 0px 10px; border-radius:10px; background:#fff; margin-bottom:10px;">
+                                        <label class="container1">
+                                            a woman
+                                            <input type="radio" name="Gender" id="Gender" value="1">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
+
+                                    <div style="border:1px solid #ccc; padding:10px 20px 0px 10px; border-radius:10px; background:#fff; margin-bottom:10px;">
+                                        <label class="container1">
+                                            a man
+                                            <input type="radio" name="Gender" id="Gender" value="2">
+                                            <span class="checkmark1"></span>
+                                        </label>
+                                    </div>
+
+
+                                </div>
+
+                                <div style="float:right; width:48%;">
+                                    <span style="color:#fff; padding-left:10px;">Looking for</span>
+                                    <div style="border:1px solid #ccc; padding:10px 20px 0px 10px; border-radius:10px; background:#fff; margin-bottom:10px;">
+                                        <label class="container1">
+                                            a woman
+                                            <input type="radio" name="SeekingGender" id="SeekingGender" value="1" />
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
+
+                                    <div style="border:1px solid #ccc; padding:10px 20px 0px 10px; border-radius:10px; background:#fff; margin-bottom:10px;">
+                                        <label class="container1">
+                                            a man
+                                            <input type="radio" name="SeekingGender" id="SeekingGender" value="2">
+                                            <span class="checkmark1"></span>
+                                        </label>
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+
+                            <div></div>
+
+
+                            <div class="form-group has-search" style="background:#fff; border-radius:10px; float:left; width:100%;">
+                                <span class="fa fa-envelope form-control-feedback"></span>
+                                <input type="text" name="email" id="email" class="form-control" placeholder="Your Mail" style="opacity:1; padding-bottom:15px; padding-top:15px;">
+                            </div>
+
+                            <div class="form-group has-search" style="background:#fff; border-radius:10px; float:left; width:100%;">
+                                <span class="fa fa-lock form-control-feedback"></span>
+                                <input type="password" name="password" id="password" class="form-control" placeholder="Create your Password" style="opacity:1; padding-bottom:15px; padding-top:15px;">
+                            </div>
+
+                            <div class="form-group has-search" style="background:#fff; border-radius:10px; float:left; width:100%;">
+                                <span class="fa fa-lock form-control-feedback"></span>
+                                <input type="password" name="cnfpassword" id="cnfpassword" class="form-control" placeholder="Confirm Password" style="opacity:1; padding-bottom:15px; padding-top:15px;">
+
+                            </div>
+
+                            <div style="float:left; width:100%;">
+                                <p style="color:#fff; font-size:12px; line-height:18px;">By clicking below to Get Started, you confirm that you agree to our <a href="" style="color:#00CCFF;">Terms & Conditions</a> and you have read & understood our <a href="" style="color:#00CCFF;">Privacy Policy</a></p>
+                            </div>
+
+                            <div style="float:left; width:100%; ">
+                                <button class="loBtn" id="btnSubmit" name="btnSubmit" type="submit" style="background: url( ../img/loginBtn.png) no-repeat; cursor:pointer; padding:27px 0px; border:0px;"></button>
+                            </div>
+                            </form>
+                    </div>
+                </div>
+                <div class="col-md-7"></div>
+            </div>
+        </div>
+
+
+    </div>
+</section>
+
+
+<section class="feature_area section_gap_top">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="main_title text-center">
+                    <h2 class="mb-3 wevahaHead"><span style="color:#00bcd5;">Spend Time</span><span style="color:#FF3300;"> &#8211; </span><span style="color:#B0B000;">It&#x27s your Life</span></h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-4">
+                <div class="single_feature">
+                    <div class="icon text-center"><img src="../img/match_icon.png" width="130" height="130" alt="match"></div>
+                    <div class="desc">
+                        <h4 class="mt-3 mb-2 text-center" style="color:#ef5d54;">Like-Minded Connections</h4>
+                        <p>
+                            WE do things a little differently, while you provide us your requirements our system’s Best-Algorithms will Predict & Present Like-Minded Matches for you to choose from.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4">
+                <div class="single_feature">
+                    <div class="icon text-center"><img src="../img/help_icon.png" width="130" height="130" alt="match"></div>
+                    <div class="desc">
+                        <h4 class="mt-3 mb-2 text-center" style="color:#00aeae;">Traditional Affinity</h4>
+                        <p>
+                            WE Value Traditions the most, but within those traditions a Compatibility Companion is what we value the utmost. WE are here to help you to make you do it Right.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4">
+                <div class="single_feature">
+                    <div class="icon text-center"><img src="../img/secured_icon.png" width="130" height="130" alt="match"></div>
+                    <div class="desc">
+                        <h4 class="mt-3 mb-2 text-center" style="color:#617bbe;">Secure &amp; Confidential</h4>
+                        <p>
+                            WE have a Secure Development Life Cycle for Vulnerability Management to help & secure Data by Encryption process to provide protection, Confidentiality & Integrity.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<div class="container-fluid" style="background:url(../img/banner/tradiBanner.jpg) center; background-size:cover; padding:40px 0px; margin-bottom:80px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center mt-25">
+                <h2 class="wevahaHead" style="color:#fff;">A Traditional and Scientific Compatibility</h2><br>
+                <br>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-5 text-center"><img src="../img/img2.png" alt="img"></div>
+            <div class="col-md-7" style="padding-top:60px;">
+
+
+                <p style="color:#fff;">Our core committee has designed some basic questions which would actually help you and our system to search suitable matches. After all it’s 1 life and you need 1 Right partner. These questions are what differentiate’s eSandhi from other matrimonial website competitors.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fluid" style="margin-bottom:80px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center mt-25">
+                <h2 class="wevahaHead"><span style="color:#00bcd5;">Choose Right</span><span style="color:#FF3300;">&#8211;</span>Choose Bright</h2>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-7" style="padding-top:70px;">
+
+
+                <p>The key to a successful marriage is a successful relationship. Vital Characteristics are based on knowledge and experience, and are more likely to alter based on life-events and results we get. You can find matches on the default criteria or you can have WEvaha.com application choose the match for you based on the 5 sectors or you can create a search agent.</p>
+            </div>
+            <div class="col-md-5 text-center"><img src="../img/img1.png" alt="img"></div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid" style="background:url(../img/banner/helpBanner.jpg) center; background-size:cover; padding:80px 0px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <h2 style="color:#fff;">WE&#x27re Here to Help You</h2>
+                <p style="color:#fff; text-align:center;">Registering with WEvaha is the first step of finding A Companion-for-Life.</p>
+                <h4 style="color:#fff;">WE&#x27RE AVAILABLE 24/7 - 365 DAYS-A-YEAR</h4><br>
+
+                <a href="index.html" class="genric-btn success circle arrow">GET ZINGED<span class="ti-arrow-right"></span></a>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#btnSubmit').click(function () {
+            $("#RegisterForm").validate({
+                rules: {
+
+                    email: {
+                        required: true,
+                        email: true
+                    },
+
+                    password: {
+                        required: true,
+                        minlength: 6
+                    },
+
+                    cnfpassword: {
+                        required: true,
+                        equalTo: "#password"
+                    }
+
+                },
+                messages: {
+
+                    email: {
+                        required: "Enter Email",
+                        email: "Please Enter Valid Email"
+                    },
+                    password: {
+                        required: "Enter password",
+                        minlength: "Password must be at least 6 characters long"
+                    },
+                    cnfpassword: {
+                        required: "Enter confirm password",
+                        equalTo: "Password and Confirm password Miss-match"
+                    }
+                },
+                                    submitHandler: function (form) { // for demo
+                        var Fname, Lname, email, mobile, password, ConfirmPassword;
+                        Fname = $("#Fname").val();
+                        Lname = $("#Lname").val();
+                        email = $("#email").val();
+                        password = $("#password").val();
+                                        ConfirmPassword = $("#cnfpassword").val();
+                                        var Gtype = $("input:radio[name='Gender']:checked").val();
+                                        var SGtype = $("input:radio[name='SeekingGender']:checked").val();
+
+
+                        $.ajax({
+                            type: 'POST',
+                            url: "@(Url.Action("Register", "Home"))",
+                            data: { ProfileName: null, email: email, Gender: Gtype, SeekingGender: SGtype, password: password },
+                            success: function (data) {
+                                if (data == -2) {
+                                    //alert("Your provided Email has already been used. Please use another Email address.");
+                                    //swal({
+                                    //    icon: "warning",
+                                    //    text: "Given Email is already Registered with us",
+                                    //    showConfirmButton: true,
+                                    //    timer: 4000
+
+                                    //});
+
+                                    //location.reload(true);
+                                    swal({
+                                        icon: "warning",
+                                        text: "Given Email is already Registered with us",
+                                        type: "success",
+                                        buttons: false
+                                    });
+                                    window.setTimeout(function () { window.location = "../Home/Index"; }, 3000);
+
+                                }
+                                else {
+                                    //alert("Registered Successfully..!");
+                                    //swal({
+                                    //    icon: "success",
+                                    //    text: "Registration Successful, A verification Link has been sent to your email account",
+                                    //    showConfirmButton: true,
+                                    //    timer: 8000
+                                    //});
+                                    swal({
+                                        icon: "success",
+                                        text: "Registration Successful, A verification Link has been sent to your email account",
+                                        type: "success",
+                                        buttons: false
+                                    });
+                                    window.setTimeout(function () { window.location = "../Home/Index"; }, 3000);
+
+                                }
+                            },
+                            error: function () {
+                                swal({
+                                    icon: "warning",
+                                    text: "Something Could be wrong",
+                                    type: "success",
+                                    buttons: false
+                                });
+
+                            }
+                      });
+                    }
+
+
+            });
+
+
+
+
+        });
+    });
+</script>

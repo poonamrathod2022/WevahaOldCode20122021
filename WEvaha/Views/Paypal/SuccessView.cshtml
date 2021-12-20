@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewBag.Title = "SuccessView";
+    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+}
+
+<div class="container" style="padding:10px; background:#fff; margin-top:100px; margin-bottom:100px; border:1px #e7e7e7 solid;">
+
+
+    <div class="row">
+        <div class="col-md-12 text-center" style="padding:25px 0px;">
+
+            <h3 style="color:#090;">Payment Successful</h3><br>
+
+            <p style="text-align:center;">
+                Thanks for your Subscription, you just completed your payment.<br>
+                Your transaction ID for this payment is : @ViewBag.TranxId<br>
+                Your Invoice Number for this payment is : @ViewBag.Invoice_number<br>
+                We'll send a confirmation email to your Email.
+            </p>
+
+        </div>
+        <div class="text-center"><a onclick="RedirectDashBoard();"><img src="../assets/img/dashBoard_btn.png" alt="dashboard button" width="180px" height="45"></a></div>
+    </div>
+
+</div>
+<script type="text/javascript">
+    function RedirectDashBoard() {
+        window.location ="../DashBoard/DashBoard"
+    }
+</script>

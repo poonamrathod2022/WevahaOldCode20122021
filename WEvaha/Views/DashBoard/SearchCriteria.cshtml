@@ -1,0 +1,239 @@
+﻿@model WEvaha.Models.DashboardProfileModel
+@{
+    ViewBag.Title = "SearchCriteria";
+    Layout = "~/Views/Shared/_Layout_New_Dashboard.cshtml";
+    int dbcount = Model.PageCount;
+    var Currentpage = ViewBag.Currentpage;
+}
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        for (i = 18; i <= 75; i++) {
+            $('#ddlAgeFrom').append($('<option>',
+                {
+                    value: i,
+                    text: i
+                }));
+        }
+        for (j = 19; j <= 75; j++) {
+            $('#ddlAgeTo').append($('<option>',
+                {
+                    value: j,
+                    text: j
+                }));
+        }
+    });
+    $(document).ready(function () {
+        $("#btnSearch").click(function (event) {
+            var vSeekingGender = $("#ddlSeekingGender option:selected").val();
+            var vReligion = $("#ddlReligion option:selected").val();
+            var vLanguage = $("#ddlslanguage option:selected").val();
+            var vCaste = $("#ddlsCaste option:selected").val();
+            var vAgeFrom = $("#ddlAgeFrom option:selected").val();
+            var vAgeTo = $("#ddlAgeTo option:selected").val();
+            var vHFrom = $("#ddlHFrom option:selected").val();
+            var vHTo = $("#ddlHTo option:selected").val();
+            var vCountry = $("#ddlCountry option:selected").val();
+            var vRelationshipStatus = $("#ddlRelationshipStatus option:selected").val();
+            var vJob = $("#ddlJob option:selected").val();
+            var vEducation = $("#ddlEducation option:selected").val();
+            var vSmoke = $("#ddlSmoke option:selected").val();
+            var vDrink = $("#ddlDrink option:selected").val();
+            var vKids = $("#ddlKids option:selected").val();
+            var vFaithInGod = $("#ddlFaithInGod option:selected").val();
+            var vPets = $("#ddlPets option:selected").val();
+            var vTravel = $("#ddlTravel option:selected").val();
+            var vMovies = $("#ddlMovies option:selected").val();
+            var vShopping = $("#ddlShopping option:selected").val();
+            var pageindex = 1;
+            $('#AdvSearchReasult').html('');
+            $.ajax('/DashBoard/SearchCriteria', {
+                type: 'POST',  // http method
+                data: { SeekingGender: vSeekingGender, Religion: vReligion, Language: vLanguage, Caste: vCaste,AgeFrom: vAgeFrom, AgeTo: vAgeTo, HFrom: vHFrom, HTo: vHTo, Country: vCountry, RelationshipStatus: vRelationshipStatus, Job: vJob, Education: vEducation, Smoke: vSmoke, Drink: vDrink, Kids: vKids, FaithInGod: vFaithInGod, Pets: vPets, Travel: vTravel, Movies: vMovies, Shopping: vShopping, PageIndex: pageindex },  // data to submit
+                success: function (data, status, xhr) {
+                    // $('p').append('status: ' + status + ', data: ' + data);
+                    $('#AdvSearchReasult').html(data);
+                },
+                error: function (jqXhr, textStatus, errorMessage) {
+                    // $('p').append('Error' + errorMessage);
+                }
+            });
+
+        });
+    });
+    function getAdvancesearchdata(page) {
+        var vSeekingGender = $("#ddlSeekingGender option:selected").val();
+        var vReligion = $("#ddlReligion option:selected").val();
+        var vLanguage = $("#ddlslanguage option:selected").val();
+        var vCaste = $("#ddlsCaste option:selected").val();
+        var vAgeFrom = $("#ddlAgeFrom option:selected").val();
+        var vAgeTo = $("#ddlAgeTo option:selected").val();
+        var vHFrom = $("#ddlHFrom option:selected").val();
+        var vHTo = $("#ddlHTo option:selected").val();
+        var vCountry = $("#ddlCountry option:selected").val();
+        var vRelationshipStatus = $("#ddlRelationshipStatus option:selected").val();
+        var vJob = $("#ddlJob option:selected").val();
+        var vEducation = $("#ddlEducation option:selected").val();
+        var vSmoke = $("#ddlSmoke option:selected").val();
+        var vDrink = $("#ddlDrink option:selected").val();
+        var vKids = $("#ddlKids option:selected").val();
+        var vFaithInGod = $("#ddlFaithInGod option:selected").val();
+        var vPets = $("#ddlPets option:selected").val();
+        var vTravel = $("#ddlTravel option:selected").val();
+        var vMovies = $("#ddlMovies option:selected").val();
+        var vShopping = $("#ddlShopping option:selected").val();       
+        $('#AdvSearchReasult').html('');
+        $.ajax('/DashBoard/SearchCriteria', {
+            type: 'POST',  // http method
+            data: { SeekingGender: vSeekingGender, Religion: vReligion, Language: vLanguage, Caste: vCaste, AgeFrom: vAgeFrom, AgeTo: vAgeTo, HFrom: vHFrom, HTo: vHTo, Country: vCountry, RelationshipStatus: vRelationshipStatus, Job: vJob, Education: vEducation, Smoke: vSmoke, Drink: vDrink, Kids: vKids, FaithInGod: vFaithInGod, Pets: vPets, Travel: vTravel, Movies: vMovies, Shopping: vShopping, PageIndex: page },  // data to submit
+            success: function (data, status, xhr) {
+                // $('p').append('status: ' + status + ', data: ' + data);
+                $('#AdvSearchReasult').html(data);
+            },
+            error: function (jqXhr, textStatus, errorMessage) {
+                // $('p').append('Error' + errorMessage);
+            }
+        });
+    }
+</script>
+<body style="background:url(../assets/img/bg.jpg) repeat;">
+
+
+    <div class="container">
+
+        <div class="row" style="background:#fff; margin-top:50px;">
+            <div class="row">
+                <div class="col-md-12" style="padding:25px 0px 15px 0px;">
+                    <div class="mainH1" style="text-align:center;">Advanced Search</div>
+                </div>
+            </div>
+
+            <div class="row" style="margin-bottom:30px;">
+                <div class="col-md-12">
+                    <form>
+                        <div class="form-row">
+                            <div class="form-group col-md-3">
+
+                                @Html.DropDownListFor(model => model.userProfile.SeekingGender, new SelectList(Model.userProfile.GenderOpti, "Value", "Text"), new { @class = "form-control", id = "ddlSeekingGender" })
+
+                            </div>
+                            <div class="form-group col-md-3">
+                                @Html.DropDownListFor(model => model.AboutMySelf.sReligion, new SelectList(Model.AboutMySelf.ReligionOpti, "Value", "Text"), "Religion", new { @class = "form-control", id = "ddlReligion" })
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                @Html.DropDownListFor(model => model.AboutMySelf.sLanguage, new SelectList(Model.AboutMySelf.LanguageOpti, "Value", "Text"), "Language", new { @class = "form-control", id = "ddlslanguage" })
+
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                @Html.DropDownListFor(model => model.AboutMySelf.sCaste, new SelectList(Model.AboutMySelf.sCasteOpti, "Value", "Text"), "Caste", new { @class = "form-control", id = "ddlsCaste" })
+                            </div>
+
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-3 col-xs-6">
+                                <select id="ddlAgeFrom" class="form-control">
+                                    <option>Age From</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-3 col-xs-6">
+                                <select id="ddlAgeTo" class="form-control">
+                                    <option>Age To</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group col-md-3 col-xs-6">
+                                @Html.DropDownListFor(model => model.AboutMySelf.Height, new SelectList(Model.AboutMySelf.HeightOpti, "Value", "Text"), "Min Height", new { @class = "form-control", id = "ddlHFrom" })
+                            </div>
+                            <div class="form-group col-md-3 col-xs-6">
+                                @Html.DropDownListFor(model => model.AboutMySelf.Height, new SelectList(Model.AboutMySelf.HeightOpti, "Value", "Text"), "Max Height", new { @class = "form-control", id = "ddlHTo" })
+                            </div>
+
+
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-3">
+
+                                @Html.DropDownListFor(model => model.userProfile.Country, new SelectList(Model.PersonalDetails.CountryOpti, "Value", "Text"), "Country of Residence", new { @class = "form-control", id = "ddlCountry" })
+
+                            </div>
+                            <div class="form-group col-md-3">
+                                @Html.DropDownListFor(model => model.AboutMySelf.RelationshipStatus, new SelectList(Model.AboutMySelf.RelationshipStatusOpti, "Value", "Text"), "Relationship Status", new { @class = "form-control", id = "ddlRelationshipStatus" })
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                @Html.DropDownListFor(model => model.AboutMySelf.Job, new SelectList(Model.AboutMySelf.JobOpti, "Value", "Text"), "Job", new { @class = "form-control", id = "ddlJob" })
+
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                @Html.DropDownListFor(model => model.AboutMySelf.Education, new SelectList(Model.AboutMySelf.EducationOpti, "Value", "Text"), "Education", new { @class = "form-control", id = "ddlEducation" })
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-row">
+                            <div class="form-group col-md-3">
+                                @Html.DropDownListFor(model => model.AboutMySelf.Smoke, new SelectList(Model.AboutMySelf.SmokeOpti, "Value", "Text"), "Do you Smoke?", new { @class = "form-control", id = "ddlSmoke" })
+
+                            </div>
+                            <div class="form-group col-md-3">
+                                @Html.DropDownListFor(model => model.AboutMySelf.Drink, new SelectList(Model.AboutMySelf.DrinkOpti, "Value", "Text"), "How Often Do you Drink?", new { @class = "form-control", id = "ddlDrink" })
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                @Html.DropDownListFor(model => model.AboutMySelf.Kids, new SelectList(Model.AboutMySelf.KidsOpti, "Value", "Text"), "Kids", new { @class = "form-control", id = "ddlKids" })
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                @Html.DropDownListFor(model => model.PersonalViews.FaithInGod, new SelectList(Model.PersonalViews.FaithInGodOpti, "Value", "Text"), "Faith In God", new { @class = "form-control", id = "ddlFaithInGod" })
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-row">
+                            <div class="form-group col-md-3">
+                                @Html.DropDownListFor(model => model.AboutMySelf.Pets, new SelectList(Model.AboutMySelf.PetsOpti, "Value", "Text"), "Pets", new { @class = "form-control", id = "ddlPets" })
+                            </div>
+                            <div class="form-group col-md-3">
+                                @Html.DropDownListFor(model => model.PersonalViews.Travel, new SelectList(Model.PersonalViews.TravelOpti, "Value", "Text"), "Travel", new { @class = "form-control", id = "ddlTravel" })
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                @Html.DropDownListFor(model => model.PersonalViews.Movies, new SelectList(Model.PersonalViews.MoviesOpti, "Value", "Text"), "Movies", new { @class = "form-control", id = "ddlMovies" })
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                @Html.DropDownListFor(model => model.PersonalViews.Shopping, new SelectList(Model.PersonalViews.ShoppingOpti, "Value", "Text"), "Shopping", new { @class = "form-control", id = "ddlShopping" })
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-row text-center">
+                            <input id="btnSearch" type="button" style="background:#E80443; color:#fff;border-bottom-style:none;border-radius:10px; padding:10px 15px; font-size:16px; font-weight:500;" value="Search" />
+
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row" style="margin-top:40px;">
+            <div class="container" style="margin-bottom:30px;">
+                <div id="AdvSearchReasult">
+                    @Html.Partial("_SearchResult")
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+    </body>

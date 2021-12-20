@@ -1,0 +1,103 @@
+﻿@model WEvaha.Models.UserPackageDetails
+@{
+    ViewBag.Title = "GetUserPackageDetails";
+    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+}
+
+<div class="container" style="padding:30px 40px; background:#fff; margin-top:80px; margin-bottom:100px; border:1px #e7e7e7 solid; ">
+
+
+    <div class="row">
+        <div class="col-md-12">
+
+            <h4 style="color:#090; font-size:27px;">Your Subscription Details</h4>
+            <hr>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 offset-md-3 " style="font-size:17px;">
+            <table width="100%">
+                <tr>
+                    <td width="35%" style="padding-top:10px;"><strong>Package Name</strong></td>
+                    <td width="5%" style="padding-top:10px;"><strong>:</strong></td>
+                    <td width="60%" style="padding-top:10px;">@Model.PackageName</td>
+                </tr>
+
+                <tr>
+                    <td width="35%" style="padding-top:10px;"><strong>Package Cost</strong></td>
+                    <td width="5%" style="padding-top:10px;"><strong>:</strong></td>
+
+                    @if (Model.PayMode == "PayU")
+                    {
+                        <td width="60%" style="padding-top:10px;">
+                            ₹ @Model.PackagePrice
+                        </td>
+
+                    }
+                    else
+                    {
+                        <td width="60%" style="padding-top:10px;">
+                            $ @Model.PackagePrice
+                        </td>
+
+                    }
+
+                </tr>
+
+
+                <tr>
+                    <td width="35%" style="padding-top:10px;"><strong>Subscription Period</strong></td>
+                    <td width="5%" style="padding-top:10px;"><strong>:</strong></td>
+                    <td width="60%" style="padding-top:10px;"> @Model.PackageDuration months</td>
+                </tr>
+
+
+                <tr>
+                    <td width="35%" style="padding-top:10px;"><strong>Package Start Date</strong></td>
+                    <td width="5%" style="padding-top:10px;"><strong>:</strong></td>
+                    <td width="60%" style="padding-top:10px;">@Model.PackageStartDate</td>
+                </tr>
+
+
+                <tr>
+                    <td width="35%" style="padding-top:10px;"><strong>Package End Date</strong></td>
+                    <td width="5%" style="padding-top:10px;"><strong>:</strong></td>
+                    <td width="60%" style="padding-top:10px;">@Model.PackageEndDate</td>
+                </tr>
+
+
+                @*<tr>
+            <td width="35%" style="padding-top:10px;"><strong>View Contacts</strong></td>
+            <td width="5%" style="padding-top:10px;"><strong>:</strong></td>
+            <td width="60%" style="padding-top:10px;">300</td>
+        </tr>*@
+
+
+                @*<tr>
+            <td width="35%" style="padding-top:10px;"><strong>Send Messages</strong></td>
+            <td width="5%" style="padding-top:10px;"><strong>:</strong></td>
+            <td width="60%" style="padding-top:10px;">Unlimited</td>
+        </tr>*@
+              <tr>
+            <td width="35%" style="padding-top:10px;"><strong>Pay Mode</strong></td>
+            <td width="5%" style="padding-top:10px;"><strong>:</strong></td>
+            <td width="60%" style="padding-top:10px;">@Model.PayMode</td>
+             </tr>
+
+                <tr>
+                    <td width="35%" style="padding-top:10px;"><strong>Account Status</strong></td>
+                    <td width="5%" style="padding-top:10px;"><strong>:</strong></td>
+                    <td width="60%" style="padding-top:10px;">Active</td>
+                </tr>
+
+
+
+            </table>
+
+
+        </div>
+    </div>
+
+</div>
+

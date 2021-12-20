@@ -1,0 +1,610 @@
+﻿@model WEvaha.Models.DashboardProfileModel
+@{
+    var dbcount = ViewBag.dbCount;
+    var Currentpage = ViewBag.Currentpage;
+    var SourcePage = ViewBag.Sourcepage;
+    var ProfileId = Session["UserId"];     
+}
+<input id="current-user-id" value="@ProfileId" type='hidden' />
+<div class="modal fade" id="sendMessage" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            @if (Model.UserPackageStatus == 1)
+            {
+                <div class="modal-header" style="background:linear-gradient(90deg, #ff99cc 0%, #33ccff 100%); ">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h5 class="modal-title" id="exampleModalLabel" style="font-size:18px;">Send Message</h5>
+
+                </div>
+            }
+            else
+            {
+                <div class="modal-header" style="background:linear-gradient(90deg, #ff99cc 0%, #33ccff 100%); ">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <div class="col-md-12" style=" text-align:center; padding:30px 0px;">
+                        <span style="font-size:18px; color:#333;">
+                            Only Premium Members can Connect with<br>
+
+                            'Just Joined' Matches
+                        </span>
+                    </div>
+
+                </div>
+            }
+           
+                <div class="modal-body">
+                    <!--mobile number visible-->
+                    @if (Model.UserPackageStatus == 1)
+                    {
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="popupImg_S">
+                                    @if (Model.userprofilePic.UserProfilePicUrl != null)
+                                    {
+                                        <img src="@Model.userprofilePic.UserProfilePicUrl" alt="profile pic" class="profileImg">
+                                    }
+                                    else
+                                    {
+                                        <img src="../assets/img/profilePic.jpg" alt="profile pic" class="profileImg">
+                                    }
+                                </div>
+                                <div style="text-align:left; float:left; padding:10px 0px 0px 10px;"><span style="color:#3293a1; font-size:18px; font-weight:600;">@Model.PersonalDetails.ProfileName  &nbsp;&nbsp; @Model.PersonalDetails.ProfileLastName</span></div>
+                            </div>
+                            <div class="col-md-12" style="padding:15px;">
+                                <div style="border:1px solid #ccc; padding:10px; height:130px;">
+                                    <textarea class="form-control" cols="2" rows="4" placeholder="0/2500" maxlength="2500" id="txtMessage"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <a href="javascript:;" style="background:linear-gradient(180deg, #5892d2 0%, #ed4789 100%); color:#fff; border-radius:10px; padding:10px 20px; font-size:16px; font-weight:500;" onclick="SendMessage('@Model.PersonalDetails.ProfileId')">Submit</a>
+                        </div>
+
+                    }
+                    else
+                    {
+                        <div class="row">
+
+                            <div class="col-md-12" style=" text-align:center; padding:30px 0px;">
+                                <span style="font-size:18px; color:#333;">
+                                    Only Premium Members can Connect with<br>
+
+                                    'Just Joined' Matches
+                                </span>
+                            </div>
+                        </div>
+                    }
+                </div>
+                @if (Model.UserPackageStatus != 1)
+                {
+                    <div class="modal-footer text-center">
+                        <a href="@Url.Action("Packages", "DashBoard")" style='background:url(../assets/img/btn_bg.jpg) repeat-x; color:#fff; border-radius:10px; padding: 10px 20px; font-size:16px; font-weight:500;'>UPGRADE NOW</a>
+                    </div>
+                }
+            </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-10 col-xs-offset-1">
+
+        @if (Model.UserProfilelistdetails != null)
+        {
+            if (Model.UserProfilelistdetails.Count > 0)
+            {
+                if (SourcePage != "Favorates" && SourcePage != "WhoViewedMe")
+                {
+                    <div class="row">
+                        <div class="col-md-12" style="padding:25px 0px 15px 0px;">
+                            <div class="mainH1" style="text-align:center; color:#046307;">Search Results</div>
+                        </div>
+                    </div>
+                }
+
+
+                for (int i = 0; i < Model.UserProfilelistdetails.Count; i++)
+                {
+                    var result = string.Empty;
+                    <div class="row boxGird" style="border-right:#e80443 3px solid;">
+                        <a href="@Url.Action("ProfilebyId", "DashBoard", new { vprofilId = Model.UserProfilelistdetails[i].ProfileId + "!WEProfInfo" })">
+                            <div class="col-md-3" style="padding:0px;">
+                                @if (Model.UserProfilelistdetails[i].ProfilePhotoUrl != null)
+                                {<img src="@Model.UserProfilelistdetails[i].ProfilePhotoUrl" alt="img" class="Img-fit-ML"> }
+                                else
+                                { <img src="../assets/img/profilePic.jpg" alt="img" class="Img-fit-ML">}
+
+                            </div>
+
+                            <div class="col-md-6">
+
+                                <div>
+                                    <div class="ML_h3">@Model.UserProfilelistdetails[i].ProfileName</div>
+                                    <div class="ML_line"></div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="ML_det">@Model.UserProfilelistdetails[i].Age yrs, @Model.UserProfilelistdetails[i].Height</div>
+                                    <div class="ML_det">@Model.UserProfilelistdetails[i].MaritialStatus</div>
+                                    <div class="ML_det">@Model.UserProfilelistdetails[i].Religion,  @Model.UserProfilelistdetails[i].Caste</div>
+                                </div>
+
+                                <div class="col-md-6">
+
+                                    <div class=" ML_det">@Model.UserProfilelistdetails[i].City, @Model.UserProfilelistdetails[i].State</div>
+                                    <div class="ML_det">@Model.UserProfilelistdetails[i].LanguagesKnown</div>
+                                    <div class="ML_det">@Model.UserProfilelistdetails[i].Occupation</div>
+                                </div>
+
+                                <div class="clearfix"></div>
+
+                                <div style="margin-top:8px;">
+                                    <div class="ML_det">
+                                        @{
+                                            if (Model.UserProfilelistdetails[i].Introduction.Length > 180)
+                                            {
+                                                var str = Model.UserProfilelistdetails[i].Introduction.Substring(0, 180);
+                                                result = str.Substring(0, str.LastIndexOf(' ')) + "..";
+                                            }
+                                            else
+                                            {
+                                                result = Model.UserProfilelistdetails[i].Introduction + "..";
+                                            }
+
+                                        }
+                                        @result
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </a>
+                        <div class="col-md-3" style="padding-top:50px; text-align:center;">
+
+                            <div style="border-left:1px #CCC solid; text-align:center;">
+
+                                <span style="font-weight:bold; font-style:italic;">Like this profile?</span>
+                                <br>
+
+
+                                <div id="divfev_@Model.UserProfilelistdetails[i].ProfileId" style="border-radius:50%;  padding:20px; color:#fff; font-size:27px;">
+                                    @if (Convert.ToInt16(Model.UserProfilelistdetails[i].IsFavorate) == 1)
+                                    {
+                                        <a onClick="RetFevourate(@Model.UserProfilelistdetails[i].ProfileId);"><span id='heart'><i class="fa fa-heart" aria-hidden="true"></i></span></a>
+                                    }
+                                    else
+                                    {
+                                        <a onClick="SetFevourate(@Model.UserProfilelistdetails[i].ProfileId);"><span id='heart1'><i class="fa fa-heart-o" aria-hidden="true"></i></span></a>
+                                    }
+                                    <br />
+                                    <br />
+                                </div>
+                                <div>
+                                    <a href="" data-toggle="modal" data-target="#sendMessage_@Model.UserProfilelistdetails[i].ProfileId" style="color:#2da0f4; font-size:27px; padding-top:50px;"><i class="fa fa-envelope"></i></a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="modal fade" id="sendMessage_@Model.UserProfilelistdetails[i].ProfileId" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header" style="background:linear-gradient(90deg, #ff99cc 0%, #33ccff 100%);">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    <h5 class="modal-title" id="exampleModalLabel" style="font-size:18px;">Send Message</h5>
+                                </div>
+                                <div class="modal-body">
+                                    <!--mobile number visible-->
+                                    @if (Model.UserPackageStatus == 1)
+                                    {
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="popupImg_S">
+                                                    @if (Model.UserProfilelistdetails[i].ProfilePhotoUrl != null)
+                                                    {
+                                                        <img src="@Model.UserProfilelistdetails[i].ProfilePhotoUrl" alt="profile pic" class="profileImg">
+                                                    }
+                                                    else
+                                                    {
+                                                        <img src="../assets/img/profilePic.jpg" alt="profile pic" class="profileImg">
+                                                    }
+
+                                                </div>
+                                                <div style="text-align:left; float:left; padding:10px 0px 0px 10px;"><span style="color:#3293a1; font-size:18px; font-weight:600;">@Model.UserProfilelistdetails[i].ProfileName</span></div>
+                                            </div>
+                                            <div class="col-md-12" style="padding:15px;">
+                                                <div style="border:1px solid #ccc; padding:10px; height:130px;">
+                                                    <textarea class="form-control" cols="2" rows="4" placeholder="0/2500" maxlength="2500" id="txtMessage_@Model.UserProfilelistdetails[i].ProfileId"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="text-right">
+                                            <a href="javascript:;" style="background:linear-gradient(180deg, #5892d2 0%, #ed4789 100%); color:#fff; border-radius:10px; padding:10px 20px; font-size:16px; font-weight:500;" onclick="SendMessage('@Model.UserProfilelistdetails[i].ProfileId')">Submit</a>
+                                        </div>
+                                        <!--mobile number visible-->
+                                    }
+                                    else
+                                    {
+                                        <div class="row">
+                                            <div class="col-md-12" style=" text-align:center; padding:30px 0px;">
+                                                <span style="font-size:18px; color:#333;">
+                                                    Only Premium Members can Connect with<br>
+                                                    'Just Joined' Matches
+                                                </span>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                                @if (Model.UserPackageStatus != 1)
+                                {
+                                    <div class="modal-footer text-center">
+                                        <a href="@Url.Action("Packages", "DashBoard")" style='background:url(../assets/img/btn_bg.jpg) repeat-x; color:#fff; border-radius:10px; padding: 10px 20px; font-size:16px; font-weight:500;'>UPGRADE NOW</a>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                if (SourcePage != "Favorates" && SourcePage != "WhoViewedMe")
+                {
+                    <div style="text-align:center;font-size:20px;color:dodgerblue;padding-top:20px;">No Matching Profiles found.</div>
+                }
+                else
+                {
+                    if (SourcePage == "Favorates")
+                    {
+
+                        <div class="col-md-12 text-center">
+
+                            <img src="../assets/img/noData-icon.jpg" alt="img">
+                            <div style="font-size:18px; color:#252525; font-weight:bold;">No Favourites</div>
+                            <p style="text-align:center;">
+                                Check out more Profiles and continue your<br>
+                                Partner search
+                            </p>
+                            <a href="@Url.Action("CompatableMatches", "DashBoard", new { PageIndex = 1, From = 1 })"><img src="../assets/img/viewMatches.png" alt="btn"></a>
+                        </div>
+
+                    }
+                    if (SourcePage == "WhoViewedMe")
+                    {
+
+                        <div class="col-md-12 text-center">
+                            <img src="../assets/img/noData-icon.jpg" alt="img">
+                            <div style="font-size:18px; color:#252525; font-weight:bold;">No Recent Visitors</div>
+                            <p style="text-align:center;">
+                                Check out more Profiles and continue your<br>
+                                Partner search
+                            </p>
+                            <a href="@Url.Action("CompatableMatches", "DashBoard", new { PageIndex = 1, From = 1 })"><img src="../assets/img/viewMatches.png" alt="btn"></a>
+                        </div>
+
+                    }
+                }
+
+            }
+        }
+    </div>
+</div>
+@if (SourcePage != "Favorates" && SourcePage != "WhoViewedMe")
+{
+    if (Model.UserProfilelistdetails != null)
+    {
+        if (Model.UserProfilelistdetails.Count <= 4)
+        {
+            <div class="row" style="margin-top:20px;">
+                <div class="col-md-10 col-xs-offset-1">
+                    @if (Model.UserProfileCompatablelistdetails != null)
+                    {
+                        if (Model.UserProfileCompatablelistdetails.Count > 0)
+                        {
+                            <div class="row">
+                                <div class="col-md-12" style="padding:25px 0px 15px 0px;">
+                                    <div class="mainH1" style="text-align:center; color:#046307;">Compatible Matches</div>
+                                </div>
+                            </div>
+                            for (int z = 0; z < Model.UserProfileCompatablelistdetails.Count; z++)
+                            {
+                                var result = string.Empty;
+                                <div class="row boxGird" style="border-right:#e80443 3px solid;">
+                                    <a href="@Url.Action("ProfilebyId", "DashBoard", new { vprofilId = Model.UserProfileCompatablelistdetails[z].ProfileId + "!WEProfInfo" })">
+                                        <div class="col-md-3" style="padding:0px;">
+                                            @if (Model.UserProfileCompatablelistdetails[z].ProfilePhotoUrl != null)
+                                            {
+                                                <img src="@Model.UserProfileCompatablelistdetails[z].ProfilePhotoUrl" alt="img" class="Img-fit-ML">
+                                            }
+                                            else
+                                            {
+                                                <img src="../assets/img/profilePic.jpg" alt="img" class="Img-fit-ML">
+                                            }
+
+                                        </div>
+
+                                        <div class="col-md-6">
+
+                                            <div>
+                                                <div class="ML_h3">@Model.UserProfileCompatablelistdetails[z].ProfileName</div>
+                                                <div class="ML_line"></div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="ML_det">@Model.UserProfileCompatablelistdetails[z].Age yrs, @Model.UserProfileCompatablelistdetails[z].Height</div>
+                                                <div class="ML_det">@Model.UserProfileCompatablelistdetails[z].MaritialStatus</div>
+                                                <div class="ML_det">@Model.UserProfileCompatablelistdetails[z].Religion,  @Model.UserProfileCompatablelistdetails[z].Caste</div>
+                                            </div>
+
+                                            <div class="col-md-6">
+
+                                                <div class=" ML_det">@Model.UserProfileCompatablelistdetails[z].City, @Model.UserProfileCompatablelistdetails[z].StateName</div>
+                                                <div class="ML_det">@Model.UserProfileCompatablelistdetails[z].LanguagesKnown</div>
+                                                <div class="ML_det">@Model.UserProfileCompatablelistdetails[z].Occupation</div>
+                                            </div>
+
+                                            <div class="clearfix"></div>
+
+                                            <div style="margin-top:8px;">
+                                                <div class="ML_det">
+                                                    @{
+                                                        if (Model.UserProfileCompatablelistdetails[z].Introduction.Length > 180)
+                                                        {
+                                                            var str = Model.UserProfileCompatablelistdetails[z].Introduction.Substring(0, 180);
+                                                            result = str.Substring(0, str.LastIndexOf(' ')) + "..";
+                                                        }
+                                                        else
+                                                        {
+                                                            result = Model.UserProfileCompatablelistdetails[z].Introduction + "..";
+                                                        }
+
+                                                    }
+                                                    @result
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </a>
+                                    <div class="col-md-3" style="padding-top:50px; text-align:center;">
+
+                                        <div style="border-left:1px #CCC solid; text-align:center;">
+
+                                            <span style="font-weight:bold; font-style:italic;">Like this profile?</span>
+                                            <br>
+
+
+                                            <div id="divfev_@Model.UserProfileCompatablelistdetails[z].ProfileId" style="border-radius:50%;  padding:20px; color:#fff; font-size:27px;">
+                                                @if (Convert.ToInt16(Model.UserProfileCompatablelistdetails[z].IsFavorate) == 1)
+                                                {
+                                                    <a onClick="RetFevourate(@Model.UserProfileCompatablelistdetails[z].ProfileId);"><span id='heart'><i class="fa fa-heart" aria-hidden="true"></i></span></a>
+                                                }
+                                                else
+                                                {
+                                                    <a onClick="SetFevourate(@Model.UserProfileCompatablelistdetails[z].ProfileId);"><span id='heart1'><i class="fa fa-heart-o" aria-hidden="true"></i></span></a>
+                                                }
+                                                <br />
+                                                <br />
+                                            </div>
+                                            <div>
+                                                <a href="" data-toggle="modal" data-target="#sendMessage_@Model.UserProfileCompatablelistdetails[z].ProfileId" style="color:#2da0f4; font-size:27px; padding-top:50px;"><i class="fa fa-envelope"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal fade" id="sendMessage_@Model.UserProfileCompatablelistdetails[z].ProfileId" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header" style="background:linear-gradient(90deg, #ff99cc 0%, #33ccff 100%); ">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                                <h5 class="modal-title" id="exampleModalLabel" style="font-size:18px;">Send Message</h5>
+                                            </div>
+                                            <div class="modal-body">
+                                                <!--mobile number visible-->
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="popupImg_S">
+                                                            @if (Model.UserProfileCompatablelistdetails[z].ProfilePhotoUrl != null)
+                                                            {
+                                                                <img src="@Model.UserProfileCompatablelistdetails[z].ProfilePhotoUrl" alt="profile pic" class="profileImg">
+                                                            }
+                                                            else
+                                                            {
+                                                                <img src="../assets/img/profilePic.jpg" alt="profile pic" class="profileImg">
+                                                            }
+                                                        </div>
+                                                        <div style="text-align:left; float:left; padding:10px 0px 0px 10px;"><span style="color:#3293a1; font-size:18px; font-weight:600;">@Model.UserProfileCompatablelistdetails[z].ProfileName</span></div>
+                                                    </div>
+                                                    <div class="col-md-12" style="padding:15px;">
+                                                        <div style="border:1px solid #ccc; padding:10px; height:130px;">
+                                                            <textarea class="form-control" cols="2" rows="4" placeholder="0/2500" maxlength="2500" id="txtMessage_@Model.UserProfileCompatablelistdetails[z].ProfileId"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="text-right">
+                                                    <a href="javascript:;" style="background:linear-gradient(180deg, #5892d2 0%, #ed4789 100%); color:#fff; border-radius:10px; padding:10px 20px; font-size:16px; font-weight:500;" onclick="SendMessage('@Model.UserProfileCompatablelistdetails[z].ProfileId')">Submit</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    }
+                                    }
+
+                                    }
+                                </div>
+                            }
+                        }
+                    
+                    }
+                </div>
+            </div>
+        }
+    }
+}
+@if (SourcePage == "AdvancedSearch")
+{
+    if (dbcount != 0)
+    {
+        <div class="row">
+            <div class="col-md-12" style="margin-top:35px; text-align:center;">
+                <nav>
+                    <ul class="pagination">
+                        @if (dbcount != 0)
+                        {
+                            <li><a onclick="getAdvancesearchdata(1);" aria-label="Previous" href="#"><span aria-hidden="true">&laquo;</span></a></li>
+                        }
+                        @for (int i = 1; i <= dbcount; i++)
+                        {
+                            <li><a onclick="getAdvancesearchdata(@i);" href="#">@i</a></li>
+
+                        }
+                        @if (dbcount != 0)
+                        {
+                            <li><a onclick="getAdvancesearchdata(@dbcount);" aria-label="Next" href="#"><span aria-hidden="true">&raquo;</span></a></li>
+                        }
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    }
+}
+@if (SourcePage == "BasicSearch")
+{
+    if (dbcount != null)
+    {
+        <div class="row">
+            <div class="col-md-12" style="margin-top:35px; text-align:center;">
+                <nav>
+                    <ul class="pagination">
+                        @if (dbcount != 0)
+                        {
+                            <li><a onclick="getbasicsearchdata(1);" aria-label="Previous" href="#"><span aria-hidden="true">&laquo;</span></a></li>
+                        }
+                        @for (int i = 1; i <= dbcount; i++)
+                        {
+                            <li><a onclick="getbasicsearchdata(@i);" href="#">@i</a></li>
+
+                        }
+                        @if (dbcount != 0)
+                        {
+                            <li><a onclick="getbasicsearchdata(@dbcount);" aria-label="Next" href="#"><span aria-hidden="true">&raquo;</span></a></li>
+                        }
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    }
+}
+@if (SourcePage == "CompatableMatches")
+{
+    if (dbcount != null)
+    {
+        <div class="row">
+            <div class="col-md-12" style="margin-top:35px; text-align:center;">
+                <nav>
+                    <ul class="pagination">
+                        @if (dbcount != 0)
+                        {
+                            <li><a onclick="getCompatableMatches(1);" aria-label="Previous" href="#"><span aria-hidden="true">&laquo;</span></a></li>
+                        }
+                        @for (int i = 1; i <= dbcount; i++)
+                        {
+                            <li><a onclick="getCompatableMatches(@i);" href="#">@i</a></li>
+
+                        }
+                        @if (dbcount != 0)
+                        {
+                            <li><a onclick="getCompatableMatches(@dbcount);" aria-label="Next" href="#"><span aria-hidden="true">&raquo;</span></a></li>
+                        }
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    }
+}
+<script>
+        $body = $("body");
+        function RetFevourate(id) {
+            var sId = $.trim(id);
+            var profid = sId + "!wevahaprof";
+
+            $.ajax('/DashBoard/RemFavourite', {
+                type: 'POST',  // http method
+                data: { vprofilId: profid },  // data to submit
+                success: function (data, status, xhr) {
+                    swal({
+                        icon: "warning",
+                        type: "warning",
+                        text: "Removed from favourites",
+                        timer: 1000,
+                        buttons: false
+                    });
+                    $("#divfev_" + sId).html('');
+                    $("#divfev_" + sId).html('<a onClick="SetFevourate(' + sId + ');"><span id="heart"><i class="fa fa-heart-o" aria-hidden="true"></i></span></a><br/><br/>');
+                    // window.location.reload();
+                },
+                error: function (jqXhr, textStatus, errorMessage) {
+                    // $('p').append('Error' + errorMessage);
+                }
+            });
+        }
+        function SetFevourate(id) {
+            var sId = $.trim(id);
+            var profid = sId + "!wevahaprof";
+            $.ajax('/DashBoard/SetFavourite', {
+                type: 'POST',  // http method
+                data: { vprofilId: profid },  // data to submit
+                success: function (data, status, xhr) {
+                    swal({
+                        icon: "success",
+                        type: "success",
+                        text: "Added to favourites",
+                        timer: 1000,
+                        buttons: false
+                    });
+                    $("#divfev_" + sId).html('');
+                    $("#divfev_" + sId).html('<a onClick="RetFevourate(' + sId + ');"><span id="heart"><i class="fa fa-heart" aria-hidden="true"></i></span></a><br/><br/>');
+                },
+                error: function (jqXhr, textStatus, errorMessage) {
+                    // $('p').append('Error' + errorMessage);
+                }
+            });
+
+        }
+         function SendMessage(toUserId) {
+        $body.addClass("loading");
+        $.ajax({
+            type: 'POST',
+            url: "@Url.Action("SendMessage","Chat")",
+            data: {
+                touserId: toUserId,
+                fromuserId: $('#current-user-id').val(),
+                message: $("#txtMessage_" + toUserId).val()
+            },
+            dataType: 'json',
+            traditional: true,
+            success: function (res) {
+                $body.removeClass("loading");
+                if (res.data) {
+                    var url = "../Chat/Index?" + toUserId;
+                    window.location.href = url;
+                }
+                else {
+                    alert('something went worng, please try again!');
+                }
+            },
+            error: function (res) {
+                $body.removeClass("loading");
+                alert(res);
+            }
+        });
+    }
+</script>

@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="author" content="WEvaha">
+<title>WEvaha - Upgrade</title>
+
+<!-- ========== Favicon Icon ========== -->
+    <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="../img/favicon.ico" type="image/x-icon" />
+
+<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+
+<link rel="stylesheet" href="assets/css/main.css">
+
+<link rel="stylesheet" href="assets/css/normalize.css">
+
+<link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
+
+
+
+<link rel="stylesheet" href="assets/extras/animate.css" type="text/css">
+
+<link rel="stylesheet" href="assets/extras/owl.carousel.css" type="text/css">
+<link rel="stylesheet" href="assets/extras/owl.theme.css" type="text/css">
+
+<link rel="stylesheet" href="assets/extras/settings.css" type="text/css">
+
+<link rel="stylesheet" href="assets/extras/nivo-lightbox.css" type="text/css">
+
+<link rel="stylesheet" href="assets/css/slicknav.css" type="text/css">
+
+<link rel="stylesheet" href="assets/css/responsive.css">
+
+
+<link rel="stylesheet" type="text/css" href="assets/css/colors/sky.css" media="screen" />
+
+
+
+</head>
+
+
+
+
+
+<style>
+
+.box{
+       
+        display: none;
+        margin-top: 2px;
+    }
+
+    .card {
+      border:none;
+      padding: 20px 15px;
+	  background:#fff;
+ }
+
+    .card::after {
+      position: absolute;
+      z-index: -1;
+      opacity: 0;
+      -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+      transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+    .card:hover {
+
+
+      transform: scale(1.02, 1.02);
+      -webkit-transform: scale(1.02, 1.02);
+      backface-visibility: hidden; 
+      will-change: transform;
+      box-shadow: 0 1rem 3rem rgba(0,0,0,.75) !important;
+    }
+
+    .card:hover::after {
+      opacity: 1;
+    }
+
+    .card:hover .btn-outline-primary{
+      color:white;
+      background:#007bff;
+    }
+
+  </style>
+
+<body>
+
+<header id="header-wrap">
+
+
+
+
+<nav class="navbar navbar-default main-navigation" role="navigation" data-spy="affix" data-offset-top="50">
+<div class="container">
+
+<div class="navbar-header">
+<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a class="navbar-brand" href="dashboard.html"><img src="assets/img/logo.png" alt=""></a>
+</div>
+
+
+
+<div class="collapse navbar-collapse" id="navbar">
+<ul class="nav navbar-nav navbar-right">
+<li><a href="myProfile.html">My Profile</a></li>
+<li><a href="">Search Criteria</a></li>
+<li><a href="">Best-Liked</a></li>
+<li><a href="">Who Viewed Me</a></li>
+<li class="dropdown"><a href="">Messages</a>
+<div class="dropdown-menu">
+<div class="tabbable-panel">
+				<div class="tabbable-line">
+					<ul class="nav nav-tabs ">
+						<li class="active">
+							<a href="#notifi" data-toggle="tab">
+							<i class="fa fa-bell"></i> Notifications </a>
+						</li>
+						<li>
+							<a href="#messages" data-toggle="tab">
+							<i class="fa fa-envelope"></i> Messages </a>
+						</li>
+						
+					</ul>
+					<div class="tab-content">
+                    
+						<div class="tab-pane active" id="notifi">
+							
+                            <div class="messages_div">
+                            <a href="">
+                            	<div class="popupImg_Noti"><img src="assets/img/profileImg/2.jpg" alt="profile pic"></div>
+                            	<p class="messages_txt">Hari liked your profile and wants to connect with you!</p>
+                                </a>
+                            </div>
+                            
+                            <div class="messages_div">
+                            <a href="">
+                            	<div class="popupImg_Noti"><img src="assets/img/profileImg/3.jpg" alt="profile pic"></div>
+                            	<p class="messages_txt">Varaprasad liked your profile and wants to connect with you!</p>
+                                </a>
+                            </div>
+                            
+                            <div class="messages_div">
+                            <a href="">
+                            	<div class="popupImg_Noti"><img src="assets/img/profileImg/6.jpg" alt="profile pic"></div>
+                            	<p class="messages_txt">Suresh liked your profile and wants to connect with you!</p>
+                                </a>
+                            </div>
+                            
+                            <div class="messages_div">
+                            <a href="">
+                            	<div class="popupImg_Noti"><img src="assets/img/profileImg/9.jpg" alt="profile pic"></div>
+                            	<p class="messages_txt">Suresh liked your profile and wants to connect with you!</p>
+                                </a>
+                            </div>
+                            
+                            <div class="messages_div">
+                            <a href="">
+                            	<div class="popupImg_Noti"><img src="assets/img/profileImg/7.jpg" alt="profile pic"></div>
+                            	<p class="messages_txt">Arjun liked your profile and wants to connect with you!</p>
+                                </a>
+                            </div>
+                            
+                            
+                            
+						</div>
+                        
+                        
+						<div class="tab-pane" id="messages">
+							
+                            <a href="inbox.html"><div class="messages_div">
+                            
+                            	<div class="popupImg_Noti"><img src="assets/img/profileImg/3.jpg" alt="profile pic"></div>
+                            	<span class="messages_txt_s"><strong>Varaprasad</strong></span><br>
+
+                                <span class="messages_txt_s">Hi</span>
+                                
+                            </div></a>
+                            
+                            <a href="inbox.html"><div class="messages_div">
+                            
+                            	<div class="popupImg_Noti"><img src="assets/img/profileImg/4.jpg" alt="profile pic"></div>
+                            	<span class="messages_txt_s"><strong>Vishu</strong></span><br>
+
+                                <span class="messages_txt_s">How are you</span>
+                               
+                            </div> </a>
+                            
+                            <a href="inbox.html"><div class="messages_div">
+                            
+                            	<div class="popupImg_Noti"><img src="assets/img/profileImg/5.jpg" alt="profile pic"></div>
+                            	<span class="messages_txt_s"><strong>Teja</strong></span><br>
+
+                                <span class="messages_txt_s">Hi</span>
+                                
+                            </div></a>
+                            
+                            <a href="inbox.html"><div class="messages_div">
+                            
+                            	<div class="popupImg_Noti"><img src="assets/img/profileImg/12.jpg" alt="profile pic"></div>
+                            	<span class="messages_txt_s"><strong>Surya</strong></span><br>
+
+                                <span class="messages_txt_s">Hi</span>
+                                
+                            </div></a>
+                            
+                           <a href="inbox.html"><div class="messages_div">
+                            
+                            	<div class="popupImg_Noti"><img src="assets/img/profileImg/10.jpg" alt="profile pic"></div>
+                            	<span class="messages_txt_s"><strong>Harish</strong></span><br>
+
+                                <span class="messages_txt_s">Hi</span>
+                                
+                            </div></a>
+                            
+                            <div style="text-align:right; padding-right:10px; padding-top:7px; font-weight:600; color:#999;"><a href="inbox.html">See All in Inbox</a></div>
+                            
+						</div>
+						
+					</div>
+				</div>
+			</div>
+</div>
+</li>
+<li><a href="" style="color:#fff; font-size:14px;"><span class="upGr">UPGRADE NOW</span></a></li>
+<li><a href="" style="background:#F90; padding:8px 15px; margin-top:12px; border-radius:5px;">Logout</a></li>
+</ul>
+</div>
+
+
+<ul class="wpb-mobile-menu">
+<li><a href="myProfile.html">My Profile</a></li>
+<li><a href="">Search Criteria</a></li>
+<li><a href="">Best-Liked</a></li>
+<li><a href="">Who Viewed Me</a></li>
+<li><a href="">Upgrade Now</a></li>
+<li><a href="">Log Out</a></li>
+</ul>
+
+</div>
+</nav>
+
+</header>
+
+
+<div class="container-fluid" style="background: linear-gradient(90deg, #ff99cc 0%, #33ccff 100%); padding:20px 0px 70px 0px;">
+    <div class="container p-5">
+      <div class="row">
+      <div class="col-md-12" style="text-align:center; padding:30px 0px;">
+      <h2 style="color:#fff;">Upgrade Now and Get Premium Benefits</h2>
+      <div style="color:#141414; font-size:18px;">
+        
+        <label><input type="radio" name="colorRadio" value="green" checked="checked"> GLOBAL (&#x24;)</label>&nbsp;
+        <label><input type="radio" name="colorRadio" value="red" > INDIA (&#8377;)</label>
+        
+    </div>
+      </div>
+      </div>
+      
+      <div class="row red box" >
+
+        <div class="col-lg-3 col-md-12 mb-3">
+          <div class="card h-100 shadow-lg">
+            <div class="card-body">
+              <div class="text-center p-3">
+                <span class="priceH1">DATIV</span> <span class="priceH3">1 Month</span>
+                <br>
+
+                <br>
+                <span class="priceAmt">&#8377; 1,449.28<span style="font-size:15px;">/month</span></span>
+                <br>
+                <span class="priceH3_g">&#8377; 1,449.28</span>
+<br><br>
+
+
+              </div>
+              
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item"><i class="fa fa-check" style="color:#00B700;"></i> Send Unlimited Messages</li>
+              <li class="list-group-item"><i class="fa fa-check" style="color:#00B700;"></i> Views upto 25 Contact Numbers</li>
+              <li class="list-group-item"><i class="fa fa-check" style="color:#00B700;"></i> View upto 3 Photos of Profiles</li>
+              <li class="list-group-item"><i class="fa fa-close" style="color:#FF3300;"></i> See Who's views you</li>
+              
+            </ul>
+            <div class="card-body text-center">
+              <button class="btn btn-outline-primary btn-lg" style="border-radius:30px">Select</button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-lg-3 col-md-12 mb-3">
+          <div class="card h-100 shadow-lg">
+            <div class="card-body">
+              <div class="text-center p-3">
+                <span class="priceH1">AFFIR</span> <span class="priceH3">3 Months</span>
+                <br>
+
+                <br>
+                <span class="priceAmt">&#8377; 1,159.28<span style="font-size:15px;">/month</span></span><br>
+
+                <span class="priceH3_g">&#8377; 3,477.83</span>
+<br><br>
+
+
+              </div>
+              
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item"><i class="fa fa-check" style="color:#00B700;"></i> Send Unlimited Messages</li>
+              <li class="list-group-item"><i class="fa fa-check" style="color:#00B700;"></i> Views upto 90 Contact Numbers</li>
+              <li class="list-group-item"><i class="fa fa-check" style="color:#00B700;"></i> View upto 7 Photos of Profiles</li>
+              <li class="list-group-item"><i class="fa fa-check" style="color:#00B700;"></i> See Who's views you</li>
+            </ul>
+            <div class="card-body text-center">
+              <button class="btn btn-outline-primary btn-lg" style="border-radius:30px">Select</button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-lg-3 col-md-12 mb-3">
+          <div class="card h-100 shadow-lg">
+            <div class="card-body">
+              <div class="text-center p-3">
+                <span class="priceH1">LOVLI</span> <span class="priceH3">6 Months</span>
+                <br>
+
+                <br>
+                <span class="priceAmt">&#8377; 869.28<span style="font-size:15px;">/month</span></span><br>
+
+              <span class="priceH3_g">&#8377; 5,215.65</span>
+<br><br>
+
+
+              </div>
+              
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item"><i class="fa fa-check" style="color:#00B700;"></i> Send Unlimited Messages</li>
+              <li class="list-group-item"><i class="fa fa-check" style="color:#00B700;"></i> Views upto 200 Contact Numbers</li>
+              <li class="list-group-item"><i class="fa fa-check" style="color:#00B700;"></i> View upto 10 Photos of Profiles</li>
+              <li class="list-group-item"><i class="fa fa-check" style="color:#00B700;"></i> See Who's views you</li>
+            </ul>
+            <div class="card-body text-center">
+              <button class="btn btn-outline-primary btn-lg" style="border-radius:30px">Select</button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-lg-3 col-md-12 mb-3">
+          <div class="card h-100 shadow-lg">
+            <div class="card-body">
+              <div class="text-center p-3">
+                <span class="priceH1">FAABL</span> <span class="priceH3">12 Months</span>
+                <br>
+
+                <br>
+                <span class="priceAmt">&#8377; 579.28<span style="font-size:15px;">/month</span></span><br>
+              <span class="priceH3_g">&#8377; 6,951.30</span>
+<br><br>
+
+              </div>
+              
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item"><i class="fa fa-check" style="color:#00B700;"></i> Send Unlimited Messages</li>
+              <li class="list-group-item"><i class="fa fa-check" style="color:#00B700;"></i> Views upto 300 Contact Numbers</li>
+              <li class="list-group-item"><i class="fa fa-check" style="color:#00B700;"></i> View upto 10 Photos of Profiles</li>
+              <li class="list-group-item"><i class="fa fa-check" style="color:#00B700;"></i> See Who's views you</li>
+            </ul>
+            <div class="card-body text-center">
+              <button class="btn btn-outline-primary btn-lg" style="border-radius:30px">Select</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="row green box" style="display:block;">
+      
+       
+        <div class="col-lg-3 col-md-12 mb-3">
+          <div class="card h-100 shadow-lg">
+            <div class="card-body">
+              <div class="text-center p-3">
+                <span class="priceH1">DATIV</span> <span class="priceH3">1 Month</span>
+                <br>
+
+                <br>
+                <span class="priceAmt">&#x24; 19.99<span style="font-size:15px;">/month</span></span>
+                <br><span class="priceH3_g">&#x24; 19.99</span>
+<br><br>
+
+              </div>
+              
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item"><i class="fa fa-check" style="color:#00B700;"></i> Send Unlimited Messages</li>
+              <li class="list-group-item"><i class="fa fa-check" style="color:#00B700;"></i> Views upto 25 Contact Numbers</li>
+              <li class="list-group-item"><i class="fa fa-check" style="color:#00B700;"></i> View upto 3 Photos of Profiles</li>
+              <li class="list-group-item"><i class="fa fa-close" style="color:#FF3300;"></i> See Who's views you</li>
+            </ul>
+            <div class="card-body text-center">
+              <button class="btn btn-outline-primary btn-lg" style="border-radius:30px">Select</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-12 mb-3">
+          <div class="card h-100 shadow-lg">
+            <div class="card-body">
+              <div class="text-center p-3">
+                <span class="priceH1">AFFIR</span> <span class="priceH3">3 Months</span>
+                <br>
+
+                <br>
+                <span class="priceAmt">&#x24; 15.99<span style="font-size:15px;">/month</span></span>
+               <br><span class="priceH3_g">&#x24; 47.97</span>
+
+<br><br>
+
+
+              </div>
+              
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item"><i class="fa fa-check" style="color:#00B700;"></i> Send Unlimited Messages</li>
+              <li class="list-group-item"><i class="fa fa-check" style="color:#00B700;"></i> Views upto 90 Contact Numbers</li>
+              <li class="list-group-item"><i class="fa fa-check" style="color:#00B700;"></i> View upto 7 Photos of Profiles</li>
+              <li class="list-group-item"><i class="fa fa-check" style="color:#00B700;"></i> See Who's views you</li>
+            </ul>
+            <div class="card-body text-center">
+              <button class="btn btn-outline-primary btn-lg" style="border-radius:30px">Select</button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-lg-3 col-md-12 mb-3">
+          <div class="card h-100 shadow-lg">
+            <div class="card-body">
+              <div class="text-center p-3">
+                <span class="priceH1">LOVLI</span> <span class="priceH3">6 Months</span>
+                <br>
+
+                <br>
+                <span class="priceAmt">&#x24; 11.99<span style="font-size:15px;">/month</span></span>
+               <br><span class="priceH3_g">&#x24; 71.94</span>
+
+<br><br>
+
+
+              </div>
+              
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item"><i class="fa fa-check" style="color:#00B700;"></i> Send Unlimited Messages</li>
+              <li class="list-group-item"><i class="fa fa-check" style="color:#00B700;"></i> Views upto 200 Contact Numbers</li>
+              <li class="list-group-item"><i class="fa fa-check" style="color:#00B700;"></i> View upto 10 Photos of Profiles</li>
+              <li class="list-group-item"><i class="fa fa-check" style="color:#00B700;"></i> See Who's views you</li>
+            </ul>
+            <div class="card-body text-center">
+              <button class="btn btn-outline-primary btn-lg" style="border-radius:30px">Select</button>
+            </div>
+          </div>
+        </div>
+        
+        
+        <div class="col-lg-3 col-md-12 mb-3">
+          <div class="card h-100 shadow-lg">
+            <div class="card-body">
+              <div class="text-center p-3">
+                <span class="priceH1">FAABL</span> <span class="priceH3">12 Months</span>
+                <br>
+
+                <br>
+                <span class="priceAmt">&#x24; 7.99<span style="font-size:15px;">/month</span></span>
+               <br><span class="priceH3_g">&#x24; 95.88</span>
+
+<br><br>
+
+
+              </div>
+              
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item"><i class="fa fa-check" style="color:#00B700;"></i> Send Unlimited Messages</li>
+              <li class="list-group-item"><i class="fa fa-check" style="color:#00B700;"></i> Views upto 300 Contact Numbers</li>
+              <li class="list-group-item"><i class="fa fa-check" style="color:#00B700;"></i> View upto 10 Photos of Profiles</li>
+              <li class="list-group-item"><i class="fa fa-check" style="color:#00B700;"></i> See Who's views you</li>
+            </ul>
+            <div class="card-body text-center">
+              <button class="btn btn-outline-primary btn-lg" style="border-radius:30px">Select</button>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+          
+    </div>
+</div>
+
+
+
+
+
+<div class="container-fluid" style="border-top:1px dotted #999; padding:10px 0px; margin-top:0px;">
+<div class="container">
+<div class="row">
+<div class="col-md-12">
+<ul class="footer_links">
+  <li><a href="../index.html" target="_blank">Home</a></li>
+  <li><a href="../aboutus.html"  target="_blank">About Us</a></li>
+  <li><a href="../Terms-Conditions.html" target="_blank">Terms and Conditions</a></li>  
+  <li><a href="../privacy.html"  target="_blank">Privacy Policy</a></li>
+  <li><a href="../ReportAbuse.html"  target="_blank">Report Misuse</a></li>
+  <li><a href="../contactus.html"  target="_blank">Contact Us</a></li>
+</ul>
+<p class="copyright-text text-center" style="font-size:14px;">
+© Copyright by <a href="">WEvaha.com</a> All Rights Reserved.
+</p>
+</div>
+</div>
+</div>
+</div>
+
+
+<!--<div class="modal fade" id="myModal">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document" style="width:450px;">
+        <div class="modal-content" style=" background:#1ed0b2;">
+            <div class="modal-header">
+                <div style="color:#fff; text-align:center; font-size:36px; font-weight:bold; padding:15px 0px;">Special Offer</div>
+                
+            </div>
+            <div class="modal-body" style="background:#fff; padding:25px 0px;">
+               
+                <div style="padding-left:20px; padding-right:20px; font-size:18px; text-align:justify; color:#6A6A6A;">We are here to help you find a suitable partner.<br>
+<br>
+<span style="color:#fd0144; font-size:17px; font-weight:bold;">Enjoy 100% Discount On WEvaha for 3 Months Using Promo Code</span>
+</div>
+
+<div style="text-align:center;">
+<span style="color:#333; font-size:20px; font-weight:bold;">WEVAHAFREE</span><br>
+
+<span>Copy and Paste the Code at WEvaha</span>
+</div>
+
+<div style="padding:20px 35px;">
+<div class="input-group">
+<input type="search" class="form-control" placeholder="Enter the PROMO Code">
+<span class="input-group-btn">
+<button class="btn btn-primary" type="button" style="background:#fd0144;">SUBMIT</button>
+</span>
+</div>
+
+</div>
+
+            </div>
+           <div class="modal-footer" style="background:#fff; text-align:center;">
+                <a type="button" class="btn btn-secondary mx-auto" data-dismiss="modal">Submit</a>
+            </div>
+        </div>
+    </div>
+</div>-->
+
+
+
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content" style=" background:url(assets/img/popupHbg.jpg) repeat-x;">
+            <div class="modal-header">
+                <div style="color:#fff; text-align:center; font-size:26px; font-weight:bold; font-style:italic; padding:10px 0px;">Congratulations!  Your Luck has Shined Upon you</div>
+                
+            </div>
+            <div class="modal-body" style="background:#ed3f7c; padding:20px 15px 0px 0px;">
+            
+            <div class="row">
+            <div class="col-md-5"><img src="assets/img/popupImg.png" alt="pic"></div>
+            <div class="col-md-7"><p style="color:#fff; font-size:15px; font-weight:bold; text-align:justify;">You Have Been Selected to Receive a 3 Month Free Package with WEvaha. We are Happy to Announce that you can Proceed to Browse all Profiles and Message Anyone of your Choice. Choose Right – Choose Bright!
+<br>
+<br>
+
+Thank you<br>
+
+CEO WEvaha.com
+
+</p>
+
+<span style="color:#fff; font-style:italic; font-weight:normal;">Enter Code to Avail This Opportunity.</span>
+
+<div style="padding:10px 0px; margin-bottom:10px; ">
+
+
+<div style="width:30%; float:left; margin-right:7px; padding-top:0px; background:#CCC; text-align:center;">
+<span style="color:#191919; font-size:13px;">PROMO CODE</span>
+<div style=" text-align:center; font-weight:bold; color:#191919; font-size:17px; background:#fff;">
+WEvaha100</div>
+</div>
+
+<div class="input-group" style="width:65%; float:left; ">
+<input type="search" class="form-control" placeholder="Enter the PROMO Code" style="border-radius:3px 0px 0px 3px;">
+<span class="input-group-btn">
+<button class="btn btn-primary" type="button" style="background:#29a8df; border:none; border-left:2px #FF0 solid; border-radius:0px 5px 5px 0px;">Enter</button>
+</span>
+</div>
+
+</div>
+
+
+</div>
+            
+            </div>
+            
+               
+                            </div>
+           <!-- <div class="modal-footer" style="background:#fff; text-align:center;">
+                <a type="button" class="btn btn-secondary mx-auto" data-dismiss="modal">Submit</a>
+            </div>-->
+        </div>
+    </div>
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+<script type="text/javascript" src="assets/js/jquery.min.js"></script>
+<script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
+
+<script type="text/javascript" src="assets/js/jquery.mixitup.js"></script>
+<script type="text/javascript" src="assets/js/nivo-lightbox.min.js"></script>
+<script type="text/javascript" src="assets/js/jquery.countdown.js"></script>
+<script type="text/javascript" src="assets/js/jquery.counterup.min.js"></script>
+<script type="text/javascript" src="assets/js/owl.carousel.min.js"></script>
+<script type="text/javascript" src="assets/js/form-validator.min.js"></script>
+<script type="text/javascript" src="assets/js/contact-form-script.js"></script>
+<script type="text/javascript" src="assets/js/jquery.themepunch.revolution.min.js"></script>
+<script type="text/javascript" src="assets/js/jquery.themepunch.tools.min.js"></script>
+<script type="text/javascript" src="assets/js/jquery.slicknav.js"></script>
+<script src="assets/js/main.js"></script>
+
+<SCRIPT>
+function ShowAndHide() {
+    var x = document.getElementById('SectionName');
+    if (x.style.display == 'none') {
+        x.style.display = 'block';
+    } else {
+        x.style.display = 'none';
+    }
+}
+
+
+function ShowAndHide1() {
+    var x = document.getElementById('SectionName1');
+    if (x.style.display == 'none') {
+        x.style.display = 'block';
+    } else {
+        x.style.display = 'none';
+    }
+}
+
+</SCRIPT>
+<script>
+   $(document).ready(function(){
+  $("#heart").click(function(){
+    if($("#heart").hasClass("liked")){
+      $("#heart").html('<i class="fa fa-heart-o" aria-hidden="true"></i>');
+      $("#heart").removeClass("liked");
+    }else{
+      $("#heart").html('<i class="fa fa-heart" aria-hidden="true"></i>');
+      $("#heart").addClass("liked");
+    }
+  });
+});
+</script>
+
+<script>
+$(document).ready(function(){
+  $('[data-toggle="tooltip"]').tooltip();
+});
+</script>
+
+<script>
+$(document).ready(function(){
+    $('input[type="radio"]').click(function(){
+        var inputValue = $(this).attr("value");
+        var targetBox = $("." + inputValue);
+        $(".box").not(targetBox).hide();
+        $(targetBox).show();
+    });
+});
+</script>
+
+
+<script>
+$(window).on('load',function(){
+    var delayMs = 500; // delay in milliseconds
+    
+    setTimeout(function(){
+        $('#myModal').modal('show');
+    }, delayMs);
+});
+</script>
+
+</body>
+</html>

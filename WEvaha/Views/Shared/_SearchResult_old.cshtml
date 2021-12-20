@@ -1,0 +1,91 @@
+﻿@model WEvaha.Models.DashboardProfileModel
+
+
+<div class="row" style="margin-top:40px;">
+    <div class="col-md-9">
+        @if (Model.UserProfilelistdetails != null)
+        {
+            if (Model.UserProfilelistdetails.Count > 0)
+            {
+
+                for (int i = 0; i < Model.UserProfilelistdetails.Count; i++)
+                {
+                    <div class="row">
+                        <a href="@Url.Action("ProfilebyId", "DashBoard", new { vprofilId =Model.UserProfilelistdetails[i].ProfileId +"!WEProfInfo"})" class="boxGird">
+                            <div class="col-md-4" style="padding:0px;"><img src="@Model.UserProfilelistdetails[i].ProfilePhotoUrl" alt="img" class="Img-fit-ML"></div>
+                            <div class="col-md-8">
+
+                                <div class="row ">
+                                    <div class="col-md-12">
+                                        <!--<div class="ML_fav"><i class="heart fa fa-heart-o"></i></div>-->
+                                        <div class="ML_h3">@Model.UserProfilelistdetails[i].ProfileName</div>
+                                        <div class="ML_line"></div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 col-xs-6 ML_det">@Model.UserProfilelistdetails[i].Age yrs, @Model.UserProfilelistdetails[i].Height</div>
+                                    <div class="col-md-6 col-xs-6 ML_det">@Model.UserProfilelistdetails[i].MaritialStatus</div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 col-xs-6 ML_det">Hindi, @Model.UserProfilelistdetails[i].Caste</div>
+                                    <div class="col-md-6 col-xs-6 ML_det">@Model.UserProfilelistdetails[i].City, Hyderabas</div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 col-xs-6 ML_det">@Model.UserProfilelistdetails[i].LanguagesKnown</div>
+                                    <div class="col-md-6 col-xs-6 ML_det">@Model.UserProfilelistdetails[i].Occupation</div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div style="background:#CCC; height:1px; margin-top:15px;"></div>
+                                        <div class="ML_det">
+                                            @Model.UserProfilelistdetails[i].Introduction
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </a>
+                    </div>
+                }
+            }
+        }
+        else
+        {
+            <div style="text-align:center;font-size:20px;color:dodgerblue;padding-top:70px;">No Data Found</div>
+        }
+    </div>
+
+    <div class="col-md-3">
+        <div style="background:#999; color:#fff; font-size:21px;">
+            <br>
+            <br>
+            <br><br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+
+        </div>
+    </div>
+</div>

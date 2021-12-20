@@ -1,0 +1,579 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="type" content="website">
+    <meta name="url" content="https://www.wevaha.com/">
+    
+    <title>WEvaha.com</title>
+    
+    
+<!-- ========== Favicon Icon ========== -->
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="img/favicon.ico" type="image/x-icon" />
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.css" />
+    <link rel="stylesheet" href="css/flaticon.css" />
+    <link rel="stylesheet" href="css/themify-icons.css" />
+    <link rel="stylesheet" href="vendors/owl-carousel/owl.carousel.min.css" />
+    <link rel="stylesheet" href="vendors/nice-select/css/nice-select.css" />
+    <!-- main css -->
+    <link rel="stylesheet" href="css/style.css" />
+    
+    <link rel="stylesheet" href="css/myQuery.css" />
+    
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <style>
+	
+data     {margin:0 auto;  position:relative; text-align:center; z-index:1;}
+
+data h2  {font-weight:normal; font-size:45px;  margin:0; color:#FFF;     text-shadow: 2px 2px 2px #333333; text-align:center;
+	-webkit-user-select:none; 
+	   -moz-user-select:none; 
+	    -ms-user-select:none; 
+	     -o-user-select:none; 
+	        user-select:none;
+}
+
+
+
+data span {display:block;}
+data span strong{
+	font-weight:600;
+}
+
+#axis-z {
+	width:90px;
+}
+#sliding {
+	display:inline-block;
+	border:3px solid #5F5F5F;
+	border-radius:10px;
+	padding:10px 20px 10px 20px;
+	width:120px;
+	overflow:hidden;
+	width:300px;
+	color:#5F5F5F;
+	vertical-align:middle;	
+}
+#arrow-next {
+	display:inline-block;
+	vertical-align:middle;
+	margin:0 0 0 20px;
+	width:0; 
+	height:0; 
+	border-top:24px solid transparent;
+	border-bottom:24px solid transparent;	
+	border-left:24px solid #5F5F5F;
+}
+
+	</style>
+    
+    
+     <style>
+
+
+
+#myVideo {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 100%; 
+  min-height: 100%;
+  background-size:cover;
+  background-position:top;
+}
+
+.content {
+  position: fixed;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  color: #f1f1f1;
+  width: 100%;
+  padding: 20px;
+}
+
+#myBtn {
+  width: 200px;
+  font-size: 18px;
+  padding: 10px;
+  border: none;
+  background: #000;
+  color: #fff;
+  cursor: pointer;
+}
+
+#myBtn:hover {
+  background: #ddd;
+  color: black;
+}
+
+.hidden{
+    display: none;
+}
+</style>
+
+
+        
+    
+  </head>
+
+  <body>
+    <!--================ Start Header Menu Area =================-->
+    <div class="search_input" id="search_input_box">
+          <div class="container">
+          
+          <div style="float:left;">
+          <div class="topBgTxt"><h4>Welcome to WEvaha.com - A Trusted Dating Site for Indian Singles</h4>
+          </div></div>
+          
+          <div style="float:right;">
+            <form class="d-flex" method="" action="">
+            
+             <input type="text" class="form-control" id="search_input" placeholder="Your Email"  />
+               <input type="text" class="form-control" id="search_input" placeholder="Your Password"  />
+             
+              <button id="btnLogin" name="btnLogin" title="Close Search" type="submit" value="submit" style="cursor:pointer; background:none; border:none;"><img src="img/power_icon.png" width="40" height="40" alt="loginBtn"></button>
+              
+            </form>
+            <div style="text-align:left;"><a href="" style="font-size:13px; color:#fff;">Forgot Password</a></div>
+            </div>
+           
+          </div>
+        </div>
+    <header class="header_area">
+    
+      <div class="main_menu">
+        <nav class="navbar navbar-expand-lg navbar-light">
+          <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <a class="navbar-brand logo_h" href="index.html"
+              ><img src="img/logo.png" alt=""
+            /></a>
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-toggle="collapse"
+              data-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="icon-bar"></span> <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div
+              class="collapse navbar-collapse offset"
+              id="navbarSupportedContent"
+            >
+              <ul class="nav navbar-nav menu_nav ml-auto">
+                
+                <li class="nav-item">
+                  <a class="nav-link" href="Register.html">Register</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="">Tour</a>
+                </li>
+                <li class="nav-item">
+                  <a href="#" class="nav-link search" id="search">
+                    <span class="menuLogin"> Login &nbsp;
+                    
+                   <i class="fa fa-angle-down" aria-hidden="true"></i>
+                   <i class="hidden fa fa-angle-up" aria-hidden="true"></i>
+        
+   
+                    </span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <!--================ End Header Menu Area =================-->
+
+    <!--================ Start Home Banner Area =================-->
+    <section class="home_banner_area">
+    
+      <div class="banner_inner">
+        <video autoplay muted="" loop id="myVideo">
+  <source src="img/GirlBrowsing.mp4" type="video/mp4">
+  Your browser does not support HTML5 video.
+</video>
+
+
+
+<div class="container" style="position:absolute; top:80px; left:0px;">
+        
+        <div class="row">
+                <div class="col-md-6" style="text-align:center;">
+                    <h5 class="wevahaBanHead">#1 Trusted Indian Dating Site</h5>
+                </div>
+                <div class="col-md-6"></div>
+            </div>
+          <div class="row">
+          <div class="col-md-5 BanBoxLeft">
+          <div class="BanBoxSize">
+          <h3 class="text-center" style="color:#fff; font-weight:400;">FIND <span style="color:#ffa500;">LOVE</span> FOR <span style="color:#ffa500;">LIFE</span>!</h3>
+          <hr color="#FFFFFF" width="50%" style="margin-bottom:20px;">
+          
+         <div style="position:relative;">
+          
+          <div style="float:left; width:48%;">
+      <span style="color:#fff; padding-left:10px;">I am</span>
+          <div style="border:1px solid #ccc; padding:10px 20px 0px 10px; border-radius:10px; background:#fff; margin-bottom:10px;"><label class="container1">a woman
+  <input type="radio" name="radio">
+  <span class="checkmark"></span>
+</label>
+  </div>
+  
+   <div style="border:1px solid #ccc; padding:10px 20px 0px 10px; border-radius:10px; background:#fff; margin-bottom:10px;"><label class="container1">a man
+  <input type="radio"  name="radio">
+  <span class="checkmark1"></span>
+</label>
+  </div>
+  
+          
+          </div>
+          
+          <div style="float:right; width:48%;">
+      <span style="color:#fff; padding-left:10px;">Looking for</span>
+          <div style="border:1px solid #ccc; padding:10px 20px 0px 10px; border-radius:10px; background:#fff; margin-bottom:10px;"><label class="container1">a woman
+  <input type="radio"  name="radio">
+  <span class="checkmark"></span>
+</label>
+  </div>
+  
+   <div style="border:1px solid #ccc; padding:10px 20px 0px 10px; border-radius:10px; background:#fff; margin-bottom:10px;"><label class="container1">a man
+  <input type="radio"  name="radio">
+  <span class="checkmark1"></span>
+</label>
+  </div>         
+          </div>         
+          </div>          
+          <div>
+          </div>
+          
+         
+          <div class="form-group has-search" style="background:#fff; border-radius:10px; float:left; width:100%;">
+                <span class="fa fa-envelope form-control-feedback"></span>
+                <input type="text" class="form-control" placeholder="Your Mail" style="opacity:1; padding-bottom:15px; padding-top:15px;">
+            </div>
+            
+            <div class="form-group has-search" style="background:#fff; border-radius:10px; float:left; width:100%;">
+                <span class="fa fa-lock form-control-feedback"></span>
+                <input type="text" class="form-control" placeholder="Create your Password" style="opacity:1; padding-bottom:15px; padding-top:15px;">
+            </div>
+            
+             <div class="form-group has-search" style="background:#fff; border-radius:10px; float:left; width:100%;">
+                <span class="fa fa-lock form-control-feedback"></span>
+                <input type="text" class="form-control" placeholder="Confirm Password" style="opacity:1; padding-bottom:15px; padding-top:15px;">
+            </div>
+            
+            <div class="form-group has-search" style="background:#fff; border-radius:10px; float:left; width:100%;">
+                <span class="fa fa-camera form-control-feedback"></span>
+                
+                <input type="file" class="form-control-file" placeholder="Your Mail" style="opacity:1; padding-bottom:5px; padding-top:5px; padding-left:40px;">
+            </div>
+            
+             <div style="float:left; width:100%;">
+             <p style="color:#fff; font-size:12px; line-height:18px;">By clicking below to Get Started, you confirm that you agree to our <a href="" style="color:#00CCFF;">Terms & Conditions</a> and you have read & understood our <a href="" style="color:#00CCFF;">Privacy Policy</a></p>
+          </div>
+          
+          <div style="float:left; width:100%; ">
+          <a href="Register.html" class="loBtn"><img src="img/loginBtn.png" alt="btn"></a>
+          </div>
+          
+          
+          </div>
+          </div>
+          <div class="col-md-7"></div>
+          </div>
+        </div>
+
+
+      </div>
+    </section>
+   
+   
+   <section class="feature_area section_gap_top" style="background:linear-gradient(90deg, #febedf 0%, #9cd6fd 100%);">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-8">
+            <div class="main_title text-center">
+              <h2 class="mb-3 wevahaHead"><span style="color:#616161;">Spend Time</span> <span style="color:#616161;">–</span> <span style="color:#616161;">It’s your Life</span></h2>
+             
+             
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-4 col-md-4">
+            <div class="single_feature Borgradientcomp">
+              <div class="icon text-center"><img src="img/like-minded-Img.jpg" class="img-resp" alt="match"></div>
+              <div class="desc">
+                <div class="mt-3 mb-2 text-center" style="color:#ef5d54; font-size:20px; font-weight:500;">Like-Minded Connections</div>
+                <div style="padding:0px 15px 25px 15px; margin-top:15px;"><p>
+                  WE do things a little differently, while you provide us your requirements our system’s Best-Algorithms will Predict & Present Like-Minded Matches for you to choose from.
+                </p></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-4">
+            <div class="single_feature Borgradientcomp">
+              <div class="icon text-center"><img src="img/traditional-Img.jpg" class="img-resp" alt="match"></div>
+              <div class="desc">
+                <div class="mt-3 mb-2 text-center" style="color:#0a94a8; font-size:20px; font-weight:500;">Traditional Affinity</div>
+                <div style="padding:0px 15px 25px 15px; margin-top:15px;"><p>
+                  WE Value Traditions the most, but within those traditions a Compatibility Companion is what we value the utmost. WE are here to help you to make you do it Right.
+
+
+                </p></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-4">
+            <div class="single_feature Borgradientcomp">
+              <div class="icon text-center"><img src="img/confi-Img.jpg" class="img-resp" alt="match"></div>
+              <div class="desc">
+                <div class="mt-3 mb-2 text-center" style="color:#8c8c05; font-size:20px; font-weight:500;">Secure & Confidential</div>
+                <div style="padding:0px 15px 25px 15px; margin-top:15px;"><p>
+                  WE have a Secure Life Cycle for Vulnerability Management to help & secure Data by Encryption process to provide protection, Confidentiality & Integrity.
+
+
+                </p></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    
+    <div class="container-fluid Borgradient" style="background:url(img/banner/tradiBanner.jpg) center; background-size:cover; padding:40px 0px 100px 0px; ">
+    <div class="container">
+    <div class="row">
+    <div class="col-md-12 text-right"><h2 class="wevahaHead" style="color:#2D2D2D;">A Traditional and Scientific Compatibility</h2>
+<br>
+
+</div>
+    </div>
+    
+    <div class="row">
+    <div class="col-md-4 text-center"></div>
+    <div class="col-md-8">
+    
+
+    <p style="color:#14466f; font-size:18px; font-weight:600;">Our core committee has designed some basic questions which would actually help you and our system to search suitable matches. After all it’s 1 life and you need 1 Right partner. These questions are what differentiate’s WEvaha from other matrimonial website competitors.</p>
+    </div>
+    </div>
+    </div>
+    </div>
+
+
+    
+    <div class="container-fluid Borgradient-bot" style="background-image:url(img/banner/choose-Banner.jpg); background-size:cover;">
+    <div class="container">
+    
+    
+    <div class="row">
+    
+    <div class="col-md-7" style="padding-top:80px;">
+    <h2 class="wevahaHead"><span style="color:#E80074;">Choose Right</span> <span style="color:#FF3300;">–</span> <span style="color:#0767F8;">Choose Bright</span></h2><br>
+
+
+    <p style="color:#444;">The key to a successful marriage is a successful relationship. Vital Characteristics are based on knowledge and experience, and are more likely to alter based on life-events and results we get. You can find matches on the default criteria or you can have WEvaha.com application choose the match for you based on the 5 sectors or you can create a search agent.</p>
+    </div>
+    <div class="col-md-5 text-center" style=" padding:50px 0px;" ><img src="img/img1.png"  alt="img" style="border:6px #fff solid;"></div>
+    </div>
+    </div>
+    </div>
+    
+    
+    
+    <div class="container" style="padding:50px 0px;">
+    
+    <div class="row">
+    <div class="col-md-12 text-center">
+    <div class="wevahaHead" style="color:#066b84; margin-bottom:30px;">Find Someone Special For You!</div>
+    </div>
+    </div>
+    
+    <div class="row">
+    <div class="col-md-6">
+    <div class="mt-3 mb-2" style="color:#4F4F4F; font-size:22px; font-weight:500; margin-bottom:15px;">Traditional Compatibility</div>
+    <p>We understand how much traditions mean to us in India. WEvaha is an Indian matrimony website that helps you find a match with traditional compatibility. You can search for matches in your religion to ensure companion compatibility for a sustainable relationship. We allow people from all religions and customs to create profiles at WEvaha. It provides a diversified pool of people along with the geography of India.</p>
+    </div>
+    <div class="col-md-6">
+    <div class="mt-3 mb-2" style="color:#4F4F4F; font-size:22px; font-weight:500; margin-bottom:15px;">Privacy and Safety</div>
+    <p>Data protection is our top priority at WEvaha. We ensure that your data stays safe and you get control over information on public display. It helps you showcase basic details to every potential connection, while more delicate information stay safe until you approve a connection request. It helps you ensure that not all your details are revealed to strangers. Further, the data is stored on our servers in encrypted form, making it safe storage.</p>
+    </div>
+    </div>
+    
+    
+    <div class="row" style="padding:15px 0px;">
+    <div class="col-md-6">
+      <img src="img/team-img.jpg" class="img-resp" alt="team" style="border-radius:15px;"> </div>
+    <div class="col-md-6"  style="padding-top:80px;">
+    <div class="mt-3 mb-2" style="color:#4F4F4F; font-size:22px; font-weight:500; margin-bottom:15px;">Best Matches</div>
+    <p>We help you get the best match based on your profile details. We use advanced algorithms to provide you with better search results and recommended connections. It can help you streamline your selection process and find a better companion. Our team continuously works on algorithms by analyzing data to provide a better match.</p>
+    </div>
+    </div>
+    
+    
+    
+    <div class="row">
+    <div class="col-md-12">
+    <div class="mt-3 mb-2" style="color:#4F4F4F; font-size:22px; font-weight:500; margin-bottom:15px;">24/7 Availability</div>
+    <p>We are here to help you find a suitable partner. You can use WEvaha any time of the year to create your profile and start looking for a companion. The registration process is free of cost, making it suitable for people from all economic and cultural backgrounds.</p>
+    </div>
+    
+    </div>
+    
+    
+    <div class="row">
+    <div class="col-md-12">
+    <div class="mt-3 mb-2" style="color:#4F4F4F; font-size:22px; font-weight:500; margin-bottom:15px;">Personalized Matchmaking with WEvaha!</div>
+    <p>WEvaha is the best Indian matchmaking service. We have the largest catalogue of Indian singles looking for a suitable partner. Get matched with the right companion and schedule a date. WEvaha is the biggest Indian dating website with personalized matchmaking facilities. You can create your account at WEvaha now and start looking for your companion.</p>
+    </div>
+    
+    </div>
+    
+    
+    </div>
+    
+    
+    <div class="container-fluid Borgradient" style="background:url(img/banner/find-Banner.jpg) center; background-size:cover; padding:40px 0px 30px 0px; ">
+    <div class="container">
+    <div class="row">
+    <div class="col-md-12 text-center">
+    <span class="mt-3 mb-2 text-center" style="color:#2d2d2b; font-size:30px; font-weight:500;">It’s All About Personalization</span><br><br>
+
+    <span class="mt-3 mb-2 text-center" style="color:#b20d56; font-size:24px; font-weight:normal; font-style:italic;">WEvaha is the Premier Indian Dating Site for Indian Singles Looking to <br>make a Great Connection with Other Indian Singles.</span><br>
+
+    
+
+</div>
+    </div>
+    
+    <div class="row">
+    <div class="col-md-4 text-center">
+    <div style=" margin:20px 0px;"><img src="img/sign-icon.png" width="66" height="72" alt="signup"> 
+    <span class="mt-3 mb-2 text-center" style="color:#006d93; font-size:22px; font-weight:500; padding-left:10px;">Sign Up</span>
+</div>
+
+<p style="color:#424240;">Start your journey of finding your special someone. Register for free on WEvaha, and set up your profile. Make your profile visible to your potential partner at WEvaha. Anyone interested in your profile can send you a connection request.</p>
+    
+    </div>
+    
+    <div class="col-md-4 text-center">
+    <div style=" margin:20px 0px;"><img src="img/connect-icon.png" width="66" height="72" alt="signup"> 
+    <span class="mt-3 mb-2 text-center" style="color:#ea4a19; font-size:22px; font-weight:500; padding-left:10px;">Connect</span>
+</div>
+
+<p style="color:#424240;">Find profiles that match your requirements. Find a suitable Indian partner online at WEvaha. Send connection requests after checking out the bio of your potential partner. See how things go from there!</p>
+    
+    </div>
+    
+    <div class="col-md-4 text-center">
+    <div style=" margin:20px 0px;"><img src="img/interact-icon.png" width="66" height="72" alt="signup"> 
+    <span class="mt-3 mb-2 text-center" style="color:#b9094d; font-size:22px; font-weight:500; padding-left:10px;">Interact</span>
+</div>
+
+<p style="color:#424240;">Once connected, start a conversation with your potential partner. Schedule a meeting andcheck your compatibility. After all, your next interaction may turn out special. So, skim through your connections at WEvaha and start talking now.</p>
+    
+    </div>
+    
+    </div>
+    
+    
+    </div>
+    </div>
+   
+  <footer class="footer-area section_gap">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-3 col-md-3 single-footer-widget">
+            <h4>Need Help?</h4>
+            <ul>
+              
+              <li><a href="Register.html">Sign Up</a></li>
+              <li><a href="#">Site Map</a></li>
+              <li><a href="Guidelines.html">Guidelines</a></li>
+            </ul>
+          </div>
+          <div class="col-lg-3 col-md-3 single-footer-widget">
+            <h4>Company</h4>
+            <ul>
+              <li><a href="aboutus.html">About Us</a></li>
+              <li><a href="contactus.html">Contact Us</a></li>
+              <li><a href="SafetyTips.html">Safety Tips</a></li>
+            </ul>
+          </div>
+          <div class="col-lg-3 col-md-3 single-footer-widget">
+            <h4>Privacy & You</h4>
+            <ul>
+              <li><a href="Terms-Conditions.html">Terms of Use</a></li>
+              <li><a href="privacy.html">Privacy Policy</a></li>
+              <li><a href="ReportAbuse.html">Report Misuse</a></li>
+            </ul>
+          </div>
+          <div class="col-lg-3 col-md-3 single-footer-widget">
+            
+          </div>
+          
+        </div>
+        <div class="row footer-bottom d-flex justify-content-between">
+          <p class="col-lg-6 col-sm-12 footer-text m-0 text-white">
+          © All rights reserved - <a href="https://colorlib.com" target="_blank">www.WEvaha.com</a>
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+          </p>
+         
+          
+          <div class="col-lg-6 col-sm-12 bottom-social-icons">
+<a class="facebook" target="_blank" href="https://www.facebook.com/ron.campbell.5688"><i class="fa fa-facebook"></i></a>
+<a class="linkedin" target="_blank" href=""><i class="fa fa-instagram"></i></a>
+<a class="twitter" target="_blank" href="https://twitter.com/rcamp1953?lang=en"><i class="fa fa-twitter"></i></a>
+
+</div>
+          
+        </div>
+      </div>
+    </footer>
+
+  
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/popper.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="vendors/nice-select/js/jquery.nice-select.min.js"></script>
+    <script src="vendors/owl-carousel/owl.carousel.min.js"></script>
+    <script src="js/owl-carousel-thumb.min.js"></script>
+    <script src="js/jquery.ajaxchimp.min.js"></script>
+    <script src="js/mail-script.js"></script>
+    <!--gmaps Js-->
+   
+   <script>
+$('#search').on("click", function(){
+    var $arrows = $(this).find("i");
+   
+        $arrows.toggle();
+    ;
+});
+</script>
+
+
+
+
+  </body>
+</html>
